@@ -1,0 +1,75 @@
+<ion-view title="Signup" id="page5">
+    <ion-content padding="true" class="has-header">
+      <div class="row">
+        <div class="col-80 col-offset-10">
+          <form ng-submit="signUp()">
+            <div class="list text-center">
+              <div class="list list-inset">
+                <h3 class="sign_out_title">Creat an Account</h3>
+              </div>
+              <div class="list list-inset">
+                <label class="item item-input positive-border">
+                  <i class="icon ion-person placeholder-icon positive"></i>
+                  <input type="text" placeholder="Full name" ng-model="user.publicProfile.name" required="">
+                </label>
+              </div>
+              <div class="list list-inset">
+                <label class="item item-input positive-border">
+                  <i class="icon ion-android-mail placeholder-icon positive"></i>
+                  <input type="email" placeholder="Mail" ng-model="user.email" required="">
+                </label>
+              </div>
+
+              <div class="list list-inset">
+                <label class="item item-input positive-border">
+                  <i class="icon ion-locked placeholder-icon positive"></i>
+                  <input type="password" placeholder="Password" ng-model="user.password" required="">
+                </label>
+              </div>
+              <div class="list list-inset">
+                <label class="item item-input positive-border">
+                  <i class="icon ion-locked placeholder-icon positive"></i>
+                  <input type="password" placeholder="Confirm Password" ng-model="user.retypePassword"
+                         required="">
+                </label>
+              </div>
+              <label class="item item-input item-borderless">
+                <span class="input-label positive">Birthday</span>
+                <input type="date" placeholder="" ng-model="user.publicProfile.birthday">
+              </label>
+              <label class="item item-input item-borderless">
+                <span class="input-label positive">Gender</span>
+                <div>
+                  <ion-checkbox class="checkbox-positive"
+                                ng-click="user.publicProfile.gender='male'"
+                                ng-checked="user.publicProfile.gender=='male'">Male
+                  </ion-checkbox>
+                  <ion-checkbox class="checkbox-positive"
+                                ng-click="user.publicProfile.gender='female'"
+                                ng-checked="user.publicProfile.gender=='female'">Female
+                  </ion-checkbox>
+                </div>
+              </label>
+
+              <div class="list row">
+                <div class="col-50">
+                  <div class="col-90">
+                    <button class="button button-assertive  button-block button-outline" type="reset">
+                      Reset
+                    </button>
+                  </div>
+                </div>
+                <div class="col-50">
+                  <div class="col-offset-10 col-90">
+                    <button class="button button-balanced  button-block" type="submit">
+                      Submit
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </ion-content>
+</ion-view>

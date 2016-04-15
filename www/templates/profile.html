@@ -1,0 +1,63 @@
+<ion-view title="Profile" id="page10">
+  <ion-content padding="true" class="has-header gray-bg">
+    <div ng-show="isLoggedIn">
+      <div class="card">
+        <label class="item item-thumbnail-left item-avatar" ui-sref="menu.editProfile">
+          <img ng-src="{{avatarUrl}}">
+          <div class="row">
+            <div class="col"></div>
+            <div class="col-75">
+              <button class="button button-block button-positive ">Edit profile</button>
+            </div>
+            <div class="col"></div>
+          </div>
+        </label>
+        <label class="item item-input ">
+          <span class="input-label positive">Name</span>
+          <span class="input-label  text-thin input ">{{information_user.publicProfile.name}}</span>
+        </label>
+        <label class="item item-input ">
+          <span class="input-label  positive">Birthday</span>
+          <span
+            class="input-label  text-thin input">{{information_user.publicProfile.birthday | date:"dd/MM/yyyy"}}</span>
+        </label>
+        <label class="item item-input ">
+          <span class="input-label positive">Email</span>
+          <span class="input-label text-thin input">{{information_user.emails[0].address}}</span>
+        </label>
+        <label class="item item-input ">
+          <span class="input-label positive">Phone</span>
+          <span class="input-label text-thin input">{{information_user.privateProfile.phoneNumber}}</span>
+        </label>
+        <label class="item item-input ">
+          <span class="input-label positive">Address</span>
+          <span class="input-label text-thin input">{{information_user.privateProfile.address}}</span>
+        </label>
+        <label class="item item-input ">
+          <span class="input-label positive">Gender</span>
+          <span class="input-label text-thin input">{{information_user.publicProfile.gender}}</span>
+        </label>
+      </div>
+      <div class="card">
+        <div class="item text-center">
+          <button class="button button-small button-positive">
+            Phản hồi từ bạn đồng hành
+          </button>
+        </div>
+      </div>
+    </div>
+    <div ng-hide="isLoggedIn">
+      <div class="card">
+        <label class="item text-center">
+          <div style="text-align:center;">
+            <img src="img/logo.png" width="30%" height="auto">
+          </div>
+          <br>
+          <h2>Login to use this function!</h2>
+          <br>
+          <button class="button button-positive" ui-sref="menu.login">Login now</button>
+        </label>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

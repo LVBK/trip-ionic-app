@@ -1,0 +1,68 @@
+<ion-side-menus enable-menu-with-back-views="false">
+    <ion-side-menu-content>
+        <ion-nav-bar class="bar-positive">
+            <ion-nav-back-button class="button-clear"></ion-nav-back-button>
+            <ion-nav-buttons side="left">
+                <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+            </ion-nav-buttons>
+        </ion-nav-bar>
+        <ion-nav-view name="side-menu21"></ion-nav-view>
+    </ion-side-menu-content>
+    <ion-side-menu side="left" id="side-menu21" style="background-color:#FFFFFF;">
+      <ion-header-bar class="bar-stable">
+        <div class="title">
+          <p class="positive">
+            Menu
+          </p>
+        </div>
+      </ion-header-bar>
+      <ion-content>
+        <ion-list>
+          <div ng-show="isLoggedIn">
+            <ion-item class="item-avatar" ui-sref="menu.profile" menu-close="">
+              <img ng-src="{{avatarUrl}}">
+              <h2 class="positive">{{currentUser.publicProfile.name}}</h2>
+              <p>star star (20)</p>
+            </ion-item>
+          </div>
+          <ion-item class="item-icon-left positive" menu-close ui-sref="menu.home">
+            <i class="icon ion-home"></i>
+            Home
+          </ion-item>
+          <ion-item class="item-icon-left positive" menu-close ui-sref="menu.search">
+            <i class="icon ion-ios-search-strong"></i>
+            Find a trip
+          </ion-item>
+          <ion-item class="item-icon-left positive" ui-sref="menu.notifications" menu-close="">
+            <i class="icon ion-ios-bell"></i>
+            Notifications
+            <span class="badge badge-assertive">0</span>
+          </ion-item>
+          <ion-item class="item-icon-left positive" ui-sref="menu.myTrips" menu-close="">
+            <i class="icon ion-android-car"></i>
+            My trips
+          </ion-item>
+          <ion-item class="item-icon-left positive" ui-sref="menu.myReservations" menu-close="">
+            My reservations
+            <i class="icon ion-android-checkmark-circle"></i>
+          </ion-item>
+          <div ng-hide="isLoggedIn">
+            <ion-item class="item-icon-left positive" ui-sref="menu.login" menu-close="">
+              <i class="icon ion-log-in"></i>
+              Sign in
+            </ion-item>
+            <ion-item class="item-icon-left positive" ui-sref="menu.signup" menu-close="">
+              <i class="icon ion-person-add"></i>
+              Sign up
+            </ion-item>
+          </div>
+          <div ng-show="isLoggedIn">
+            <ion-item class="item-icon-left positive" ng-click="logout()" menu-close="">
+              <i class="icon ion-log-out"></i>
+              Logout
+            </ion-item>
+          </div>
+        </ion-list>
+      </ion-content>
+    </ion-side-menu>
+</ion-side-menus>

@@ -1,0 +1,129 @@
+<ion-view title="Edit profile" id="page11">
+  <ion-content padding="true" class="has-header gray-bg">
+    <div ng-show="isLoggedIn">
+      <div class="list card">
+        <div class="item item-divider text-center positive">Profile picture</div>
+        <div class="item item-body">
+          <form class="list">
+            <label class="item item-thumbnail-left item-avatar">
+              <img ng-src="{{fileData || avatarUrl}}"/>
+              <button class="fileUpload positive-bg positive-border">
+                <input type="file" class="upload" ng-file-select flow-btn flow-attrs="{accept:'image/*'}"/>
+                <span class="light">Change</span>
+              </button>
+            </label>
+          </form>
+        </div>
+      </div>
+      <div class="list card">
+        <div class="item item-divider text-center positive">Information</div>
+        <div class="item item-body">
+          <form class="list">
+            <label class="item item-input">
+              <span class="input-label positive">Name</span>
+              <input type="text" placeholder="Full name" ng-model="information_user.publicProfile.name">
+            </label>
+            <label class="item item-input">
+              <span class="input-label positive">Email</span>
+              <input type="email" placeholder="Email" ng-model="information_user.emails[0].address" readonly>
+            </label>
+            <label class="item item-input">
+              <span class="input-label positive">Phone</span>
+              <input type="tel" placeholder="Phone number"
+                     ng-model="information_user.privateProfile.phoneNumber">
+            </label>
+            <label class="item item-input">
+              <span class="input-label positive">Address</span>
+              <input type="text" placeholder="Address" ng-model="information_user.privateProfile.address">
+            </label>
+            <label class="item item-input">
+              <span class="input-label positive">Birthday</span>
+              <input type="date" placeholder="" ng-model="information_user.publicProfile.birthday">
+            </label>
+            <label class="item item-input">
+              <span class="input-label positive">Gender</span>
+              <div>
+                <ion-checkbox class="checkbox-positive"
+                              ng-click="information_user.publicProfile.gender='male'"
+                              ng-checked="information_user.publicProfile.gender=='male'">Male
+                </ion-checkbox>
+                <ion-checkbox class="checkbox-positive"
+                              ng-click="information_user.publicProfile.gender='female'"
+                              ng-checked="information_user.publicProfile.gender=='female'">Female
+                </ion-checkbox>
+              </div>
+            </label>
+            <div class="list row">
+              <div class="col-50">
+                <div class="col-90">
+                  <button class="button button-assertive  button-block button-outline" ui-sref="app.info"
+                          ng-click="profile_cancel()">
+                    Cancel
+                  </button>
+                </div>
+              </div>
+              <div class="col-50">
+                <div class="col-offset-10 col-90">
+                  <button class="button button-balanced  button-block"
+                          ng-click="profile_save(information_user.publicProfile,information_user.privateProfile)">
+                    Save
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="list card" ng-show="information_user.services.password.bcrypt.length > 0">
+        <div class="item item-divider text-center positive">Change Password</div>
+        <div class="item item-body">
+          <form class="list">
+            <label class="item item-input">
+              <span class="input-label positive">Old Password</span>
+              <input type="password" placeholder="********" ng-model="passwordData.oldPassword">
+            </label>
+            <label class="item item-input">
+              <span class="input-label positive">New Password</span>
+              <input type="password" placeholder="********" ng-model="passwordData.newPassword">
+            </label>
+            <label class="item item-input">
+              <span class="input-label positive">Confirm Password</span>
+              <input type="password" placeholder="********" ng-model="passwordData.rePassword">
+            </label>
+            <div class="list row">
+              <div class="col-50">
+                <div class="col-90">
+                  <button class="button button-assertive  button-block button-outline" ui-sref="app.info"
+                          ng-click="password_cancel()">
+                    Cancel
+                  </button>
+                </div>
+              </div>
+              <div class="col-50">
+                <div class="col-offset-10 col-90">
+                  <button class="button button-balanced  button-block"
+                          ng-click="password_save()">
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div ng-hide="isLoggedIn">
+      <div class="card">
+        <label class="item text-center">
+          <div style="text-align:center;">
+            <img src="img/logo.png" width="30%" height="auto">
+          </div>
+          <br>
+          <h2>Login to use this function!</h2>
+          <br>
+          <button class="button button-positive" ui-sref="menu.login">Login now</button>
+        </label>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

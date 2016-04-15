@@ -1,0 +1,33 @@
+<ion-view title="Home" id="page1">
+  <ion-content padding="true" scroll="false" class="has-header">
+    <div class="row">
+      <div class="col-80 col-offset-10">
+        <div style="text-align:center;">
+          <img src="img/logo.png" width="50%" height="auto">
+        </div>
+        <form ng-submit="">
+          <div class="list list-inset">
+            <label class="item item-input positive-border">
+              <i class="icon ion-location placeholder-icon balanced"></i>
+              <input type="text" placeholder="From">
+            </label>
+          </div>
+          <div class="list list-inset">
+            <label class="item item-input positive-border">
+              <i class="icon ion-location placeholder-icon assertive"></i>
+              <input type="text" placeholder="To">
+            </label>
+          </div>
+          <a ui-sref="menu.search" id="home-button7" class="button button-positive  button-block icon ion-search"
+             type="submit">
+            Find a trip</a>
+          <div id="home-markdown1" style="color:#816666;text-align:center;">
+            <p>Or you have empty seats?</p>
+          </div>
+          <a ui-sref="menu.newTrip" id="home-button9"
+             class="button button-balanced  button-block button-outline icon ion-android-car"> Offer a trip</a>
+        </form>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
