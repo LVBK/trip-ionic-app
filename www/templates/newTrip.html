@@ -1,99 +1,120 @@
 <ion-view title="New trip" id="page8">
-    <ion-content padding="true" class="has-header">
-        <div class="list card">
-            <div class="item item-divider">Location</div>
-            <div class="item item-body">
-                <form class="list">
-                    <label class="item item-input">
-                        <span class="input-label">From</span>
-                        <input type="text" placeholder="From">
-                    </label>
-                    <label class="item item-input">
-                        <span class="input-label">To</span>
-                        <input type="text" placeholder="To">
-                    </label>
-                </form>
+  <ion-content padding="true" class="has-header gray-bg">
+    <div class="list card">
+      <div class="item item-divider">Location</div>
+      <div class="item item-body">
+        <form class="list">
+          <label class="item item-input">
+            <span class="input-label">From</span>
+            <input places-auto-complete ng-model="origin_input" type="text" placeholder="From"
+                   ng-model-options="{debounce: 1000}" ng-change="origin_changed(origin_input)">
+          </label>
+          <label class="item item-input">
+            <span class="input-label">To</span>
+            <input places-auto-complete ng-model="destination_input" type="text" placeholder="To"
+                   ng-model-options="{debounce: 1000}" ng-change="destination_changed(destination_input)">
+          </label>
+          <ng-map default-style="true" center="current-location" zoom="13" disable-default-u-i="true">
+            <directions
+              draggable="false"
+              panel="directions-panel"
+              travel-mode="DRIVING"
+              origin="{{origin_input}}"
+              destination="{{destination_input}}">
+            </directions>
+          </ng-map>
+          <div class="list row">
+            <div class="col-50">
+              <div class="col-90">
+                <button id="newTrip-button11" class="button button-assertive  button-block button-outline"
+                        ng-click="cancel()">Cancel
+                </button>
+              </div>
             </div>
-        </div>
-        <div class="list card">
-            <div class="item item-divider">Time &amp; Date</div>
-            <div class="item item-body">
-                <form class="list">
-                    <label class="item item-select">
-                        <span class="input-label">Trip type</span>
-                        <select>
-                            <option>One time</option>
-                            <option>Daily</option>
-                            <option>Weekly</option>
-                            <option>Monthly</option>
-                        </select>
-                    </label>
-                    <ion-checkbox>Round trip</ion-checkbox>
-                </form>
+            <div class="col-50">
+              <div class="col-offset-10 col-90">
+                <button id="newTrip-button12" class="button button-positive  button-block">Submit</button>
+              </div>
             </div>
-        </div>
-        <div class="list card">
-            <div class="item item-divider">Vehicle</div>
-            <div class="item item-body">
-                <form class="list">
-                    <ion-checkbox>Motor</ion-checkbox>
-                    <ion-checkbox>Car</ion-checkbox>
-                    <label class="item item-select">
-                        <span class="input-label">Seats</span>
-                        <select>
-                            <option>Direct payments</option>
-                        </select>
-                    </label>
-                    <label class="item item-select">
-                        <span class="input-label">Emoty seats</span>
-                        <select>
-                            <option>Direct payments</option>
-                        </select>
-                    </label>
-                </form>
-            </div>
-        </div>
-        <div class="list card">
-            <div class="item item-divider">Price &amp; Pay</div>
-            <div class="item item-body">
-                <form class="list">
-                    <label class="item item-input">
-                        <span class="input-label">Price / Seat</span>
-                        <input type="number" placeholder="price">
-                    </label>
-                    <label class="item item-select">
-                        <span class="input-label">Payment method</span>
-                        <select>
-                            <option>Direct payments</option>
-                        </select>
-                    </label>
-                </form>
-            </div>
-        </div>
-        <div class="list card">
-            <div class="item item-divider">Other options</div>
-            <div class="item item-body">
-                <form class="list">
-                    <ion-checkbox>Chat</ion-checkbox>
-                    <ion-checkbox>Cargo</ion-checkbox>
-                    <ion-checkbox>Smoke</ion-checkbox>
-                    <ion-checkbox>Cargo</ion-checkbox>
-                    <ion-checkbox>Pet</ion-checkbox>
-                    <label class="item item-select">
-                        <span class="input-label">Punctuality</span>
-                        <select>
-                            <option>On time</option>
-                            <option>+/- 5 minutes</option>
-                            <option>+/- 10 minutes</option>
-                            <option>+/- 15 minutes</option>
-                        </select>
-                    </label>
-                </form>
-            </div>
-        </div>
-        <div class="button-bar">
-            <button id="newTrip-button11" class="button button-assertive  button-block button-outline">Reset</button>
-            <button id="newTrip-button12" class="button button-positive  button-block">Submit</button>
-        </div>
-    </ion-content>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="list card">
+      <div class="item item-divider">Time &amp; Date</div>
+      <div class="item item-body">
+        <form class="list">
+          <label class="item item-select">
+            <span class="input-label">Trip type</span>
+            <select>
+              <option>One time</option>
+              <option>Daily</option>
+              <option>Weekly</option>
+              <option>Monthly</option>
+            </select>
+          </label>
+          <ion-checkbox>Round trip</ion-checkbox>
+        </form>
+      </div>
+    </div>
+    <div class="list card">
+      <div class="item item-divider">Vehicle</div>
+      <div class="item item-body">
+        <form class="list">
+          <ion-checkbox>Motor</ion-checkbox>
+          <ion-checkbox>Car</ion-checkbox>
+          <label class="item item-select">
+            <span class="input-label">Seats</span>
+            <select>
+              <option>Direct payments</option>
+            </select>
+          </label>
+          <label class="item item-select">
+            <span class="input-label">Emoty seats</span>
+            <select>
+              <option>Direct payments</option>
+            </select>
+          </label>
+        </form>
+      </div>
+    </div>
+    <div class="list card">
+      <div class="item item-divider">Price &amp; Pay</div>
+      <div class="item item-body">
+        <form class="list">
+          <label class="item item-input">
+            <span class="input-label">Price / Seat</span>
+            <input type="number" placeholder="price">
+          </label>
+          <label class="item item-select">
+            <span class="input-label">Payment method</span>
+            <select>
+              <option>Direct payments</option>
+            </select>
+          </label>
+        </form>
+      </div>
+    </div>
+    <div class="list card">
+      <div class="item item-divider">Other options</div>
+      <div class="item item-body">
+        <form class="list">
+          <ion-checkbox>Chat</ion-checkbox>
+          <ion-checkbox>Cargo</ion-checkbox>
+          <ion-checkbox>Smoke</ion-checkbox>
+          <ion-checkbox>Cargo</ion-checkbox>
+          <ion-checkbox>Pet</ion-checkbox>
+          <label class="item item-select">
+            <span class="input-label">Punctuality</span>
+            <select>
+              <option>On time</option>
+              <option>+/- 5 minutes</option>
+              <option>+/- 10 minutes</option>
+              <option>+/- 15 minutes</option>
+            </select>
+          </label>
+        </form>
+      </div>
+    </div>
+  </ion-content>
 </ion-view>

@@ -1,68 +1,70 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title></title>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+  <title></title>
 
-    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-    <script src="lib/ionic/js/ionic.bundle.js"></script>
+  <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <script src="lib/ionic/js/ionic.bundle.js"></script>
 
-    <!-- cordova script (this will be a 404 during development) -->
-    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
-    <script src="config.js"></script>
-    <script src="meteor/meteor-client-all-packages.min.js"></script>
-    <script src="lib/angular-meteor/dist/angular-meteor.min.js"></script>
-    <script src="meteor/collections.js"></script>
+  <!-- cordova script (this will be a 404 during development) -->
+  <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+  <script src="config.js"></script>
+  <script src="meteor/meteor-client-all-packages.min.js"></script>
+  <script src="lib/angular-meteor/dist/angular-meteor.min.js"></script>
+  <script src="meteor/collections.js"></script>
+  <script src="lib/ngmap/build/scripts/ng-map.min.js"></script>
 
-    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
-    <link href="css/ionic.app.css" rel="stylesheet">
-    -->
+  <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+  <link href="css/ionic.app.css" rel="stylesheet">
+  -->
 
-    <script src="js/app.js"></script>
-    <script src="js/controllers.js"></script>
-    <script src="js/routes.js"></script>
-    <script src="js/services.js"></script>
-    <script src="js/directives.js"></script>
-    <script src="js/services/general.js"></script>
-    <script src="js/services/imgInput.js"></script>
-    <script src="js/services/login.js"></script>
-    <script src="js/controllers/menu.controller.js"></script>
-    <script src="js/controllers/login.controller.js"></script>
-    <script src="js/controllers/home.controller.js"></script>
-    <script src="js/controllers/signup.controller.js"></script>
-    <script src="js/controllers/editProfile.controller.js"></script>
-    <script src="js/controllers/profile.controller.js"></script>
-    <script src="js/controllers/newTrip.controller.js"></script>
-    <script src="js/controllers/search.controller.js"></script>
-    <script src="js/controllers/myTrips.controller.js"></script>
-    <script src="js/controllers/myReservations.controller.js"></script>
-    <script src="js/controllers/notifications.controller.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/controllers.js"></script>
+  <script src="js/routes.js"></script>
+  <script src="js/services.js"></script>
+  <script src="js/directives.js"></script>
+  <script src="js/services/general.js"></script>
+  <script src="js/services/imgInput.js"></script>
+  <script src="js/services/login.js"></script>
+  <script src="js/controllers/menu.controller.js"></script>
+  <script src="js/controllers/login.controller.js"></script>
+  <script src="js/controllers/home.controller.js"></script>
+  <script src="js/controllers/signup.controller.js"></script>
+  <script src="js/controllers/editProfile.controller.js"></script>
+  <script src="js/controllers/profile.controller.js"></script>
+  <script src="js/controllers/newTrip.controller.js"></script>
+  <script src="js/controllers/search.controller.js"></script>
+  <script src="js/controllers/myTrips.controller.js"></script>
+  <script src="js/controllers/myReservations.controller.js"></script>
+  <script src="js/controllers/notifications.controller.js"></script>
 
-    <!-- Only required for Tab projects w/ pages in multiple tabs
-    <script src="lib/ionicuirouter/ionicUIRouter.js"></script>
-    -->
+  <!-- Only required for Tab projects w/ pages in multiple tabs
+  <script src="lib/ionicuirouter/ionicUIRouter.js"></script>
+  -->
 
-  </head>
-  <body ng-app="app" animation="slide-left-right-ios7">
-  <script type="text/javascript">
-    //FB SDK for web
-    (function () {
-      if (document.location.hostname == 'localhost') {
-        document.write('<div id="fb-root"></div>');
-        document.write('<script src="fb_sdk.js"><' + '/script>');
-        document.write('<script src="facebookConnectPlugin.js"></' + 'script>');
-      }
-    }());
-  </script>
+</head>
+<body ng-app="app" animation="slide-left-right-ios7">
+<script type="text/javascript">
+  //FB SDK for web
+  (function () {
+    if (document.location.hostname == 'localhost') {
+      document.write('<div id="fb-root"></div>');
+      document.write('<script src="fb_sdk.js"><' + '/script>');
+      document.write('<script src="facebookConnectPlugin.js"></' + 'script>');
+    }
+  }());
+</script>
+<script src="http://maps.google.com/maps/api/js?key=AIzaSyBRYCL8Fb7TZXuruMJ_-c7rOYKgDTwgxwU&libraries=places"></script>
+<div>
   <div>
-    <div>
-        <ion-nav-bar class="bar-stable">
-            <ion-nav-back-button class="button-icon icon ion-ios-arrow-back">Back</ion-nav-back-button>
-        </ion-nav-bar>
-        <ion-nav-view></ion-nav-view>
-    </div>
+    <ion-nav-bar class="bar-stable">
+      <ion-nav-back-button class="button-icon icon ion-ios-arrow-back">Back</ion-nav-back-button>
+    </ion-nav-bar>
+    <ion-nav-view></ion-nav-view>
+  </div>
 </div>
-  </body>
+</body>
 </html>

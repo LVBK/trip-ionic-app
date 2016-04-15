@@ -72,7 +72,7 @@ angular.module('app.login.controllers', [])
         $cordovaFacebook.getLoginStatus()
           .then(function (success) {
             if (success.status === 'connected') {
-              $ionicLoading.show();
+
               $scope.fbUserLoginToSystem(success.authResponse);
             } else {
               console.log('getLoginStatus', success.status);
