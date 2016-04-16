@@ -6,21 +6,21 @@
         <form class="list">
           <label class="item item-input">
             <span class="input-label">From</span>
-            <input places-auto-complete ng-model="origin_input" type="text" placeholder="From"
-                   ng-model-options="{debounce: 1000}" ng-change="origin_changed(origin_input)">
+            <input places-auto-complete ng-model="vm.origin_input" type="text" placeholder="From"
+                   ng-model-options="{debounce: 1000}" ng-change="origin_changed()">
           </label>
           <label class="item item-input">
             <span class="input-label">To</span>
-            <input places-auto-complete ng-model="destination_input" type="text" placeholder="To"
-                   ng-model-options="{debounce: 1000}" ng-change="destination_changed(destination_input)">
+            <input places-auto-complete ng-model="vm.destination_input" type="text" placeholder="To"
+                   ng-model-options="{debounce: 1000}" ng-change="destination_changed()">
           </label>
           <ng-map default-style="true" center="current-location" zoom="13" disable-default-u-i="true">
             <directions
               draggable="false"
               panel="directions-panel"
               travel-mode="DRIVING"
-              origin="{{origin_input}}"
-              destination="{{destination_input}}">
+              origin="{{vm.origin_input}}"
+              destination="{{vm.destination_input}}">
             </directions>
           </ng-map>
           <div class="list row">

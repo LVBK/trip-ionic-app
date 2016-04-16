@@ -5,7 +5,9 @@ angular.module('app.services.goooleMap', [])
       geocoder.geocode({'address': address}, function (results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
           var result = [];
-          resultsMap.setCenter(results[0].geometry.location);
+          if(resultsMap){
+            resultsMap.setCenter(results[0].geometry.location);
+          }
           //console.log(results[0].geometry.location.lat(), results[0].geometry.location.lng());
           result.push(results[0].geometry.location.lng());
           result.push(results[0].geometry.location.lat());

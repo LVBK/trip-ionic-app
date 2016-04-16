@@ -1,5 +1,5 @@
 !function(){
-    Gym_info = new Meteor.Collection("gym_info");
+    Trips = new Meteor.Collection("trips");
 }();
 !function(){
     Gym_info_change_pending = new Meteor.Collection("gym_info_change_pending");

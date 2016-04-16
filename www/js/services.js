@@ -3,5 +3,6 @@ angular.module('app.services', [
   'app.services.imgInput',
   'app.services.login',
   'app.services.goooleMap',
+  'app.services.trips',
 ])
 
