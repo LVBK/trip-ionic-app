@@ -42,3 +42,27 @@
   top: 0;
   height: 100%;
 }
+.week-day-button {
+  background-color: #0c60ee;
+  color: white;
+  border-radius: 50%;
+  padding: 3px;
+  font-size: 12px;
+  margin: 1px;
+  text-align: center;
+  overflow: hidden;
+  width: 25px;
+  display: inline-block;
+}
+.week-day-button-actived {
+  background-color: #00DD00;
+  color: white;
+  border-radius: 50%;
+  padding: 3px;
+  font-size: 12px;
+  margin: 1px;
+  text-align: center;
+  overflow: hidden;
+  width: 25px;
+  display: inline-block;
+}

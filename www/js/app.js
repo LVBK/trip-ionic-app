@@ -9,6 +9,8 @@ angular.module('app', [
     'ionic',
     'ngCordova',
     'angular-meteor',
+    'ion-datetime-picker',
+    'onezone-datepicker',
     'app.controllers',
     'app.routes',
     'app.services',

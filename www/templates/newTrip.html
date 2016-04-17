@@ -1,9 +1,9 @@
 <ion-view title="New trip" id="page8">
   <ion-content padding="true" class="has-header gray-bg">
-    <div class="list card">
-      <div class="item item-divider">Location</div>
-      <div class="item item-body">
-        <form class="list">
+    <form>
+      <div class="list card">
+        <div class="item item-divider">Location</div>
+        <div class="item item-body">
           <label class="item item-input">
             <span class="input-label">From</span>
             <input places-auto-complete ng-model="vm.origin_input" type="text" placeholder="From"
@@ -23,67 +23,231 @@
               destination="{{vm.destination_input}}">
             </directions>
           </ng-map>
-          <div class="list row">
-            <div class="col-50">
-              <div class="col-90">
-                <button type="button" class="button button-assertive  button-block button-outline"
-                        ng-click="cancel()">Cancel
-                </button>
-              </div>
+        </div>
+      </div>
+      <div class="list card">
+        <div class="item item-divider">Date &amp; Time</div>
+        <div class="item item-body">
+          <label class="item item-select">
+            <span class="input-label">Trip type</span>
+            <select ng-model="vm.tripType" ng-options="type as type.name for type in preferences">
+            </select>
+          </label>
+          <ion-checkbox ng-click="vm.isRoundTrip = !vm.isRoundTrip" ng-checked="vm.isRoundChip == true">Round trip
+          </ion-checkbox>
+          <div ng-show="vm.tripType.value=='one-time'">
+            <div class="item item-icon-left">
+              <i class="icon ion-ios-calendar-outline positive"></i>
+              Travel date:
+              <onezone-datepicker datepicker-object="travelDatepicker">
+                <spam class="positive show-onezone-datepicker">
+                  {{travelDatepicker.date | date:'dd MMMM yyyy'}}
+                </spam>
+              </onezone-datepicker>
             </div>
-            <div class="col-50">
-              <div class="col-offset-10 col-90">
-                <button type="button" class="button button-positive  button-block"
-                        ng-click="submit()">Submit
-                </button>
+            <div class="item item-icon-left" ion-datetime-picker time ng-model="vm.travelTime">
+              <i class="icon ion-ios-clock-outline positive"></i>
+              Travel at:
+              <strong>{{vm.travelTime| date: "H:mm"}}</strong>
+            </div>
+            <div ng-show="vm.isRoundTrip == true">
+              <div class="item item-icon-left">
+                <i class="icon ion-ios-calendar-outline balanced"></i>
+                Return date:
+                <onezone-datepicker datepicker-object="returnDatepicker">
+                  <spam class="positive show-onezone-datepicker">
+                    {{returnDatepicker.date | date:'dd MMMM yyyy'}}
+                  </spam>
+                </onezone-datepicker>
+              </div>
+              <div class="item item-icon-left" ion-datetime-picker time ng-model="vm.returnTime">
+                <i class="icon ion-ios-clock-outline balanced"></i>
+                Return at:
+                <strong>{{vm.returnTime| date: "H:mm"}}</strong>
               </div>
             </div>
           </div>
-        </form>
+          <div ng-show="vm.tripType.value=='often'">
+            <div class="item item-icon-left">
+              <i class="icon ion-ios-calendar-outline positive"></i>
+              Start date:
+              <onezone-datepicker datepicker-object="startDatepicker">
+                <spam class="positive show-onezone-datepicker">
+                  {{startDatepicker.date | date:'dd MMMM yyyy'}}
+                </spam>
+              </onezone-datepicker>
+            </div>
+            <div class="item item-icon-left">
+              <i class="icon ion-ios-calendar-outline balanced"></i>
+              End date:
+              <onezone-datepicker datepicker-object="endDatepicker">
+                <spam class="positive show-onezone-datepicker">
+                  {{endDatepicker.date | date:'dd MMMM yyyy'}}
+                </spam>
+              </onezone-datepicker>
+            </div>
+            <div class="item item-icon-left">
+              <i class="icon ion-ios-calendar-outline positive"></i>
+              Travel date:
+              <br>
+              <div>
+                <a ng-click="vm.travelOften[0] = !vm.travelOften[0]">
+                  <div
+                    ng-class="{'week-day-button-actived': vm.travelOften[0], 'week-day-button' : !vm.travelOften[0]}">
+                    Su
+                  </div>
+                </a>
+                <a ng-click="vm.travelOften[1] = !vm.travelOften[1]">
+                  <div
+                    ng-class="{'week-day-button-actived': vm.travelOften[1], 'week-day-button' : !vm.travelOften[1]}">
+                    Mo
+                  </div>
+                </a>
+                <a ng-click="vm.travelOften[2] = !vm.travelOften[2]">
+                  <div
+                    ng-class="{'week-day-button-actived': vm.travelOften[2], 'week-day-button' : !vm.travelOften[2]}">
+                    Tu
+                  </div>
+                </a>
+                <a ng-click="vm.travelOften[3] = !vm.travelOften[3]">
+                  <div
+                    ng-class="{'week-day-button-actived': vm.travelOften[3], 'week-day-button' : !vm.travelOften[3]}">
+                    We
+                  </div>
+                </a>
+                <a ng-click="vm.travelOften[4] = !vm.travelOften[4]">
+                  <div
+                    ng-class="{'week-day-button-actived': vm.travelOften[4], 'week-day-button' : !vm.travelOften[4]}">
+                    Th
+                  </div>
+                </a>
+                <a ng-click="vm.travelOften[5] = !vm.travelOften[5]">
+                  <div
+                    ng-class="{'week-day-button-actived': vm.travelOften[5], 'week-day-button' : !vm.travelOften[5]}">
+                    Fr
+                  </div>
+                </a>
+                <a ng-click="vm.travelOften[6] = !vm.travelOften[6]">
+                  <div
+                    ng-class="{'week-day-button-actived': vm.travelOften[6], 'week-day-button' : !vm.travelOften[6]}">
+                    Sa
+                  </div>
+                </a>
+              </div>
+            </div>
+            <div class="item item-icon-left" ion-datetime-picker time ng-model="vm.travelTime">
+              <i class="icon ion-ios-clock-outline positive"></i>
+              Travel at:
+              <strong>{{vm.travelTime| date: "H:mm"}}</strong>
+            </div>
+            <div ng-show="vm.isRoundTrip == true">
+              <div class="item item-icon-left">
+                <i class="icon ion-ios-calendar-outline balanced"></i>
+                Return date:
+                <br>
+                <div>
+                  <a ng-click="vm.returnOften[0] = !vm.returnOften[0]">
+                    <div
+                      ng-class="{'week-day-button-actived': vm.returnOften[0], 'week-day-button' : !vm.returnOften[0]}">
+                      Su
+                    </div>
+                  </a>
+                  <a ng-click="vm.returnOften[1] = !vm.returnOften[1]">
+                    <div
+                      ng-class="{'week-day-button-actived': vm.returnOften[1], 'week-day-button' : !vm.returnOften[1]}">
+                      Mo
+                    </div>
+                  </a>
+                  <a ng-click="vm.returnOften[2] = !vm.returnOften[2]">
+                    <div
+                      ng-class="{'week-day-button-actived': vm.returnOften[2], 'week-day-button' : !vm.returnOften[2]}">
+                      Tu
+                    </div>
+                  </a>
+                  <a ng-click="vm.returnOften[3] = !vm.returnOften[3]">
+                    <div
+                      ng-class="{'week-day-button-actived': vm.returnOften[3], 'week-day-button' : !vm.returnOften[3]}">
+                      We
+                    </div>
+                  </a>
+                  <a ng-click="vm.returnOften[4] = !vm.returnOften[4]">
+                    <div
+                      ng-class="{'week-day-button-actived': vm.returnOften[4], 'week-day-button' : !vm.returnOften[4]}">
+                      Th
+                    </div>
+                  </a>
+                  <a ng-click="vm.returnOften[5] = !vm.returnOften[5]">
+                    <div
+                      ng-class="{'week-day-button-actived': vm.returnOften[5], 'week-day-button' : !vm.returnOften[5]}">
+                      Fr
+                    </div>
+                  </a>
+                  <a ng-click="vm.returnOften[6] = !vm.returnOften[6]">
+                    <div
+                      ng-class="{'week-day-button-actived': vm.returnOften[6], 'week-day-button' : !vm.returnOften[6]}">
+                      Sa
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <div class="item item-icon-left" ion-datetime-picker time ng-model="vm.returnTime">
+                <i class="icon ion-ios-clock-outline balanced"></i>
+                Return at:
+                <strong>{{vm.returnTime| date: "H:mm"}}</strong>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="list card">
-      <div class="item item-divider">Time &amp; Date</div>
-      <div class="item item-body">
-        <form class="list">
-          <label class="item item-select">
-            <span class="input-label">Trip type</span>
-            <select>
-              <option>One time</option>
-              <option>Daily</option>
-              <option>Weekly</option>
-              <option>Monthly</option>
-            </select>
-          </label>
-          <ion-checkbox>Round trip</ion-checkbox>
-        </form>
+      <div class="list card">
+        <div class="item item-divider">Vehicle</div>
+        <div class="item item-body">
+          <ion-radio ng-model="vm.vehicle.type" ng-value="'motor'">Motor</ion-radio>
+          <ion-radio ng-model="vm.vehicle.type" ng-value="'car'">Car</ion-radio>
+          <div ng-show="vm.vehicle.type == 'motor'">
+            <label class="item item-select">
+              <span class="input-label">Seats</span>
+              <select>
+                <option>2</option>
+              </select>
+            </label>
+            <label class="item item-select">
+              <span class="input-label">Emoty seats</span>
+              <select>
+                <option>1</option>
+              </select>
+            </label>
+          </div>
+          <div ng-show="vm.vehicle.type == 'car'">
+            <label class="item item-select">
+              <span class="input-label">Seats</span>
+              <select>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option></option>
+              </select>
+            </label>
+            <label class="item item-select">
+              <span class="input-label">Emoty seats</span>
+              <select>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+              </select>
+            </label>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="list card">
-      <div class="item item-divider">Vehicle</div>
-      <div class="item item-body">
-        <form class="list">
-          <ion-checkbox>Motor</ion-checkbox>
-          <ion-checkbox>Car</ion-checkbox>
-          <label class="item item-select">
-            <span class="input-label">Seats</span>
-            <select>
-              <option>Direct payments</option>
-            </select>
-          </label>
-          <label class="item item-select">
-            <span class="input-label">Emoty seats</span>
-            <select>
-              <option>Direct payments</option>
-            </select>
-          </label>
-        </form>
-      </div>
-    </div>
-    <div class="list card">
-      <div class="item item-divider">Price &amp; Pay</div>
-      <div class="item item-body">
-        <form class="list">
+      <div class="list card">
+        <div class="item item-divider">Price &amp; Pay</div>
+        <div class="item item-body">
           <label class="item item-input">
             <span class="input-label">Price / Seat</span>
             <input type="number" placeholder="price">
@@ -94,29 +258,57 @@
               <option>Direct payments</option>
             </select>
           </label>
-        </form>
+        </div>
       </div>
-    </div>
-    <div class="list card">
-      <div class="item item-divider">Other options</div>
-      <div class="item item-body">
-        <form class="list">
-          <ion-checkbox>Chat</ion-checkbox>
-          <ion-checkbox>Cargo</ion-checkbox>
-          <ion-checkbox>Smoke</ion-checkbox>
-          <ion-checkbox>Cargo</ion-checkbox>
-          <ion-checkbox>Pet</ion-checkbox>
+      <div class="list card">
+        <div class="item item-divider">Other options</div>
+        <div class="item item-body">
           <label class="item item-select">
-            <span class="input-label">Punctuality</span>
+            <span class="input-label">Maximum luggage size</span>
+            <select>
+              <option>Small</option>
+              <option>Medium</option>
+              <option>Large</option>
+            </select>
+          </label>
+          <label class="item item-select">
+            <span class="input-label">Flexible time</span>
             <select>
               <option>On time</option>
               <option>+/- 5 minutes</option>
               <option>+/- 10 minutes</option>
               <option>+/- 15 minutes</option>
+              <option>+/- 30 minutes</option>
             </select>
           </label>
-        </form>
+          <label class="item item-select">
+            <span class="input-label">Flexible distance</span>
+            <select>
+              <option>On time</option>
+              <option>+/- 5 minutes</option>
+              <option>+/- 10 minutes</option>
+              <option>+/- 15 minutes</option>
+              <option>+/- 30 minutes</option>
+            </select>
+          </label>
+        </div>
+        <div class="list row">
+          <div class="col-50">
+            <div class="col-90">
+              <button type="button" class="button button-assertive  button-block button-outline"
+                      ng-click="cancel()">Cancel
+              </button>
+            </div>
+          </div>
+          <div class="col-50">
+            <div class="col-offset-10 col-90">
+              <button type="button" class="button button-positive  button-block"
+                      ng-click="submit()">Publish
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </form>
   </ion-content>
 </ion-view>
