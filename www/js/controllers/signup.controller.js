@@ -15,7 +15,7 @@ angular.module('app.signup.controllers', [])
       $scope.showAlert = function (value) {
         var alertPopup = $ionicPopup.alert({
           title: value,
-          template:  '',
+          template: '',
         });
       };
       $scope.signup_success = function () {
@@ -29,13 +29,13 @@ angular.module('app.signup.controllers', [])
           $state.go('menu.home');
         }
       }
-      $scope.signUp = function (){
+      $scope.signUp = function () {
         var user = this.user;
         $ionicLoading.show();
-        if(user.password!=user.retypePassword){
+        if (user.password != user.retypePassword) {
           $ionicLoading.hide();
           $scope.showAlert('Password and Confirm password not match!');
-        }else {
+        } else {
           LoginService.signUp(user, (function (err) {
             $ionicLoading.hide();
             if (err) {
@@ -47,3 +47,22 @@ angular.module('app.signup.controllers', [])
         }
       }
     }])
+  .directive('passwordMatch', function () {
+    return {
+      restrict: 'A',
+      scope: true,
+      require: 'ngModel',
+      link: function (scope, elem, attrs, control) {
+        var checker = function () {
+          var e1 = scope.$eval(attrs.ngModel);
+
+          //get the value of the other password
+          var e2 = scope.$eval(attrs.passwordMatch);
+          return e1 == e2;
+        };
+        scope.$watch(checker, function (n) {
+          control.$setValidity("unique", n);
+        });
+      }
+    };
+  })

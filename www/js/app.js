@@ -8,6 +8,7 @@
 angular.module('app', [
     'ionic',
     'ngCordova',
+    'ngMessages',
     'angular-meteor',
     'ion-datetime-picker',
     'onezone-datepicker',

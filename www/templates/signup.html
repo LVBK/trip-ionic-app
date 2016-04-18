@@ -1,75 +1,89 @@
 <ion-view title="Signup" id="page5">
-    <ion-content padding="true" class="has-header">
-      <div class="row">
-        <div class="col-80 col-offset-10">
-          <form ng-submit="signUp()">
-            <div class="list text-center">
-              <div class="list list-inset">
-                <h3 class="sign_out_title">Creat an Account</h3>
-              </div>
-              <div class="list list-inset">
-                <label class="item item-input positive-border">
-                  <i class="icon ion-person placeholder-icon positive"></i>
-                  <input type="text" placeholder="Full name" ng-model="user.publicProfile.name" required="">
-                </label>
-              </div>
-              <div class="list list-inset">
-                <label class="item item-input positive-border">
-                  <i class="icon ion-android-mail placeholder-icon positive"></i>
-                  <input type="email" placeholder="Mail" ng-model="user.email" required="">
-                </label>
-              </div>
-
-              <div class="list list-inset">
-                <label class="item item-input positive-border">
-                  <i class="icon ion-locked placeholder-icon positive"></i>
-                  <input type="password" placeholder="Password" ng-model="user.password" required="">
-                </label>
-              </div>
-              <div class="list list-inset">
-                <label class="item item-input positive-border">
-                  <i class="icon ion-locked placeholder-icon positive"></i>
-                  <input type="password" placeholder="Confirm Password" ng-model="user.retypePassword"
-                         required="">
-                </label>
-              </div>
-              <label class="item item-input item-borderless">
-                <span class="input-label positive">Birthday</span>
-                <input type="date" placeholder="" ng-model="user.publicProfile.birthday">
+  <ion-content padding="true" class="has-header">
+    <div class="row">
+      <div class="col-80 col-offset-10">
+        <form name="signUpForm" ng-submit="signUp()" novalidate>
+          <div class="list text-center">
+            <div class="list list-inset">
+              <h3 class="sign_out_title">Creat an Account</h3>
+            </div>
+            <div class="list list-inset">
+              <label class="item item-input positive-border"
+                     ng-class="{'has-error': signUpForm.name.$invalid && !signUpForm.name.$pristine}">
+                <i class="icon ion-person placeholder-icon positive"></i>
+                <input type="text" name="name" placeholder="Full name" ng-model="user.publicProfile.name" required="">
               </label>
-              <label class="item item-input item-borderless">
-                <span class="input-label positive">Gender</span>
-                <div>
-                  <ion-checkbox class="checkbox-positive"
-                                ng-click="user.publicProfile.gender='male'"
-                                ng-checked="user.publicProfile.gender=='male'">Male
-                  </ion-checkbox>
-                  <ion-checkbox class="checkbox-positive"
-                                ng-click="user.publicProfile.gender='female'"
-                                ng-checked="user.publicProfile.gender=='female'">Female
-                  </ion-checkbox>
-                </div>
+              <div class="form-error" ng-show="signUpForm.name.$invalid && !signUpForm.name.$pristine">
+                Full name is required
+              </div>
+            </div>
+            <div class="list list-inset">
+              <label class="item item-input positive-border"
+                     ng-class="{'has-error': signUpForm.email.$invalid && !signUpForm.email.$pristine}">
+                <i class="icon ion-android-mail placeholder-icon positive"></i>
+                <input type="email" name="email" placeholder="Mail" ng-model="user.email" required="">
               </label>
+              <div class="form-error" ng-show="signUpForm.email.$invalid && !signUpForm.email.$pristine">
+                Enter a valid email
+              </div>
+            </div>
+            <div class="list list-inset">
+              <label class="item item-input positive-border"
+                     ng-class="{'has-error': signUpForm.password.$invalid && !signUpForm.password.$pristine}">
+                <i class="icon ion-locked placeholder-icon positive"></i>
+                <input type="password" name="password" placeholder="Password" ng-model="user.password" required=""
+                       ng-minlength="6">
+              </label>
+              <p ng-show="signUpForm.password.$error.minlength" class="form-error">Password is too
+                short.</p>
+            </div>
+            <div class="list list-inset">
+              <label class="item item-input positive-border"
+                     ng-class="{'has-error': signUpForm.confirmPassword.$invalid && !signUpForm.confirmPassword.$pristine}">
+                <i class="icon ion-locked placeholder-icon positive"></i>
+                <input type="password" name="confirmPassword" placeholder="Confirm Password"
+                       ng-model="user.retypePassword"
+                       required="" password-match="user.password">
+              </label>
+              <p ng-show="signUpForm.confirmPassword.$error.unique && signUpForm.confirmPassword.$dirty" class="form-error">Password not match.</p>
+            </div>
+            <label class="item item-input item-borderless">
+              <span class="input-label positive">Birthday</span>
+              <input type="date" placeholder="" ng-model="user.publicProfile.birthday">
+            </label>
+            <label class="item item-input item-borderless">
+              <span class="input-label positive">Gender</span>
+              <div>
+                <ion-checkbox class="checkbox-positive"
+                              ng-click="user.publicProfile.gender='male'"
+                              ng-checked="user.publicProfile.gender=='male'">Male
+                </ion-checkbox>
+                <ion-checkbox class="checkbox-positive"
+                              ng-click="user.publicProfile.gender='female'"
+                              ng-checked="user.publicProfile.gender=='female'">Female
+                </ion-checkbox>
+              </div>
+            </label>
 
-              <div class="list row">
-                <div class="col-50">
-                  <div class="col-90">
-                    <button class="button button-assertive  button-block button-outline" type="reset">
-                      Reset
-                    </button>
-                  </div>
+            <div class="list row">
+              <div class="col-50">
+                <div class="col-90">
+                  <button class="button button-assertive  button-block button-outline" type="reset">
+                    Reset
+                  </button>
                 </div>
-                <div class="col-50">
-                  <div class="col-offset-10 col-90">
-                    <button class="button button-balanced  button-block" type="submit">
-                      Submit
-                    </button>
-                  </div>
+              </div>
+              <div class="col-50">
+                <div class="col-offset-10 col-90">
+                  <button class="button button-balanced  button-block" type="submit" ng-disabled="signUpForm.$invalid">
+                    Submit
+                  </button>
                 </div>
               </div>
             </div>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
-    </ion-content>
+    </div>
+  </ion-content>
 </ion-view>

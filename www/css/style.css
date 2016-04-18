@@ -66,3 +66,13 @@
   width: 25px;
   display: inline-block;
 }
+label.item.has-error {
+  border: 1px solid darkred;
+}
+label.item.has-error i {
+  color:darkred;
+}
+.form-error {
+  padding: 2px 0 2px 16px;
+  color: darkred;
+}
