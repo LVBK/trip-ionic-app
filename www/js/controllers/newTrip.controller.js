@@ -4,12 +4,14 @@ angular.module('app.newTrip.controllers', ['ngMap'])
     function ($scope, $ionicLoading, NgMap, $interval, $ionicPopup, $state, $ionicHistory,
               GoogleMapService, $cordovaToast, TripService) {
       //TODO: check internet connection state
+      $ionicLoading.show();
       $scope.vm = {
         origin_input: null,
         origin_latlng: null,
         destination_input: null,
         destination_latlng: null,
         isRoundTrip: false,
+        tripType: null,
         travelTime: new Date(),
         returnTime: new Date(),
         travelOften: [
@@ -17,15 +19,36 @@ angular.module('app.newTrip.controllers', ['ngMap'])
         ],
         returnOften: [
           false, false, false, false, false, false, false
-        ]
+        ],
+        geocoder: new google.maps.Geocoder(),
+        map: new google.maps.Map(document.getElementById('map'), {
+          mapTypeControl: false,
+          center: {lat: -33.8688, lng: 151.2195},
+          zoom: 13,
+          disableDefaultUI: true
+        }),
+        directionsService: new google.maps.DirectionsService,
+        directionsDisplay: new google.maps.DirectionsRenderer,
+        routeError: null
       };
-      $scope.vm.tripType = {
-        value: null
-      }
       $scope.preferences = [
         {name: "One time", value: 'one-time'},
         {name: "Often", value: 'often'}
       ];
+      $scope.vm.directionsDisplay.setMap($scope.vm.map);
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+          var pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+          console.log(pos);
+          $scope.vm.map.setCenter(pos);
+        });
+      } else {
+        $scope.vm.map.setCenter({lat: 21.3978014, lng: 105.2189301});
+      }
+      $ionicLoading.hide();
       function bonusSomeDay(inputDate, bonusDay) {
         inputDate.setDate(inputDate.getDate() + bonusDay);
         console.log(inputDate);
@@ -90,32 +113,23 @@ angular.module('app.newTrip.controllers', ['ngMap'])
           // your code
         }
       };
-      $ionicLoading.show();
-      NgMap.getMap().then(function (map) {
-        $scope.vm.map = map;
-        $ionicLoading.hide();
-      });
-      $scope.vm.geocoder = new google.maps.Geocoder();
-
       $scope.origin_changed = function () {
-        $scope.getLatLng($scope.vm.geocoder, $scope.vm.map, $scope.vm.origin_input, function (result) {
+        getLatLng($scope.vm.geocoder, $scope.vm.map, $scope.vm.origin_input, function (result) {
           $scope.vm.origin_latlng = result;
-        })
+          route();
+        });
       };
       $scope.destination_changed = function () {
-        $scope.getLatLng($scope.vm.geocoder, $scope.vm.map, $scope.vm.destination_input, function (result) {
+        getLatLng($scope.vm.geocoder, $scope.vm.map, $scope.vm.destination_input, function (result) {
           $scope.vm.destination_latlng = result;
-        })
+          route();
+        });
+
       };
-      $scope.getLatLng = function (geocoder, map, address, callback) {
+      function getLatLng(geocoder, map, address, callback) {
         if (address) {
           GoogleMapService.geocodeAddress(geocoder, map, address, function (err, result) {
             if (err) {
-              if (window.plugins) {
-                window.plugins.toast.show("Not found location", "short", "bottom");
-              } else {
-                $scope.showAlert("Not found location");
-              }
               callback(null);
             } else {
               callback(result);
@@ -125,7 +139,7 @@ angular.module('app.newTrip.controllers', ['ngMap'])
           callback(null)
         }
       };
-      $scope.showAlert = function (value) {
+      function showAlert(value) {
         var alertPopup = $ionicPopup.alert({
           title: value,
           template: '',
@@ -146,12 +160,12 @@ angular.module('app.newTrip.controllers', ['ngMap'])
         $ionicLoading.show();
         if (!$scope.vm.origin_latlng) {
           $ionicLoading.hide();
-          $scope.showAlert("Not found start location");
+          showAlert("Not found start location");
           return;
         }
         if (!$scope.vm.destination_latlng) {
           $ionicLoading.hide();
-          $scope.showAlert("Not found end location");
+          showAlert("Not found end location");
           return;
         }
         var origin = {
@@ -203,17 +217,31 @@ angular.module('app.newTrip.controllers', ['ngMap'])
             travelTime: $scope.vm.travelTime,
           }
         } else {
-          console.log("hahahaha");
           $ionicLoading.hide();
-          $scope.showAlert("Please complete all information");
+          showAlert("Please complete all information");
         }
         TripService.createATrip(origin, destination, tripDateTime, function (err, result) {
           $ionicLoading.hide();
           if (err) {
-            $scope.showAlert(err);
+            showAlert(err);
           } else {
-            $scope.showAlert("Create trip success");
+            showAlert("Create trip success");
           }
         })
       };
+      function route() {
+        if ($scope.vm.origin_input == null || $scope.vm.destination_input == null
+          || $scope.vm.origin_latlng == null || $scope.vm.destination_latlng == null) {
+          return;
+        };
+        $scope.vm.routeError = null;
+        GoogleMapService.route($scope.vm.origin_input, $scope.vm.destination_input, $scope.vm.directionsService,
+          function (err, result) {
+            if (err) {
+              $scope.vm.routeError = err;
+            } else {
+              $scope.vm.directionsDisplay.setDirections(result);
+            }
+          });
+      }
     }])

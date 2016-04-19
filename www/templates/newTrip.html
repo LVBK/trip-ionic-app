@@ -1,28 +1,41 @@
 <ion-view title="New trip" id="page8">
   <ion-content padding="true" class="has-header gray-bg">
-    <form>
+    <form name="newTripForm" ng-submit="" novalidate>
       <div class="list card">
         <div class="item item-divider">Location</div>
         <div class="item item-body">
-          <label class="item item-input">
+          <label class="item item-input"
+                 ng-class="{'has-error': newTripForm.origin.$dirty && (newTripForm.origin.$invalid  || !vm.origin_latlng)}">
             <span class="input-label">From</span>
-            <input places-auto-complete ng-model="vm.origin_input" type="text" placeholder="From"
-                   ng-model-options="{debounce: 1000}" ng-change="origin_changed()">
+            <input places-auto-complete ng-model="vm.origin_input" type="text" placeholder="From" name="origin"
+                   ng-model-options="{ debounce: 500 }" ng-change="origin_changed()" required>
           </label>
-          <label class="item item-input">
+          <div class="form-error"
+               ng-show="newTripForm.origin.$dirty && !newTripForm.origin.$invalid && !vm.origin_latlng">
+            Not found location
+          </div>
+          <div class="form-error" ng-show="newTripForm.origin.$dirty && newTripForm.origin.$invalid">
+            From location is required
+          </div>
+          <label class="item item-input"
+                 ng-class="{'has-error': newTripForm.destination.$dirty && (newTripForm.destination.$invalid  || !vm.destination_latlng)}">
             <span class="input-label">To</span>
             <input places-auto-complete ng-model="vm.destination_input" type="text" placeholder="To"
-                   ng-model-options="{debounce: 1000}" ng-change="destination_changed()">
+                   ng-model-options="{ debounce: 500 }" ng-change="destination_changed()" name="destination"
+                   required="">
           </label>
-          <ng-map default-style="true" center="current-location" zoom="13" disable-default-u-i="true">
-            <directions
-              draggable="false"
-              panel="directions-panel"
-              travel-mode="DRIVING"
-              origin="{{vm.origin_input}}"
-              destination="{{vm.destination_input}}">
-            </directions>
-          </ng-map>
+          <div class="form-error"
+               ng-show="newTripForm.destination.$dirty && !newTripForm.destination.$invalid && !vm.destination_latlng">
+            Not found location
+          </div>
+          <div class="form-error" ng-show="newTripForm.origin.$dirty && newTripForm.origin.$invalid">
+            To location is required
+          </div>
+          <div class="form-error text-center"
+               ng-show="vm.routeError">
+            Not found route
+          </div>
+          <div id="map"></div>
         </div>
       </div>
       <div class="list card">
@@ -39,32 +52,12 @@
             <div class="item item-icon-left">
               <i class="icon ion-ios-calendar-outline positive"></i>
               Travel date:
-              <onezone-datepicker datepicker-object="travelDatepicker">
+              <onezone-datepicker datepicker-object="travelDatepicker" name="travelDate"
+                                  ng-required="vm.tripType.value=='one-time'">
                 <spam class="positive show-onezone-datepicker">
                   {{travelDatepicker.date | date:'dd MMMM yyyy'}}
                 </spam>
               </onezone-datepicker>
-            </div>
-            <div class="item item-icon-left" ion-datetime-picker time ng-model="vm.travelTime">
-              <i class="icon ion-ios-clock-outline positive"></i>
-              Travel at:
-              <strong>{{vm.travelTime| date: "H:mm"}}</strong>
-            </div>
-            <div ng-show="vm.isRoundTrip == true">
-              <div class="item item-icon-left">
-                <i class="icon ion-ios-calendar-outline balanced"></i>
-                Return date:
-                <onezone-datepicker datepicker-object="returnDatepicker">
-                  <spam class="positive show-onezone-datepicker">
-                    {{returnDatepicker.date | date:'dd MMMM yyyy'}}
-                  </spam>
-                </onezone-datepicker>
-              </div>
-              <div class="item item-icon-left" ion-datetime-picker time ng-model="vm.returnTime">
-                <i class="icon ion-ios-clock-outline balanced"></i>
-                Return at:
-                <strong>{{vm.returnTime| date: "H:mm"}}</strong>
-              </div>
             </div>
           </div>
           <div ng-show="vm.tripType.value=='often'">
@@ -135,12 +128,25 @@
                 </a>
               </div>
             </div>
-            <div class="item item-icon-left" ion-datetime-picker time ng-model="vm.travelTime">
-              <i class="icon ion-ios-clock-outline positive"></i>
-              Travel at:
-              <strong>{{vm.travelTime| date: "H:mm"}}</strong>
+          </div>
+          <div ng-show="vm.tripType.value" class="item item-icon-left" ion-datetime-picker time ng-model="vm.travelTime" required="">
+            <i class="icon ion-ios-clock-outline positive"></i>
+            Travel at:
+            <strong>{{vm.travelTime| date: "H:mm"}}</strong>
+          </div>
+          <div ng-show="vm.isRoundTrip == true">
+            <div ng-show="vm.tripType.value=='one-time'">
+              <div class="item item-icon-left">
+                <i class="icon ion-ios-calendar-outline balanced"></i>
+                Return date:
+                <onezone-datepicker datepicker-object="returnDatepicker">
+                  <spam class="positive show-onezone-datepicker">
+                    {{returnDatepicker.date | date:'dd MMMM yyyy'}}
+                  </spam>
+                </onezone-datepicker>
+              </div>
             </div>
-            <div ng-show="vm.isRoundTrip == true">
+            <div ng-show="vm.tripType.value=='often'">
               <div class="item item-icon-left">
                 <i class="icon ion-ios-calendar-outline balanced"></i>
                 Return date:
@@ -190,125 +196,126 @@
                   </a>
                 </div>
               </div>
-              <div class="item item-icon-left" ion-datetime-picker time ng-model="vm.returnTime">
-                <i class="icon ion-ios-clock-outline balanced"></i>
-                Return at:
-                <strong>{{vm.returnTime| date: "H:mm"}}</strong>
+            </div>
+            <div ng-show="vm.tripType.value" class="item item-icon-left" ion-datetime-picker time ng-model="vm.returnTime"
+                 ng-required="{{vm.isRoundTrip}}">
+              <i class="icon ion-ios-clock-outline balanced"></i>
+              Return at:
+              <strong>{{vm.returnTime| date: "H:mm"}}</strong>
+            </div>
+          </div>
+        </div>
+        <div class="list card">
+          <div class="item item-divider">Vehicle</div>
+          <div class="item item-body">
+            <ion-radio ng-model="vm.vehicle.type" ng-value="'motor'">Motor</ion-radio>
+            <ion-radio ng-model="vm.vehicle.type" ng-value="'car'">Car</ion-radio>
+            <div ng-show="vm.vehicle.type == 'motor'">
+              <label class="item item-select">
+                <span class="input-label">Seats</span>
+                <select>
+                  <option>2</option>
+                </select>
+              </label>
+              <label class="item item-select">
+                <span class="input-label">Emoty seats</span>
+                <select>
+                  <option>1</option>
+                </select>
+              </label>
+            </div>
+            <div ng-show="vm.vehicle.type == 'car'">
+              <label class="item item-select">
+                <span class="input-label">Seats</span>
+                <select>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                  <option>6</option>
+                  <option>7</option>
+                  <option></option>
+                </select>
+              </label>
+              <label class="item item-select">
+                <span class="input-label">Emoty seats</span>
+                <select>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                  <option>6</option>
+                </select>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="list card">
+          <div class="item item-divider">Price &amp; Pay</div>
+          <div class="item item-body">
+            <label class="item item-input">
+              <span class="input-label">Price / Seat</span>
+              <input type="number" placeholder="price">
+            </label>
+            <label class="item item-select">
+              <span class="input-label">Payment method</span>
+              <select>
+                <option>Direct payments</option>
+              </select>
+            </label>
+          </div>
+        </div>
+        <div class="list card">
+          <div class="item item-divider">Other options</div>
+          <div class="item item-body">
+            <label class="item item-select">
+              <span class="input-label">Maximum luggage size</span>
+              <select>
+                <option>Small</option>
+                <option>Medium</option>
+                <option>Large</option>
+              </select>
+            </label>
+            <label class="item item-select">
+              <span class="input-label">Flexible time</span>
+              <select>
+                <option>On time</option>
+                <option>+/- 5 minutes</option>
+                <option>+/- 10 minutes</option>
+                <option>+/- 15 minutes</option>
+                <option>+/- 30 minutes</option>
+              </select>
+            </label>
+            <label class="item item-select">
+              <span class="input-label">Flexible distance</span>
+              <select>
+                <option>On time</option>
+                <option>+/- 5 minutes</option>
+                <option>+/- 10 minutes</option>
+                <option>+/- 15 minutes</option>
+                <option>+/- 30 minutes</option>
+              </select>
+            </label>
+          </div>
+          <div class="list row">
+            <div class="col-50">
+              <div class="col-90">
+                <button type="button" class="button button-assertive  button-block button-outline"
+                        ng-click="cancel()">Cancel
+                </button>
+              </div>
+            </div>
+            <div class="col-50">
+              <div class="col-offset-10 col-90">
+                <button type="submit" class="button button-positive  button-block"
+                        ng-disabled="newTripForm.$invalid || vm.routeError">
+                  Publish
+                </button>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="list card">
-        <div class="item item-divider">Vehicle</div>
-        <div class="item item-body">
-          <ion-radio ng-model="vm.vehicle.type" ng-value="'motor'">Motor</ion-radio>
-          <ion-radio ng-model="vm.vehicle.type" ng-value="'car'">Car</ion-radio>
-          <div ng-show="vm.vehicle.type == 'motor'">
-            <label class="item item-select">
-              <span class="input-label">Seats</span>
-              <select>
-                <option>2</option>
-              </select>
-            </label>
-            <label class="item item-select">
-              <span class="input-label">Emoty seats</span>
-              <select>
-                <option>1</option>
-              </select>
-            </label>
-          </div>
-          <div ng-show="vm.vehicle.type == 'car'">
-            <label class="item item-select">
-              <span class="input-label">Seats</span>
-              <select>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option></option>
-              </select>
-            </label>
-            <label class="item item-select">
-              <span class="input-label">Emoty seats</span>
-              <select>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-              </select>
-            </label>
-          </div>
-        </div>
-      </div>
-      <div class="list card">
-        <div class="item item-divider">Price &amp; Pay</div>
-        <div class="item item-body">
-          <label class="item item-input">
-            <span class="input-label">Price / Seat</span>
-            <input type="number" placeholder="price">
-          </label>
-          <label class="item item-select">
-            <span class="input-label">Payment method</span>
-            <select>
-              <option>Direct payments</option>
-            </select>
-          </label>
-        </div>
-      </div>
-      <div class="list card">
-        <div class="item item-divider">Other options</div>
-        <div class="item item-body">
-          <label class="item item-select">
-            <span class="input-label">Maximum luggage size</span>
-            <select>
-              <option>Small</option>
-              <option>Medium</option>
-              <option>Large</option>
-            </select>
-          </label>
-          <label class="item item-select">
-            <span class="input-label">Flexible time</span>
-            <select>
-              <option>On time</option>
-              <option>+/- 5 minutes</option>
-              <option>+/- 10 minutes</option>
-              <option>+/- 15 minutes</option>
-              <option>+/- 30 minutes</option>
-            </select>
-          </label>
-          <label class="item item-select">
-            <span class="input-label">Flexible distance</span>
-            <select>
-              <option>On time</option>
-              <option>+/- 5 minutes</option>
-              <option>+/- 10 minutes</option>
-              <option>+/- 15 minutes</option>
-              <option>+/- 30 minutes</option>
-            </select>
-          </label>
-        </div>
-        <div class="list row">
-          <div class="col-50">
-            <div class="col-90">
-              <button type="button" class="button button-assertive  button-block button-outline"
-                      ng-click="cancel()">Cancel
-              </button>
-            </div>
-          </div>
-          <div class="col-50">
-            <div class="col-offset-10 col-90">
-              <button type="button" class="button button-positive  button-block"
-                      ng-click="submit()">Publish
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
     </form>
   </ion-content>
 </ion-view>
