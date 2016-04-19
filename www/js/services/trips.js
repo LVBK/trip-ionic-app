@@ -26,9 +26,9 @@ angular.module('app.services.trips', [])
         }
       });
     };
-    createATrip = function (origin, destination, tripDateTime, callback) {
-      console.log(tripDateTime);
-      Meteor.call('createATrip', origin, destination, tripDateTime, callback);
+    createATrip = function (param, callback) {
+      console.log(param);
+      Meteor.call('createATrip', param, callback);
     };
     return {
       createATrip: createATrip,

@@ -9,13 +9,88 @@ angular.module('app.newTrip.controllers', ['ngMap'])
         {name: "One time", value: 'one-time'},
         {name: "Often", value: 'often'}
       ];
+      $scope.luggageSizeOptions = [
+        {name: "Small", value: 'Small'},
+        {name: "Medium", value: 'Medium'},
+        {name: "Large", value: 'Large'}
+      ];
+      $scope.flexibleTimeOptions = [
+        {name: "On time", value: 'On time'},
+        {name: "+/- 5 minutes", value: '+/- 5 minutes'},
+        {name: "+/- 10 minutes", value: '+/- 10 minutes'},
+        {name: "+/- 15 minutes", value: '+/- 15 minutes'},
+        {name: "+/- 30 minutes", value: '+/- 30 minutes'}
+      ];
+      $scope.flexibleDistanceOptions = [
+        {name: "Unacceptable", value: 'Unacceptable'},
+        {name: "3 kilometers", value: '3 kilometers'},
+        {name: "5 kilometers", value: '5 kilometers'},
+        {name: "10 kilometers", value: '10 kilometers'},
+        {name: "15 kilometers", value: '15 kilometers'},
+      ];
+      $scope.vehicleOptions = [
+        {
+          name: 'Car',
+          expend: 0.1,
+          seats: [
+            {
+              name: 4,
+              emptySeats: [
+                {name: 3},
+                {name: 2},
+                {name: 1},
+              ]
+            },
+            {
+              name: 5,
+              emptySeats: [
+                {name: 4},
+                {name: 3},
+                {name: 2},
+                {name: 1},
+              ]
+            },
+            {
+              name: 6,
+              emptySeats: [
+                {name: 5},
+                {name: 4},
+                {name: 3},
+                {name: 2},
+                {name: 1},
+              ]
+            },
+            {
+              name: 7,
+              emptySeats: [
+                {name: 6},
+                {name: 5},
+                {name: 4},
+                {name: 3},
+                {name: 2},
+                {name: 1},
+              ]
+            }
+          ]
+        },
+        {
+          name: 'Motor',
+          expend: 0.05,
+          seats: [{
+            name: 2,
+            emptySeats: [
+              {name: 1}
+            ]
+          }]
+        },
+      ]
+
       $scope.vm = {
         origin_input: null,
         origin_latlng: null,
         destination_input: null,
         destination_latlng: null,
         isRoundTrip: false,
-        tripType: $scope.preferences[0].value,
         travelTime: new Date(),
         returnTime: new Date(),
         travelOften: [
@@ -34,6 +109,17 @@ angular.module('app.newTrip.controllers', ['ngMap'])
         directionsService: new google.maps.DirectionsService,
         directionsDisplay: new google.maps.DirectionsRenderer,
         routeError: null,
+        tripType: $scope.preferences[0].value,
+
+        distance: null,
+        duration: null,
+        vehicle: null,
+        seats: null,
+        emptySeats: null,
+        pricePerSeat: null,
+        luggageSize: $scope.luggageSizeOptions[1].value,
+        flexibleTime: $scope.flexibleTimeOptions[0].value,
+        flexibleDistance: $scope.flexibleDistanceOptions[0].value,
       };
       $scope.vm.directionsDisplay.setMap($scope.vm.map);
       if (navigator.geolocation) {
@@ -167,19 +253,8 @@ angular.module('app.newTrip.controllers', ['ngMap'])
           showAlert("Not found end location");
           return;
         }
-        var origin = {
-          "type": "Point",
-          "coordinates": $scope.vm.origin_latlng,
-          "name": $scope.vm.origin_input
-        };
-        var destination = {
-          "type": "Point",
-          "coordinates": $scope.vm.destination_latlng,
-          "name": $scope.vm.destination_input
-        };
         var tripDateTime;
-        console.log($scope.vm.isRoundTrip, $scope.vm.tripType);
-        if ($scope.vm.isRoundTrip == true && $scope.vm.tripType == 'often') {
+        if ($scope.vm.isRoundTrip == true && $scope.vm.tripType == $scope.preferences[1].value) {
           tripDateTime = {
             isRoundTrip: $scope.vm.isRoundTrip,
             tripType: $scope.vm.tripType,
@@ -190,7 +265,7 @@ angular.module('app.newTrip.controllers', ['ngMap'])
             returnOften: $scope.vm.returnOften,
             returnTime: $scope.vm.returnTime
           }
-        } else if ($scope.vm.isRoundTrip == false && $scope.vm.tripType == 'often') {
+        } else if ($scope.vm.isRoundTrip == false && $scope.vm.tripType == $scope.preferences[1].value) {
           tripDateTime = {
             isRoundTrip: $scope.vm.isRoundTrip,
             tripType: $scope.vm.tripType,
@@ -199,7 +274,7 @@ angular.module('app.newTrip.controllers', ['ngMap'])
             travelOften: $scope.vm.travelOften,
             travelTime: $scope.vm.travelTime,
           }
-        } else if ($scope.vm.isRoundTrip == true && $scope.vm.tripType == 'one-time') {
+        } else if ($scope.vm.isRoundTrip == true && $scope.vm.tripType == $scope.preferences[0].value) {
           tripDateTime = {
             isRoundTrip: $scope.vm.isRoundTrip,
             tripType: $scope.vm.tripType,
@@ -208,7 +283,7 @@ angular.module('app.newTrip.controllers', ['ngMap'])
             travelTime: $scope.vm.travelTime,
             returnTime: $scope.vm.returnTime
           }
-        } else if ($scope.vm.isRoundTrip == false && $scope.vm.tripType == 'one-time') {
+        } else if ($scope.vm.isRoundTrip == false && $scope.vm.tripType == $scope.preferences[0].value) {
           tripDateTime = {
             isRoundTrip: $scope.vm.isRoundTrip,
             tripType: $scope.vm.tripType,
@@ -219,7 +294,29 @@ angular.module('app.newTrip.controllers', ['ngMap'])
           $ionicLoading.hide();
           showAlert("Please complete all information");
         }
-        TripService.createATrip(origin, destination, tripDateTime, function (err, result) {
+        var param = {
+          origin: {
+            "type": "Point",
+            "coordinates": $scope.vm.origin_latlng,
+            "name": $scope.vm.origin_input
+          },
+          destination: {
+            "type": "Point",
+            "coordinates": $scope.vm.destination_latlng,
+            "name": $scope.vm.destination_input
+          },
+          emptySeaats: $scope.vm.emptySeats.name,
+          seats: $scope.vm.seats.name,
+          distance: $scope.vm.distance.text,
+          duration: $scope.vm.duration,
+          pricePerSeat: $scope.vm.pricePerSeat,
+          vehicle: $scope.vm.vehicle.name,
+          luggageSize: $scope.vm.luggageSize,
+          flexibleTime: $scope.vm.flexibleTime,
+          flexibleDistance: $scope.vm.flexibleDistance
+        };
+        param = angular.extend(param, tripDateTime)
+        TripService.createATrip(param, function (err, result) {
           $ionicLoading.hide();
           if (err) {
             showAlert(err);
@@ -233,15 +330,34 @@ angular.module('app.newTrip.controllers', ['ngMap'])
           || $scope.vm.origin_latlng == null || $scope.vm.destination_latlng == null) {
           return;
         }
-        ;
         $scope.vm.routeError = null;
         GoogleMapService.route($scope.vm.origin_input, $scope.vm.destination_input, $scope.vm.directionsService,
           function (err, result) {
             if (err) {
               $scope.vm.routeError = err;
             } else {
+              $scope.vm.distance = result.routes[0].legs[0].distance;
+              $scope.vm.duration = result.routes[0].legs[0].duration.text;
               $scope.vm.directionsDisplay.setDirections(result);
             }
           });
       }
+
+      Math.round = (function () {
+        var originalRound = Math.round;
+        return function (number, precision) {
+          precision = Math.abs(parseInt(precision)) || 0;
+          var multiplier = Math.pow(10, precision);
+          return (originalRound(number * multiplier) / multiplier);
+        };
+      })();
+      $scope.helpers({
+        'pricePerSeatCal': function () {
+          if ($scope.getReactively('vm.vehicle') != null && $scope.getReactively('vm.distance') != null
+            && $scope.getReactively('vm.seats') != null) {
+            $scope.vm.pricePerSeat =
+              Math.round($scope.vm.distance.value * $scope.vm.vehicle.expend / $scope.vm.seats.name / 1000, 3);
+          }
+        }
+      })
     }])

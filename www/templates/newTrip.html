@@ -1,6 +1,6 @@
 <ion-view title="New trip" id="page8">
   <ion-content padding="true" class="has-header gray-bg">
-    <form name="newTripForm" ng-submit="" novalidate>
+    <form name="newTripForm" ng-submit="submit()" novalidate>
       <div class="list card">
         <div class="item item-divider">Location</div>
         <div class="item item-body">
@@ -36,6 +36,18 @@
             Not found route
           </div>
           <div id="map"></div>
+          <div class="row">
+            <div class="col col-50">
+              Distance:
+              <br>
+              {{vm.distance.text}}
+            </div>
+            <div class="col col-50">
+              Duration:
+              <br>
+              {{vm.duration}}
+            </div>
+          </div>
         </div>
       </div>
       <div class="list card">
@@ -206,63 +218,43 @@
         </div>
       </div>
       <div class="list card">
-        <div class="item item-divider">Vehicle</div>
+        <div class="item item-divider">Vehicle &amp; Seats</div>
         <div class="item item-body">
-          <ion-radio ng-model="vm.vehicle.type" ng-value="'motor'">Motor</ion-radio>
-          <ion-radio ng-model="vm.vehicle.type" ng-value="'car'">Car</ion-radio>
-          <div ng-show="vm.vehicle.type == 'motor'">
-            <label class="item item-select">
-              <span class="input-label">Seats</span>
-              <select>
-                <option>2</option>
-              </select>
-            </label>
-            <label class="item item-select">
-              <span class="input-label">Emoty seats</span>
-              <select>
-                <option>1</option>
-              </select>
-            </label>
-          </div>
-          <div ng-show="vm.vehicle.type == 'car'">
-            <label class="item item-select">
-              <span class="input-label">Seats</span>
-              <select>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option></option>
-              </select>
-            </label>
-            <label class="item item-select">
-              <span class="input-label">Emoty seats</span>
-              <select>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-              </select>
-            </label>
-          </div>
+          <label class="item item-select">
+            <span class="input-label">Vehicle:</span>
+            <select ng-model="vm.vehicle" ng-options="option.name for option in vehicleOptions" required>
+              <option selected value="">Select</option>
+            </select>
+          </label>
+          <label class="item item-select" ng-if="vm.vehicle">
+            <span class="input-label">Seats</span>
+            <select ng-model="vm.seats" ng-options="option.name for option in vm.vehicle.seats" required>
+              <option selected value="">Select</option>
+            </select>
+          </label>
+          <label class="item item-select" ng-if="vm.seats">
+            <span class="input-label">Emoty seats</span>
+            <select ng-model="vm.emptySeats" ng-options="option.name for option in vm.seats.emptySeats" required>
+              <option selected value="">Select</option>
+            </select>
+          </label>
         </div>
       </div>
       <div class="list card">
         <div class="item item-divider">Price &amp; Pay</div>
         <div class="item item-body">
-          <label class="item item-input">
+          <label class="item item-input"
+                 ng-class="{'has-error': newTripForm.pricePerSeat.$dirty && !(vm.pricePerSeat >= 0)}">
             <span class="input-label">Price / Seat</span>
-            <input type="number" placeholder="price">
+            <i class="icon ion-social-usd placeholder-icon"></i>
+            <input type="number" placeholder="price" ng-model="vm.pricePerSeat" required name="pricePerSeat">
           </label>
-          <label class="item item-select">
+          <div class="form-error" ng-show="newTripForm.pricePerSeat.$dirty && !(vm.pricePerSeat >= 0)">
+            Must be larger or equal than 0 $
+          </div>
+          <label class="item item-input">
             <span class="input-label">Payment method</span>
-            <select>
-              <option>Direct payments</option>
-            </select>
+            <input type="text" placeholder="price" readonly value="Direct payments">
           </label>
         </div>
       </div>
@@ -270,31 +262,20 @@
         <div class="item item-divider">Other options</div>
         <div class="item item-body">
           <label class="item item-select">
-            <span class="input-label">Maximum luggage size</span>
-            <select>
-              <option>Small</option>
-              <option>Medium</option>
-              <option>Large</option>
+            <span class="input-label">Luggage size</span>
+            <select ng-model="vm.luggageSize" ng-options="option.value as option.name for option in luggageSizeOptions">
             </select>
           </label>
           <label class="item item-select">
             <span class="input-label">Flexible time</span>
-            <select>
-              <option>On time</option>
-              <option>+/- 5 minutes</option>
-              <option>+/- 10 minutes</option>
-              <option>+/- 15 minutes</option>
-              <option>+/- 30 minutes</option>
+            <select ng-model="vm.flexibleTime"
+                    ng-options="option.value as option.name for option in flexibleTimeOptions">
             </select>
           </label>
           <label class="item item-select">
             <span class="input-label">Flexible distance</span>
-            <select>
-              <option>On time</option>
-              <option>+/- 5 minutes</option>
-              <option>+/- 10 minutes</option>
-              <option>+/- 15 minutes</option>
-              <option>+/- 30 minutes</option>
+            <select ng-model="vm.flexibleDistance"
+                    ng-options="option.value as option.name for option in flexibleDistanceOptions">
             </select>
           </label>
         </div>
@@ -320,7 +301,6 @@
             </div>
           </div>
         </div>
-
 
 
     </form>
