@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9c4b8ee3-f8cf-4d6f-8546-07637ed027ee" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/start.sh" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/css/style.css" afterPath="$PROJECT_DIR$/www/css/style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/controllers/newTrip.controller.js" afterPath="$PROJECT_DIR$/www/js/controllers/newTrip.controller.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/services/googleMap.js" afterPath="$PROJECT_DIR$/www/js/services/googleMap.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/newTrip.html" afterPath="$PROJECT_DIR$/www/templates/newTrip.html" />
     </list>
     <ignored path="myApp.iws" />
@@ -31,20 +28,15 @@
       <file leaf-file-name="newTrip.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/www/templates/newTrip.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.389049">
-              <caret line="136" column="48" selection-start-line="136" selection-start-column="48" selection-end-line="136" selection-end-column="48" />
+            <state vertical-scroll-proportion="0.3291536">
+              <caret line="325" column="4" selection-start-line="325" selection-start-column="4" selection-end-line="325" selection-end-column="4" />
               <folding>
                 <element signature="n#div#0;n#form#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
-                <element signature="n#div#0;n#div#1;n#div#1;n#form#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
-                <element signature="n#div#1;n#div#1;n#div#1;n#form#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
-                <element signature="n#div#2;n#div#1;n#div#1;n#div#1;n#form#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
-                <element signature="n#div#0;n#div#3;n#div#1;n#div#1;n#form#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
-                <element signature="n#div#1;n#div#3;n#div#1;n#div#1;n#form#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
-                <element signature="n#div#0;n#div#1;n#div#3;n#div#1;n#div#1;n#form#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
-                <element signature="n#div#2;n#div#3;n#div#1;n#div#1;n#form#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
-                <element signature="n#div#2;n#div#1;n#form#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
-                <element signature="n#div#3;n#div#1;n#form#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
-                <element signature="n#div#4;n#div#1;n#form#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
+                <element signature="n#div#1;n#form#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
+                <element signature="n#div#2;n#form#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
+                <element signature="n#div#3;n#form#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
+                <element signature="n#div#4;n#form#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
+                <element signature="n#div#2;n#div#4;n#form#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -63,15 +55,36 @@
       <file leaf-file-name="newTrip.controller.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/js/controllers/newTrip.controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.9344263">
-              <caret line="31" column="24" selection-start-line="31" selection-start-column="24" selection-end-line="31" selection-end-column="24" />
+            <state vertical-scroll-proportion="45.033333">
+              <caret line="7" column="24" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="24" />
               <folding>
-                <element signature="e#1348#1444#0" expanded="false" />
-                <element signature="e#1980#2106#0" expanded="false" />
-                <element signature="e#2648#3054#0" expanded="false" />
-                <element signature="e#3088#3434#0" expanded="false" />
-                <element signature="e#3468#3875#0" expanded="false" />
+                <element signature="e#1976#2102#0" expanded="false" />
+                <element signature="e#2638#3044#0" expanded="false" />
+                <element signature="e#3078#3424#0" expanded="false" />
+                <element signature="e#3458#3865#0" expanded="false" />
+                <element signature="e#5188#7950#0" expanded="false" />
+                <element signature="e#7975#8556#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="signup.controller.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/js/controllers/signup.controller.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-25.0">
+              <caret line="62" column="38" selection-start-line="62" selection-start-column="30" selection-end-line="62" selection-end-column="38" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="profile.controller.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/js/controllers/profile.controller.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-4.0">
+              <caret line="8" column="29" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="29" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -490,7 +503,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33384854" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32921174" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32921174" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24960877" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2824726" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -710,13 +723,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/controllers/profile.controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.32085562">
-          <caret line="8" column="29" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/js/controllers/login.controller.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-20.5">
@@ -839,13 +845,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/controllers/signup.controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.3218997">
-          <caret line="62" column="38" selection-start-line="62" selection-start-column="30" selection-end-line="62" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/templates/login.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.91549295">
@@ -869,14 +868,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.2222223">
-          <caret line="8" column="12" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/js/services/googleMap.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-15.366667">
@@ -885,36 +876,56 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/controllers/signup.controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-25.0">
+          <caret line="62" column="38" selection-start-line="62" selection-start-column="30" selection-end-line="62" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/controllers/profile.controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.0">
+          <caret line="8" column="29" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.2222223">
+          <caret line="8" column="12" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/www/js/controllers/newTrip.controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.9344263">
-          <caret line="31" column="24" selection-start-line="31" selection-start-column="24" selection-end-line="31" selection-end-column="24" />
+        <state vertical-scroll-proportion="45.033333">
+          <caret line="7" column="24" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="24" />
           <folding>
-            <element signature="e#1348#1444#0" expanded="false" />
-            <element signature="e#1980#2106#0" expanded="false" />
-            <element signature="e#2648#3054#0" expanded="false" />
-            <element signature="e#3088#3434#0" expanded="false" />
-            <element signature="e#3468#3875#0" expanded="false" />
+            <element signature="e#1976#2102#0" expanded="false" />
+            <element signature="e#2638#3044#0" expanded="false" />
+            <element signature="e#3078#3424#0" expanded="false" />
+            <element signature="e#3458#3865#0" expanded="false" />
+            <element signature="e#5188#7950#0" expanded="false" />
+            <element signature="e#7975#8556#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/templates/newTrip.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.389049">
-          <caret line="136" column="48" selection-start-line="136" selection-start-column="48" selection-end-line="136" selection-end-column="48" />
+        <state vertical-scroll-proportion="0.3291536">
+          <caret line="325" column="4" selection-start-line="325" selection-start-column="4" selection-end-line="325" selection-end-column="4" />
           <folding>
             <element signature="n#div#0;n#form#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#1;n#div#1;n#form#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#1;n#div#1;n#form#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
-            <element signature="n#div#2;n#div#1;n#div#1;n#div#1;n#form#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#3;n#div#1;n#div#1;n#form#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#3;n#div#1;n#div#1;n#form#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#1;n#div#3;n#div#1;n#div#1;n#form#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
-            <element signature="n#div#2;n#div#3;n#div#1;n#div#1;n#form#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
-            <element signature="n#div#2;n#div#1;n#form#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
-            <element signature="n#div#3;n#div#1;n#form#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
-            <element signature="n#div#4;n#div#1;n#form#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
+            <element signature="n#div#1;n#form#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
+            <element signature="n#div#2;n#form#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
+            <element signature="n#div#3;n#form#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
+            <element signature="n#div#4;n#form#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
+            <element signature="n#div#2;n#div#4;n#form#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>

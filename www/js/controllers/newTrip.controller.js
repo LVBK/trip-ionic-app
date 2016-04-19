@@ -5,13 +5,17 @@ angular.module('app.newTrip.controllers', ['ngMap'])
               GoogleMapService, $cordovaToast, TripService) {
       //TODO: check internet connection state
       $ionicLoading.show();
+      $scope.preferences = [
+        {name: "One time", value: 'one-time'},
+        {name: "Often", value: 'often'}
+      ];
       $scope.vm = {
         origin_input: null,
         origin_latlng: null,
         destination_input: null,
         destination_latlng: null,
         isRoundTrip: false,
-        tripType: null,
+        tripType: $scope.preferences[0].value,
         travelTime: new Date(),
         returnTime: new Date(),
         travelOften: [
@@ -29,12 +33,8 @@ angular.module('app.newTrip.controllers', ['ngMap'])
         }),
         directionsService: new google.maps.DirectionsService,
         directionsDisplay: new google.maps.DirectionsRenderer,
-        routeError: null
+        routeError: null,
       };
-      $scope.preferences = [
-        {name: "One time", value: 'one-time'},
-        {name: "Often", value: 'often'}
-      ];
       $scope.vm.directionsDisplay.setMap($scope.vm.map);
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
@@ -42,7 +42,6 @@ angular.module('app.newTrip.controllers', ['ngMap'])
             lat: position.coords.latitude,
             lng: position.coords.longitude
           };
-          console.log(pos);
           $scope.vm.map.setCenter(pos);
         });
       } else {
@@ -64,7 +63,7 @@ angular.module('app.newTrip.controllers', ['ngMap'])
         hideCancelButton: false,
         hideSetButton: true,
         callback: function (value) {
-          if ($scope.vm.tripType.value == "often") {
+          if ($scope.vm.tripType == "often") {
             $scope.endDatepicker.startDate = value;
             $scope.endDatepicker.endDate = bonusSomeDay(value, 10);
           }
@@ -179,11 +178,11 @@ angular.module('app.newTrip.controllers', ['ngMap'])
           "name": $scope.vm.destination_input
         };
         var tripDateTime;
-        console.log($scope.vm.isRoundTrip, $scope.vm.tripType.value);
-        if ($scope.vm.isRoundTrip == true && $scope.vm.tripType.value == 'often') {
+        console.log($scope.vm.isRoundTrip, $scope.vm.tripType);
+        if ($scope.vm.isRoundTrip == true && $scope.vm.tripType == 'often') {
           tripDateTime = {
             isRoundTrip: $scope.vm.isRoundTrip,
-            tripType: $scope.vm.tripType.value,
+            tripType: $scope.vm.tripType,
             startDate: $scope.startDatepicker.date,
             endDate: $scope.endDatepicker.date,
             travelOften: $scope.vm.travelOften,
@@ -191,28 +190,28 @@ angular.module('app.newTrip.controllers', ['ngMap'])
             returnOften: $scope.vm.returnOften,
             returnTime: $scope.vm.returnTime
           }
-        } else if ($scope.vm.isRoundTrip == false && $scope.vm.tripType.value == 'often') {
+        } else if ($scope.vm.isRoundTrip == false && $scope.vm.tripType == 'often') {
           tripDateTime = {
             isRoundTrip: $scope.vm.isRoundTrip,
-            tripType: $scope.vm.tripType.value,
+            tripType: $scope.vm.tripType,
             startDate: $scope.startDatepicker.date,
             endDate: $scope.endDatepicker.date,
             travelOften: $scope.vm.travelOften,
             travelTime: $scope.vm.travelTime,
           }
-        } else if ($scope.vm.isRoundTrip == true && $scope.vm.tripType.value == 'one-time') {
+        } else if ($scope.vm.isRoundTrip == true && $scope.vm.tripType == 'one-time') {
           tripDateTime = {
             isRoundTrip: $scope.vm.isRoundTrip,
-            tripType: $scope.vm.tripType.value,
+            tripType: $scope.vm.tripType,
             travelDate: $scope.travelDatepicker.date,
             returnDate: $scope.returnDatepicker.date,
             travelTime: $scope.vm.travelTime,
             returnTime: $scope.vm.returnTime
           }
-        } else if ($scope.vm.isRoundTrip == false && $scope.vm.tripType.value == 'one-time') {
+        } else if ($scope.vm.isRoundTrip == false && $scope.vm.tripType == 'one-time') {
           tripDateTime = {
             isRoundTrip: $scope.vm.isRoundTrip,
-            tripType: $scope.vm.tripType.value,
+            tripType: $scope.vm.tripType,
             travelDate: $scope.travelDatepicker.date,
             travelTime: $scope.vm.travelTime,
           }
@@ -233,7 +232,8 @@ angular.module('app.newTrip.controllers', ['ngMap'])
         if ($scope.vm.origin_input == null || $scope.vm.destination_input == null
           || $scope.vm.origin_latlng == null || $scope.vm.destination_latlng == null) {
           return;
-        };
+        }
+        ;
         $scope.vm.routeError = null;
         GoogleMapService.route($scope.vm.origin_input, $scope.vm.destination_input, $scope.vm.directionsService,
           function (err, result) {
