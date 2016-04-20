@@ -1,308 +1,322 @@
 <ion-view title="New trip" id="page8">
   <ion-content padding="true" class="has-header gray-bg">
-    <form name="newTripForm" ng-submit="submit()" novalidate>
-      <div class="list card">
-        <div class="item item-divider">Location</div>
-        <div class="item item-body">
-          <label class="item item-input"
-                 ng-class="{'has-error': newTripForm.origin.$dirty && (newTripForm.origin.$invalid  || !vm.origin_latlng)}">
-            <span class="input-label">From</span>
-            <input places-auto-complete ng-model="vm.origin_input" type="text" placeholder="From" name="origin"
-                   ng-model-options="{ debounce: 500 }" ng-change="origin_changed()" required>
-          </label>
-          <div class="form-error"
-               ng-show="newTripForm.origin.$dirty && !newTripForm.origin.$invalid && !vm.origin_latlng">
-            Not found location
+    <div ng-hide="isLoggedIn">
+      <div class="card">
+        <label class="item text-center">
+          <div style="text-align:center;">
+            <img src="img/logo.png" width="30%" height="auto">
           </div>
-          <div class="form-error" ng-show="newTripForm.origin.$dirty && newTripForm.origin.$invalid">
-            From location is required
-          </div>
-          <label class="item item-input"
-                 ng-class="{'has-error': newTripForm.destination.$dirty && (newTripForm.destination.$invalid  || !vm.destination_latlng)}">
-            <span class="input-label">To</span>
-            <input places-auto-complete ng-model="vm.destination_input" type="text" placeholder="To"
-                   ng-model-options="{ debounce: 500 }" ng-change="destination_changed()" name="destination"
-                   required="">
-          </label>
-          <div class="form-error"
-               ng-show="newTripForm.destination.$dirty && !newTripForm.destination.$invalid && !vm.destination_latlng">
-            Not found location
-          </div>
-          <div class="form-error" ng-show="newTripForm.origin.$dirty && newTripForm.origin.$invalid">
-            To location is required
-          </div>
-          <div class="form-error text-center"
-               ng-show="vm.routeError">
-            Not found route
-          </div>
-          <div id="map"></div>
-          <div class="row">
-            <div class="col col-50">
-              Distance:
-              <br>
-              {{vm.distance.text}}
-            </div>
-            <div class="col col-50">
-              Duration:
-              <br>
-              {{vm.duration}}
-            </div>
-          </div>
-        </div>
+          <br>
+          <h2>Login to use this function!</h2>
+          <br>
+          <button class="button button-positive" ui-sref="menu.login">Login now</button>
+        </label>
       </div>
-      <div class="list card">
-        <div class="item item-divider">Date &amp; Time</div>
-        <div class="item item-body">
-          <label class="item item-select">
-            <span class="input-label">Trip type</span>
-            <select ng-model="vm.tripType" ng-options="type.value as type.name for type in preferences" required>
-            </select>
-          </label>
-          <ion-checkbox ng-click="vm.isRoundTrip = !vm.isRoundTrip" ng-checked="vm.isRoundTrip == true">Round trip
-          </ion-checkbox>
-          <div ng-show="vm.tripType=='one-time'">
-            <div class="item item-icon-left">
-              <i class="icon ion-ios-calendar-outline positive"></i>
-              Travel date:
-              <onezone-datepicker datepicker-object="travelDatepicker">
-                <spam class="positive show-onezone-datepicker">
-                  {{travelDatepicker.date | date:'dd MMMM yyyy'}}
-                </spam>
-              </onezone-datepicker>
+    </div>
+    <div ng-show="isLoggedIn">
+      <form name="newTripForm" ng-submit="submit()" novalidate>
+        <div class="list card">
+          <div class="item item-divider">Location</div>
+          <div class="item item-body">
+            <label class="item item-input"
+                   ng-class="{'has-error': newTripForm.origin.$dirty && (newTripForm.origin.$invalid  || !vm.origin_latlng)}">
+              <span class="input-label">From</span>
+              <input places-auto-complete ng-model="vm.origin_input" type="text" placeholder="From" name="origin"
+                     ng-model-options="{ debounce: 500 }" ng-change="origin_changed()" required>
+            </label>
+            <div class="form-error"
+                 ng-show="newTripForm.origin.$dirty && !newTripForm.origin.$invalid && !vm.origin_latlng">
+              Not found location
             </div>
-          </div>
-          <div ng-show="vm.tripType=='often'">
-            <div class="item item-icon-left">
-              <i class="icon ion-ios-calendar-outline positive"></i>
-              Start date:
-              <onezone-datepicker datepicker-object="startDatepicker">
-                <spam class="positive show-onezone-datepicker">
-                  {{startDatepicker.date | date:'dd MMMM yyyy'}}
-                </spam>
-              </onezone-datepicker>
+            <div class="form-error" ng-show="newTripForm.origin.$dirty && newTripForm.origin.$invalid">
+              From location is required
             </div>
-            <div class="item item-icon-left">
-              <i class="icon ion-ios-calendar-outline balanced"></i>
-              End date:
-              <onezone-datepicker datepicker-object="endDatepicker">
-                <spam class="positive show-onezone-datepicker">
-                  {{endDatepicker.date | date:'dd MMMM yyyy'}}
-                </spam>
-              </onezone-datepicker>
+            <label class="item item-input"
+                   ng-class="{'has-error': newTripForm.destination.$dirty && (newTripForm.destination.$invalid  || !vm.destination_latlng)}">
+              <span class="input-label">To</span>
+              <input places-auto-complete ng-model="vm.destination_input" type="text" placeholder="To"
+                     ng-model-options="{ debounce: 500 }" ng-change="destination_changed()" name="destination"
+                     required="">
+            </label>
+            <div class="form-error"
+                 ng-show="newTripForm.destination.$dirty && !newTripForm.destination.$invalid && !vm.destination_latlng">
+              Not found location
             </div>
-            <div class="item item-icon-left">
-              <i class="icon ion-ios-calendar-outline positive"></i>
-              Travel date:
-              <br>
-              <div>
-                <a ng-click="vm.travelOften[0] = !vm.travelOften[0]">
-                  <div
-                    ng-class="{'week-day-button-actived': vm.travelOften[0], 'week-day-button' : !vm.travelOften[0]}">
-                    Su
-                  </div>
-                </a>
-                <a ng-click="vm.travelOften[1] = !vm.travelOften[1]">
-                  <div
-                    ng-class="{'week-day-button-actived': vm.travelOften[1], 'week-day-button' : !vm.travelOften[1]}">
-                    Mo
-                  </div>
-                </a>
-                <a ng-click="vm.travelOften[2] = !vm.travelOften[2]">
-                  <div
-                    ng-class="{'week-day-button-actived': vm.travelOften[2], 'week-day-button' : !vm.travelOften[2]}">
-                    Tu
-                  </div>
-                </a>
-                <a ng-click="vm.travelOften[3] = !vm.travelOften[3]">
-                  <div
-                    ng-class="{'week-day-button-actived': vm.travelOften[3], 'week-day-button' : !vm.travelOften[3]}">
-                    We
-                  </div>
-                </a>
-                <a ng-click="vm.travelOften[4] = !vm.travelOften[4]">
-                  <div
-                    ng-class="{'week-day-button-actived': vm.travelOften[4], 'week-day-button' : !vm.travelOften[4]}">
-                    Th
-                  </div>
-                </a>
-                <a ng-click="vm.travelOften[5] = !vm.travelOften[5]">
-                  <div
-                    ng-class="{'week-day-button-actived': vm.travelOften[5], 'week-day-button' : !vm.travelOften[5]}">
-                    Fr
-                  </div>
-                </a>
-                <a ng-click="vm.travelOften[6] = !vm.travelOften[6]">
-                  <div
-                    ng-class="{'week-day-button-actived': vm.travelOften[6], 'week-day-button' : !vm.travelOften[6]}">
-                    Sa
-                  </div>
-                </a>
+            <div class="form-error" ng-show="newTripForm.origin.$dirty && newTripForm.origin.$invalid">
+              To location is required
+            </div>
+            <div class="form-error text-center"
+                 ng-show="vm.routeError">
+              Not found route
+            </div>
+            <div id="map"></div>
+            <div class="row">
+              <div class="col col-50">
+                Distance:
+                <br>
+                {{vm.distance.text}}
+              </div>
+              <div class="col col-50">
+                Duration:
+                <br>
+                {{vm.duration.text}}
               </div>
             </div>
           </div>
-          <div ng-show="vm.tripType" class="item item-icon-left" ion-datetime-picker time ng-model="vm.travelTime">
-            <i class="icon ion-ios-clock-outline positive"></i>
-            Travel at:
-            <strong>{{vm.travelTime| date: "H:mm"}}</strong>
-          </div>
-          <div ng-show="vm.isRoundTrip == true">
+        </div>
+        <div class="list card">
+          <div class="item item-divider">Date &amp; Time</div>
+          <div class="item item-body">
+            <label class="item item-select">
+              <span class="input-label">Trip type</span>
+              <select ng-model="vm.tripType" ng-options="type.value as type.name for type in preferences" required>
+              </select>
+            </label>
+            <ion-checkbox ng-click="vm.isRoundTrip = !vm.isRoundTrip" ng-checked="vm.isRoundTrip == true">Round trip
+            </ion-checkbox>
             <div ng-show="vm.tripType=='one-time'">
               <div class="item item-icon-left">
-                <i class="icon ion-ios-calendar-outline balanced"></i>
-                Return date:
-                <onezone-datepicker datepicker-object="returnDatepicker">
+                <i class="icon ion-ios-calendar-outline positive"></i>
+                Travel date:
+                <onezone-datepicker datepicker-object="travelDatepicker">
                   <spam class="positive show-onezone-datepicker">
-                    {{returnDatepicker.date | date:'dd MMMM yyyy'}}
+                    {{travelDatepicker.date | date:'dd MMMM yyyy'}}
                   </spam>
                 </onezone-datepicker>
               </div>
             </div>
             <div ng-show="vm.tripType=='often'">
               <div class="item item-icon-left">
+                <i class="icon ion-ios-calendar-outline positive"></i>
+                Start date:
+                <onezone-datepicker datepicker-object="startDatepicker">
+                  <spam class="positive show-onezone-datepicker">
+                    {{startDatepicker.date | date:'dd MMMM yyyy'}}
+                  </spam>
+                </onezone-datepicker>
+              </div>
+              <div class="item item-icon-left">
                 <i class="icon ion-ios-calendar-outline balanced"></i>
-                Return date:
+                End date:
+                <onezone-datepicker datepicker-object="endDatepicker">
+                  <spam class="positive show-onezone-datepicker">
+                    {{endDatepicker.date | date:'dd MMMM yyyy'}}
+                  </spam>
+                </onezone-datepicker>
+              </div>
+              <div class="item item-icon-left">
+                <i class="icon ion-ios-calendar-outline positive"></i>
+                Travel date:
                 <br>
                 <div>
-                  <a ng-click="vm.returnOften[0] = !vm.returnOften[0]">
+                  <a ng-click="vm.travelDaysInWeek[0] = !vm.travelDaysInWeek[0]">
                     <div
-                      ng-class="{'week-day-button-actived': vm.returnOften[0], 'week-day-button' : !vm.returnOften[0]}">
+                      ng-class="{'week-day-button-actived': vm.travelDaysInWeek[0], 'week-day-button' : !vm.travelDaysInWeek[0]}">
                       Su
                     </div>
                   </a>
-                  <a ng-click="vm.returnOften[1] = !vm.returnOften[1]">
+                  <a ng-click="vm.travelDaysInWeek[1] = !vm.travelDaysInWeek[1]">
                     <div
-                      ng-class="{'week-day-button-actived': vm.returnOften[1], 'week-day-button' : !vm.returnOften[1]}">
+                      ng-class="{'week-day-button-actived': vm.travelDaysInWeek[1], 'week-day-button' : !vm.travelDaysInWeek[1]}">
                       Mo
                     </div>
                   </a>
-                  <a ng-click="vm.returnOften[2] = !vm.returnOften[2]">
+                  <a ng-click="vm.travelDaysInWeek[2] = !vm.travelDaysInWeek[2]">
                     <div
-                      ng-class="{'week-day-button-actived': vm.returnOften[2], 'week-day-button' : !vm.returnOften[2]}">
+                      ng-class="{'week-day-button-actived': vm.travelDaysInWeek[2], 'week-day-button' : !vm.travelDaysInWeek[2]}">
                       Tu
                     </div>
                   </a>
-                  <a ng-click="vm.returnOften[3] = !vm.returnOften[3]">
+                  <a ng-click="vm.travelDaysInWeek[3] = !vm.travelDaysInWeek[3]">
                     <div
-                      ng-class="{'week-day-button-actived': vm.returnOften[3], 'week-day-button' : !vm.returnOften[3]}">
+                      ng-class="{'week-day-button-actived': vm.travelDaysInWeek[3], 'week-day-button' : !vm.travelDaysInWeek[3]}">
                       We
                     </div>
                   </a>
-                  <a ng-click="vm.returnOften[4] = !vm.returnOften[4]">
+                  <a ng-click="vm.travelDaysInWeek[4] = !vm.travelDaysInWeek[4]">
                     <div
-                      ng-class="{'week-day-button-actived': vm.returnOften[4], 'week-day-button' : !vm.returnOften[4]}">
+                      ng-class="{'week-day-button-actived': vm.travelDaysInWeek[4], 'week-day-button' : !vm.travelDaysInWeek[4]}">
                       Th
                     </div>
                   </a>
-                  <a ng-click="vm.returnOften[5] = !vm.returnOften[5]">
+                  <a ng-click="vm.travelDaysInWeek[5] = !vm.travelDaysInWeek[5]">
                     <div
-                      ng-class="{'week-day-button-actived': vm.returnOften[5], 'week-day-button' : !vm.returnOften[5]}">
+                      ng-class="{'week-day-button-actived': vm.travelDaysInWeek[5], 'week-day-button' : !vm.travelDaysInWeek[5]}">
                       Fr
                     </div>
                   </a>
-                  <a ng-click="vm.returnOften[6] = !vm.returnOften[6]">
+                  <a ng-click="vm.travelDaysInWeek[6] = !vm.travelDaysInWeek[6]">
                     <div
-                      ng-class="{'week-day-button-actived': vm.returnOften[6], 'week-day-button' : !vm.returnOften[6]}">
+                      ng-class="{'week-day-button-actived': vm.travelDaysInWeek[6], 'week-day-button' : !vm.travelDaysInWeek[6]}">
                       Sa
                     </div>
                   </a>
                 </div>
               </div>
             </div>
-            <div ng-show="vm.tripType" class="item item-icon-left" ion-datetime-picker time ng-model="vm.returnTime"
-                 ng-required="{{vm.isRoundTrip}}">
-              <i class="icon ion-ios-clock-outline balanced"></i>
-              Return at:
-              <strong>{{vm.returnTime| date: "H:mm"}}</strong>
+            <div ng-show="vm.tripType" class="item item-icon-left" ion-datetime-picker time ng-model="vm.travelTime">
+              <i class="icon ion-ios-clock-outline positive"></i>
+              Travel at:
+              <strong>{{vm.travelTime| date: "H:mm"}}</strong>
+            </div>
+            <div ng-show="vm.isRoundTrip == true">
+              <div ng-show="vm.tripType=='one-time'">
+                <div class="item item-icon-left">
+                  <i class="icon ion-ios-calendar-outline balanced"></i>
+                  Return date:
+                  <onezone-datepicker datepicker-object="returnDatepicker">
+                    <spam class="positive show-onezone-datepicker">
+                      {{returnDatepicker.date | date:'dd MMMM yyyy'}}
+                    </spam>
+                  </onezone-datepicker>
+                </div>
+              </div>
+              <div ng-show="vm.tripType=='often'">
+                <div class="item item-icon-left">
+                  <i class="icon ion-ios-calendar-outline balanced"></i>
+                  Return date:
+                  <br>
+                  <div>
+                    <a ng-click="vm.returnDaysInWeek[0] = !vm.returnDaysInWeek[0]">
+                      <div
+                        ng-class="{'week-day-button-actived': vm.returnDaysInWeek[0], 'week-day-button' : !vm.returnDaysInWeek[0]}">
+                        Su
+                      </div>
+                    </a>
+                    <a ng-click="vm.returnDaysInWeek[1] = !vm.returnDaysInWeek[1]">
+                      <div
+                        ng-class="{'week-day-button-actived': vm.returnDaysInWeek[1], 'week-day-button' : !vm.returnDaysInWeek[1]}">
+                        Mo
+                      </div>
+                    </a>
+                    <a ng-click="vm.returnDaysInWeek[2] = !vm.returnDaysInWeek[2]">
+                      <div
+                        ng-class="{'week-day-button-actived': vm.returnDaysInWeek[2], 'week-day-button' : !vm.returnDaysInWeek[2]}">
+                        Tu
+                      </div>
+                    </a>
+                    <a ng-click="vm.returnDaysInWeek[3] = !vm.returnDaysInWeek[3]">
+                      <div
+                        ng-class="{'week-day-button-actived': vm.returnDaysInWeek[3], 'week-day-button' : !vm.returnDaysInWeek[3]}">
+                        We
+                      </div>
+                    </a>
+                    <a ng-click="vm.returnDaysInWeek[4] = !vm.returnDaysInWeek[4]">
+                      <div
+                        ng-class="{'week-day-button-actived': vm.returnDaysInWeek[4], 'week-day-button' : !vm.returnDaysInWeek[4]}">
+                        Th
+                      </div>
+                    </a>
+                    <a ng-click="vm.returnDaysInWeek[5] = !vm.returnDaysInWeek[5]">
+                      <div
+                        ng-class="{'week-day-button-actived': vm.returnDaysInWeek[5], 'week-day-button' : !vm.returnDaysInWeek[5]}">
+                        Fr
+                      </div>
+                    </a>
+                    <a ng-click="vm.returnDaysInWeek[6] = !vm.returnDaysInWeek[6]">
+                      <div
+                        ng-class="{'week-day-button-actived': vm.returnDaysInWeek[6], 'week-day-button' : !vm.returnDaysInWeek[6]}">
+                        Sa
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div ng-show="vm.tripType" class="item item-icon-left" ion-datetime-picker time ng-model="vm.returnTime"
+                   ng-required="{{vm.isRoundTrip}}">
+                <i class="icon ion-ios-clock-outline balanced"></i>
+                Return at:
+                <strong>{{vm.returnTime| date: "H:mm"}}</strong>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="list card">
-        <div class="item item-divider">Vehicle &amp; Seats</div>
-        <div class="item item-body">
-          <label class="item item-select">
-            <span class="input-label">Vehicle:</span>
-            <select ng-model="vm.vehicle" ng-options="option.name for option in vehicleOptions" required>
-              <option selected value="">Select</option>
-            </select>
-          </label>
-          <label class="item item-select" ng-if="vm.vehicle">
-            <span class="input-label">Seats</span>
-            <select ng-model="vm.seats" ng-options="option.name for option in vm.vehicle.seats" required>
-              <option selected value="">Select</option>
-            </select>
-          </label>
-          <label class="item item-select" ng-if="vm.seats">
-            <span class="input-label">Emoty seats</span>
-            <select ng-model="vm.emptySeats" ng-options="option.name for option in vm.seats.emptySeats" required>
-              <option selected value="">Select</option>
-            </select>
-          </label>
-        </div>
-      </div>
-      <div class="list card">
-        <div class="item item-divider">Price &amp; Pay</div>
-        <div class="item item-body">
-          <label class="item item-input"
-                 ng-class="{'has-error': newTripForm.pricePerSeat.$dirty && !(vm.pricePerSeat >= 0)}">
-            <span class="input-label">Price / Seat</span>
-            <i class="icon ion-social-usd placeholder-icon"></i>
-            <input type="number" placeholder="price" ng-model="vm.pricePerSeat" required name="pricePerSeat">
-          </label>
-          <div class="form-error" ng-show="newTripForm.pricePerSeat.$dirty && !(vm.pricePerSeat >= 0)">
-            Must be larger or equal than 0 $
+        <div class="list card">
+          <div class="item item-divider">Vehicle &amp; Seats</div>
+          <div class="item item-body">
+            <label class="item item-select">
+              <span class="input-label">Vehicle:</span>
+              <select ng-model="vm.vehicle" ng-options="option.name for option in vehicleOptions" required>
+                <option selected value="">Select</option>
+              </select>
+            </label>
+            <label class="item item-select" ng-if="vm.vehicle">
+              <span class="input-label">Seats</span>
+              <select ng-model="vm.seats" ng-options="option.name for option in vm.vehicle.seats" required>
+                <option selected value="">Select</option>
+              </select>
+            </label>
+            <label class="item item-select" ng-if="vm.seats">
+              <span class="input-label">Emoty seats</span>
+              <select ng-model="vm.emptySeats" ng-options="option.name for option in vm.seats.emptySeats" required>
+                <option selected value="">Select</option>
+              </select>
+            </label>
           </div>
-          <label class="item item-input">
-            <span class="input-label">Payment method</span>
-            <input type="text" placeholder="price" readonly value="Direct payments">
-          </label>
         </div>
-      </div>
-      <div class="list card">
-        <div class="item item-divider">Other options</div>
-        <div class="item item-body">
-          <label class="item item-select">
-            <span class="input-label">Luggage size</span>
-            <select ng-model="vm.luggageSize" ng-options="option.value as option.name for option in luggageSizeOptions">
-            </select>
-          </label>
-          <label class="item item-select">
-            <span class="input-label">Flexible time</span>
-            <select ng-model="vm.flexibleTime"
-                    ng-options="option.value as option.name for option in flexibleTimeOptions">
-            </select>
-          </label>
-          <label class="item item-select">
-            <span class="input-label">Flexible distance</span>
-            <select ng-model="vm.flexibleDistance"
-                    ng-options="option.value as option.name for option in flexibleDistanceOptions">
-            </select>
-          </label>
-        </div>
-        <div class="list row">
-          <div class="col-50">
-            <div class="col-90">
-              <button type="button" class="button button-assertive  button-block button-outline"
-                      ng-click="cancel()">Cancel
-              </button>
+        <div class="list card">
+          <div class="item item-divider">Price &amp; Pay</div>
+          <div class="item item-body">
+            <label class="item item-input"
+                   ng-class="{'has-error': newTripForm.pricePerSeat.$dirty && !(vm.pricePerSeat >= 0)}">
+              <span class="input-label">Price / Seat</span>
+              <i class="icon ion-social-usd placeholder-icon"></i>
+              <input type="number" placeholder="price" ng-model="vm.pricePerSeat" required name="pricePerSeat">
+            </label>
+            <div class="form-error" ng-show="newTripForm.pricePerSeat.$dirty && !(vm.pricePerSeat >= 0)">
+              Must be larger or equal than 0 $
             </div>
+            <label class="item item-input">
+              <span class="input-label">Payment method</span>
+              <input type="text" placeholder="price" readonly value="Direct payments">
+            </label>
           </div>
-          <div class="col-50">
-            <div class="col-offset-10 col-90">
-              <button type="submit" class="button button-positive  button-block"
-                      ng-disabled="
+        </div>
+        <div class="list card">
+          <div class="item item-divider">Other options</div>
+          <div class="item item-body">
+            <label class="item item-select">
+              <span class="input-label">Luggage size</span>
+              <select ng-model="vm.baggageSize"
+                      ng-options="option.value as option.name for option in baggageSizeOptions">
+              </select>
+            </label>
+            <label class="item item-select">
+              <span class="input-label">Flexible time</span>
+              <select ng-model="vm.flexibleTime"
+                      ng-options="option.value as option.name for option in flexibleTimeOptions">
+              </select>
+            </label>
+            <label class="item item-select">
+              <span class="input-label">Flexible distance</span>
+              <select ng-model="vm.flexibleDistance"
+                      ng-options="option.value as option.name for option in flexibleDistanceOptions">
+              </select>
+            </label>
+          </div>
+          <div class="list row">
+            <div class="col-50">
+              <div class="col-90">
+                <button type="button" class="button button-assertive  button-block button-outline"
+                        ng-click="cancel()">Cancel
+                </button>
+              </div>
+            </div>
+            <div class="col-50">
+              <div class="col-offset-10 col-90">
+                <button type="submit" class="button button-positive  button-block"
+                        ng-disabled="
                         newTripForm.$invalid
                         || vm.routeError
                         || (vm.tripType == 'often'
-                        && (vm.travelOften.indexOf(true) == -1
-                        || (vm.returnOften.indexOf(true) == -1 && vm.isRoundTrip)))">
-                Publish
-              </button>
+                        && (vm.travelDaysInWeek.indexOf(true) == -1
+                        || (vm.returnDaysInWeek.indexOf(true) == -1 && vm.isRoundTrip)))">
+                  Publish
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-
-
-    </form>
+      </form>
+    </div>
   </ion-content>
 </ion-view>

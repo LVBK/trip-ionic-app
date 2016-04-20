@@ -4,12 +4,17 @@ angular.module('app.newTrip.controllers', ['ngMap'])
     function ($scope, $ionicLoading, NgMap, $interval, $ionicPopup, $state, $ionicHistory,
               GoogleMapService, $cordovaToast, TripService) {
       //TODO: check internet connection state
+      $scope.helpers({
+        isLoggedIn: function () {
+          return Meteor.userId() !== null;
+        },
+      })
       $ionicLoading.show();
       $scope.preferences = [
         {name: "One time", value: 'one-time'},
         {name: "Often", value: 'often'}
       ];
-      $scope.luggageSizeOptions = [
+      $scope.baggageSizeOptions = [
         {name: "Small", value: 'Small'},
         {name: "Medium", value: 'Medium'},
         {name: "Large", value: 'Large'}
@@ -93,10 +98,10 @@ angular.module('app.newTrip.controllers', ['ngMap'])
         isRoundTrip: false,
         travelTime: new Date(),
         returnTime: new Date(),
-        travelOften: [
+        travelDaysInWeek: [
           false, false, false, false, false, false, false
         ],
-        returnOften: [
+        returnDaysInWeek: [
           false, false, false, false, false, false, false
         ],
         geocoder: new google.maps.Geocoder(),
@@ -117,7 +122,7 @@ angular.module('app.newTrip.controllers', ['ngMap'])
         seats: null,
         emptySeats: null,
         pricePerSeat: null,
-        luggageSize: $scope.luggageSizeOptions[1].value,
+        baggageSize: $scope.baggageSizeOptions[1].value,
         flexibleTime: $scope.flexibleTimeOptions[0].value,
         flexibleDistance: $scope.flexibleDistanceOptions[0].value,
       };
@@ -136,7 +141,6 @@ angular.module('app.newTrip.controllers', ['ngMap'])
       $ionicLoading.hide();
       function bonusSomeDay(inputDate, bonusDay) {
         inputDate.setDate(inputDate.getDate() + bonusDay);
-        console.log(inputDate);
         return inputDate;
       };
       $scope.startDatepicker = {
@@ -151,15 +155,15 @@ angular.module('app.newTrip.controllers', ['ngMap'])
         callback: function (value) {
           if ($scope.vm.tripType == "often") {
             $scope.endDatepicker.startDate = value;
-            $scope.endDatepicker.endDate = bonusSomeDay(value, 10);
+            $scope.endDatepicker.endDate = bonusSomeDay(value, 30);
           }
         }
       };
       $scope.endDatepicker = {
-        date: bonusSomeDay(new Date(), 10),
+        date: bonusSomeDay(new Date(), 30),
         mondayFirst: true,
         startDate: $scope.startDatepicker.date,
-        endDate: bonusSomeDay(new Date(), 10),
+        endDate: bonusSomeDay(new Date(), 30),
         disablePastDays: true,
         showDatepicker: false,
         showTodayButton: true,
@@ -260,9 +264,9 @@ angular.module('app.newTrip.controllers', ['ngMap'])
             tripType: $scope.vm.tripType,
             startDate: $scope.startDatepicker.date,
             endDate: $scope.endDatepicker.date,
-            travelOften: $scope.vm.travelOften,
+            travelDaysInWeek: $scope.vm.travelDaysInWeek,
             travelTime: $scope.vm.travelTime,
-            returnOften: $scope.vm.returnOften,
+            returnDaysInWeek: $scope.vm.returnDaysInWeek,
             returnTime: $scope.vm.returnTime
           }
         } else if ($scope.vm.isRoundTrip == false && $scope.vm.tripType == $scope.preferences[1].value) {
@@ -271,7 +275,7 @@ angular.module('app.newTrip.controllers', ['ngMap'])
             tripType: $scope.vm.tripType,
             startDate: $scope.startDatepicker.date,
             endDate: $scope.endDatepicker.date,
-            travelOften: $scope.vm.travelOften,
+            travelDaysInWeek: $scope.vm.travelDaysInWeek,
             travelTime: $scope.vm.travelTime,
           }
         } else if ($scope.vm.isRoundTrip == true && $scope.vm.tripType == $scope.preferences[0].value) {
@@ -305,13 +309,13 @@ angular.module('app.newTrip.controllers', ['ngMap'])
             "coordinates": $scope.vm.destination_latlng,
             "name": $scope.vm.destination_input
           },
-          emptySeaats: $scope.vm.emptySeats.name,
+          emptySeats: $scope.vm.emptySeats.name,
           seats: $scope.vm.seats.name,
-          distance: $scope.vm.distance.text,
+          distance: $scope.vm.distance,
           duration: $scope.vm.duration,
           pricePerSeat: $scope.vm.pricePerSeat,
           vehicle: $scope.vm.vehicle.name,
-          luggageSize: $scope.vm.luggageSize,
+          baggageSize: $scope.vm.baggageSize,
           flexibleTime: $scope.vm.flexibleTime,
           flexibleDistance: $scope.vm.flexibleDistance
         };
@@ -322,6 +326,8 @@ angular.module('app.newTrip.controllers', ['ngMap'])
             showAlert(err);
           } else {
             showAlert("Create trip success");
+            //TODO: a modal state go to home, got to see trip
+            //TODO: reset form
           }
         })
       };
@@ -337,7 +343,7 @@ angular.module('app.newTrip.controllers', ['ngMap'])
               $scope.vm.routeError = err;
             } else {
               $scope.vm.distance = result.routes[0].legs[0].distance;
-              $scope.vm.duration = result.routes[0].legs[0].duration.text;
+              $scope.vm.duration = result.routes[0].legs[0].duration;
               $scope.vm.directionsDisplay.setDirections(result);
             }
           });
@@ -358,6 +364,6 @@ angular.module('app.newTrip.controllers', ['ngMap'])
             $scope.vm.pricePerSeat =
               Math.round($scope.vm.distance.value * $scope.vm.vehicle.expend / $scope.vm.seats.name / 1000, 3);
           }
-        }
+        },
       })
     }])
