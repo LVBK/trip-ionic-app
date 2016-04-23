@@ -71,6 +71,7 @@ angular.module('app.login.controllers', [])
         console.log("Trying loging facebook");
         $cordovaFacebook.getLoginStatus()
           .then(function (success) {
+            console.log("sucess", success);
             if (success.status === 'connected') {
 
               $scope.fbUserLoginToSystem(success.authResponse);

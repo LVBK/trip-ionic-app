@@ -5,25 +5,33 @@
         <div style="text-align:center;">
           <img src="img/logo.png" width="50%" height="auto">
         </div>
-        <form ng-submit="">
+        <form name="homeSearchForm" ng-submit="" novalidate>
           <div class="list list-inset">
-            <label class="item item-input positive-border">
+            <label class="item item-input positive-border"
+                   ng-class="{'has-error': homeSearchForm.origin.$dirty && homeSearchForm.origin.$valid && !vm.origin_latlng}">
               <i class="icon ion-location placeholder-icon balanced"></i>
               <input places-auto-complete ng-model="vm.origin_input" type="text" placeholder="From"
-                     ng-model-options="{debounce: 1000}" ng-change="origin_changed()">
+                     name="origin" ng-model-options="{debounce: 1000}" ng-change="origin_changed()" required>
             </label>
+            <div class="form-error"
+                 ng-show="homeSearchForm.origin.$dirty && homeSearchForm.origin.$valid && !vm.origin_latlng">
+              Not found location
+            </div>
           </div>
           <div class="list list-inset">
-            <label class="item item-input positive-border">
+            <label class="item item-input positive-border"
+                   ng-class="{'has-error': homeSearchForm.destination.$dirty && homeSearchForm.destination.$valid && !vm.destination_latlng}">
               <i class="icon ion-location placeholder-icon assertive"></i>
               <input places-auto-complete ng-model="vm.destination_input" type="text" placeholder="To"
-                     ng-model-options="{debounce: 1000}" ng-change="destination_changed()">
+                     name="destination" ng-model-options="{debounce: 1000}" ng-change="destination_changed()" required>
             </label>
+            <div class="form-error"
+                 ng-show="homeSearchForm.destination.$dirty && homeSearchForm.destination.$valid && !vm.destination_latlng">
+              Not found location
+            </div>
           </div>
-          <!--<a ui-sref="menu.search" id="home-button7" class="button button-positive  button-block icon ion-search"-->
-             <!--type="button">-->
-            <!--Find a trip</a>-->
-          <a ng-click="search(vm.origin_latlng, vm.destination_latlng, vm.distance)" id="home-button7" class="button button-positive  button-block icon ion-search"
+          <a ui-sref="menu.search({originSearch: vm.origin_input, destinationSearch: vm.destination_input})"
+             id="home-button7" class="button button-positive  button-block icon ion-search"
              type="button">
             Find a trip</a>
           <div id="home-markdown1" style="color:#816666;text-align:center;">

@@ -1,4 +1,4 @@
-angular.module('app.newTrip.controllers', ['ngMap'])
+angular.module('app.newTrip.controllers', [])
   .controller('newTripCtrl', ['$scope', '$ionicLoading', 'NgMap', '$interval', '$ionicPopup', '$state',
     '$ionicHistory', 'GoogleMapService', '$cordovaToast', 'TripService',
     function ($scope, $ionicLoading, NgMap, $interval, $ionicPopup, $state, $ionicHistory,

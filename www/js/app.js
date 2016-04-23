@@ -9,6 +9,7 @@ angular.module('app', [
     'ionic',
     'ngCordova',
     'ngMessages',
+    'ngMap',
     'angular-meteor',
     'ion-datetime-picker',
     'onezone-datepicker',
@@ -17,13 +18,14 @@ angular.module('app', [
     'app.services',
     'app.directives',
   ])
-
-  .run(function ($ionicPlatform) {
+  //.config(['$cordovaFacebookProvider', function ($cordovaFacebookProvider) {
+  //  $cordovaFacebookProvider.browserInit(_FB_APP_ID, _FB_APP_VERSION);
+  //}])
+  .run(['$ionicPlatform', function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-      // for form inputs)
+      // for form inputs
       facebookConnectPlugin.browserInit(_FB_APP_ID, _FB_APP_VERSION);
-
       if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
         cordova.plugins.Keyboard.disableScroll(true);
@@ -33,4 +35,4 @@ angular.module('app', [
         StatusBar.styleDefault();
       }
     });
-  })
+  }])

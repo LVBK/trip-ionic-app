@@ -104,6 +104,10 @@ angular.module('app.routes', [])
 
       .state('menu.search', {
         url: '/search',
+        params: {
+          originSearch: null,
+          destinationSearch: null,
+        },
         views: {
           'side-menu21': {
             templateUrl: 'templates/search.html',

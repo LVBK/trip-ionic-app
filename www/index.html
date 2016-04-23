@@ -56,7 +56,10 @@
 <script type="text/javascript">
   //FB SDK for web
   (function () {
-    if (document.location.hostname == 'localhost') {
+    if (document.location.hostname == 'localhost' ||
+      document.location.hostname == 'tripapp.com' ||
+      document.location.hostname == '192.168.1.103') {
+      console.log("Loading facebook plugin");
       document.write('<div id="fb-root"></div>');
       document.write('<script src="fb_sdk.js"><' + '/script>');
       document.write('<script src="facebookConnectPlugin.js"></' + 'script>');
