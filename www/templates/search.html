@@ -32,6 +32,11 @@
               </spam>
             </onezone-datepicker>
           </div>
+          <label class="item item-select">
+            <span class="input-label">Distance:</span>
+            <select ng-model="vm.distance" ng-options="option.value as option.name for option in distanceOptions" required>
+            </select>
+          </label>
           <a ng-click="search(vm.origin_latlng, vm.destination_latlng, vm.distance, searchDatepicker.date)"
              id="home-button7" class="button button-positive  button-block icon ion-search"
              type="button">

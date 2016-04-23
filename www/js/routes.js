@@ -106,7 +106,9 @@ angular.module('app.routes', [])
         url: '/search',
         params: {
           originSearch: null,
+          origin_latlng: null,
           destinationSearch: null,
+          destination_latlng: null,
         },
         views: {
           'side-menu21': {

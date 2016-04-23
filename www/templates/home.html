@@ -30,9 +30,11 @@
               Not found location
             </div>
           </div>
-          <a ui-sref="menu.search({originSearch: vm.origin_input, destinationSearch: vm.destination_input})"
-             id="home-button7" class="button button-positive  button-block icon ion-search"
-             type="button">
+          <a
+            ui-sref="menu.search({originSearch: vm.origin_input, origin_latlng: vm.origin_latlng,
+            destinationSearch: vm.destination_input, destination_latlng: vm.destination_latlng})"
+            id="home-button7" class="button button-positive  button-block icon ion-search"
+            type="button">
             Find a trip</a>
           <div id="home-markdown1" style="color:#816666;text-align:center;">
             <p>Or you have empty seats?</p>
