@@ -6,7 +6,9 @@ angular.module('app.services.trips', [])
         return [
           reactiveContext.getReactively('origin_latlng'),
           reactiveContext.getReactively('destination_latlng'),
-          reactiveContext.getReactively('distance')
+          reactiveContext.getReactively('distance'),
+          reactiveContext.getReactively('date'),
+          parseInt(reactiveContext.getReactively('limit')),
         ]
       }, {
         onReady: function () {
@@ -21,9 +23,12 @@ angular.module('app.services.trips', [])
         }
       });
       reactiveContext.helpers({
-        tripSearchData: function () {
-          return Trips.find({});
-        }
+        roadMapSearchData: function () {
+          return RoadMaps.find({}, {limit: parseInt(reactiveContext.getReactively('limit'))}).fetch()
+        },
+        rowCount: function () {
+          return Counts.get('trip_search');
+        },
       });
     };
     createATrip = function (param, callback) {

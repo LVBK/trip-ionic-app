@@ -1,9 +1,9 @@
 <ion-view title="Search" id="page9">
-  <ion-content padding="true" class="has-header gray-bg">
+  <ion-content class="has-header gray-bg">
     <form name="searchForm" ng-submit="" novalidate>
       <div class="list card">
         <div class="item item-body">
-          <label class="item item-input positive-border"
+          <label class="item item-input"
                  ng-class="{'has-error': searchForm.origin.$dirty && searchForm.origin.$valid && !vm.origin_latlng}">
             <i class="icon ion-location placeholder-icon balanced"></i>
             <input places-auto-complete ng-model="vm.origin_input" type="text" placeholder="From"
@@ -13,7 +13,7 @@
                ng-show="searchForm.origin.$dirty && searchForm.origin.$valid && !vm.origin_latlng">
             Not found location
           </div>
-          <label class="item item-input positive-border"
+          <label class="item item-input"
                  ng-class="{'has-error': searchForm.destination.$dirty && searchForm.destination.$valid && !vm.destination_latlng}">
             <i class="icon ion-location placeholder-icon assertive"></i>
             <input places-auto-complete ng-model="vm.destination_input" type="text" placeholder="To"
@@ -34,7 +34,8 @@
           </div>
           <label class="item item-select">
             <span class="input-label">Distance:</span>
-            <select ng-model="vm.distance" ng-options="option.value as option.name for option in distanceOptions" required>
+            <select ng-model="vm.distance" ng-options="option.value as option.name for option in distanceOptions"
+                    required>
             </select>
           </label>
           <a ng-click="search(vm.origin_latlng, vm.destination_latlng, vm.distance, searchDatepicker.date)"
@@ -44,5 +45,32 @@
         </div>
       </div>
     </form>
+    <div ui-sref="menu.home" ng-repeat="item in searchData.roadMapSearchData track by item._id">
+      <div class="item item-thumbnail-left item-avatar item-text-wrap no-padding-bottom">
+        <img ng-src={{::getThumbnailUrl(getUserProfile(getTrip(item.tripId).owner).avatar)}}>
+        <h2><b>{{::getUserProfile(getTrip(item.tripId).owner).name}}</b></h2>
+        <h3><b>From: </b>{{::item.origin.name}}</h3>
+        <h3><b>To: </b>{{::item.destination.name}}</h3>
+        <h3><b>Vehicle: </b>{{::getTrip(item.tripId).vehicle}}</h3>
+        <div class="row">
+          <div class="col col-50">
+            <span class="balanced">{{::getTrip(item.tripId).pricePerSeat}}$</span>
+          </div>
+          <div class="col col-50">
+            <span
+              class="positive">{{getTrip(item.tripId).seats - item.slots.length}}/{{getTrip(item.tripId).seats}} Seats</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="item text-center" ng-if="vm.noMoreItemAvailable">
+      <p>No more</p>
+    </div>
+    <ion-infinite-scroll
+      ng-if="!vm.noMoreItemAvailable"
+      on-infinite="loadMore()"
+      distance="1%">
+      <ion-spinner icon="circles" ></ion-spinner>
+    </ion-infinite-scroll>
   </ion-content>
 </ion-view>
