@@ -31,12 +31,51 @@ angular.module('app.services.trips', [])
         },
       });
     };
+    tripDetailSubscribe = function (context, $scope) {
+      var reactiveContext = $reactive(context).attach($scope);
+      var handler = reactiveContext.subscribe('trip_detail', function () {
+        return [
+          reactiveContext.getReactively('roadMapId'),
+          parseInt(reactiveContext.getReactively('limit')),
+        ]
+      }, {
+        onReady: function () {
+          console.log("onReady And the Items actually Arrive");
+        },
+        onStop: function (error) {
+          if (error) {
+            console.log('An error happened - ', error);
+          } else {
+            console.log('The subscription stopped');
+          }
+        }
+      });
+      reactiveContext.helpers({
+        roadMap: function () {
+          return RoadMaps.findOne({_id: reactiveContext.getReactively('roadMapId')})
+        },
+        trip: function () {
+          var roadMap = RoadMaps.findOne({_id: reactiveContext.getReactively('roadMapId')});
+          if(roadMap)
+            return Trips.findOne({_id: roadMap.tripId});
+        },
+        user: function () {
+          var roadMap = RoadMaps.findOne({_id: reactiveContext.getReactively('roadMapId')});
+          if(roadMap)
+            return Meteor.users.findOne({_id: roadMap.owner});
+        },
+        //feedbackCount: function () {
+        //  return Counts.get('trip_detail');
+        //},
+      });
+    };
     createATrip = function (param, callback) {
       console.log(param);
       Meteor.call('createATrip', param, callback);
     };
     return {
       createATrip: createATrip,
-      tripSearchSubscribe: tripSearchSubscribe
+      tripSearchSubscribe: tripSearchSubscribe,
+      tripDetailSubscribe: tripDetailSubscribe
     };
   }])

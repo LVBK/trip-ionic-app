@@ -10,4 +10,6 @@ angular.module('app.controllers', [
     'app.myTrips.controllers',
     'app.search.controllers',
     'app.myReservations.controllers',
+    'app.tripDetail.controllers',
+    'app.userProfile.controllers',
 ])

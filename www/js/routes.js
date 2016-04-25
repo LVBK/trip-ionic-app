@@ -34,12 +34,12 @@ angular.module('app.routes', [])
             controller: 'loginCtrl',
             resolve: {
               'currentUser': [
-                '$meteor', '$state', function($meteor, $state) {
-                  $meteor.waitForUser().then(function(user) {
+                '$meteor', '$state', function ($meteor, $state) {
+                  $meteor.waitForUser().then(function (user) {
                     if (user) {
                       return $state.go('menu.home');
                     }
-                  }, function(error) {
+                  }, function (error) {
                     return console.log("error", error);
                   });
                 }
@@ -57,12 +57,12 @@ angular.module('app.routes', [])
             controller: 'signupCtrl',
             resolve: {
               'currentUser': [
-                '$meteor', '$state', function($meteor, $state) {
-                  $meteor.waitForUser().then(function(user) {
+                '$meteor', '$state', function ($meteor, $state) {
+                  $meteor.waitForUser().then(function (user) {
                     if (user) {
                       return $state.go('menu.home');
                     }
-                  }, function(error) {
+                  }, function (error) {
                     return console.log("error", error);
                   });
                 }
@@ -144,6 +144,25 @@ angular.module('app.routes', [])
           'side-menu21': {
             templateUrl: 'templates/myReservations.html',
             controller: 'myReservationsCtrl'
+          }
+        }
+      })
+      .state('menu.tripDetail', {
+        url: '/roadMap/:roadMapId',
+        views: {
+          'side-menu21': {
+            templateUrl: 'templates/tripDetail.html',
+            controller: 'tripDetailCtrl'
+          }
+        }
+      })
+
+      .state('menu.userProfile', {
+        url: '/userProfile/:userId',
+        views: {
+          'side-menu21': {
+            templateUrl: 'templates/userProfile.html',
+            controller: 'userProfileCtrl'
           }
         }
       })

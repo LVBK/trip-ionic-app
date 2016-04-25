@@ -1,0 +1,59 @@
+<ion-view title="Trip detail" id="page13">
+  <ion-content padding="true" class="has-header">
+    <form class="list">
+      <ion-item class="item-divider">Owner</ion-item>
+      <ion-item class="item-thumbnail-left" ui-sref="menu.userProfile(::{userId: data.user._id})">
+        <img ng-src={{getThumbnailUrl(data.user.publicProfile.avatar)}}>
+        <h2>{{data.user.publicProfile.name}}</h2>
+        <p>Rating (number of ratings)</p>
+      </ion-item>
+      <ion-item class="item-divider">Trip information</ion-item>
+      <ion-item>From: {{data.roadMap.origin.name}}</ion-item>
+      <ion-item>To: {{data.roadMap.destination.name}}</ion-item>
+      <ion-item>
+        <div id="map"></div>
+        <div class="row">
+          <div class="col col-50">
+            Distance:
+            <br>
+            {{data.distance.text}}
+          </div>
+          <div class="col col-50">
+            Duration:
+            <br>
+            {{data.duration.text}}
+          </div>
+        </div>
+      </ion-item>
+      <ion-item>Travel at: {{data.roadMap.startAt}}</ion-item>
+      <ion-item>Vehicle: {{data.trip.vehicle}}</ion-item>
+      <ion-item>Price: {{data.trip.pricePerSeat}} $</ion-item>
+      <ion-item>Slots {{data.roadMap.slots}}</ion-item>
+      <ion-item>Baggage size: {{data.trip.baggageSize}}</ion-item>
+      <ion-item>Flexible time: {{data.trip.flexibleTime}}</ion-item>
+      <ion-item>Flexible distance: {{data.trip.flexibleDistance}}</ion-item>
+      <ion-item>Note</ion-item>
+      <ion-item class="item-divider">Comments</ion-item>
+      <ion-item>Item</ion-item>
+      <ion-item>Item</ion-item>
+      <ion-item>Item</ion-item>
+      <ion-item class="item-divider">Booking</ion-item>
+      <label class="item item-select">
+        <span class="input-label">Seats</span>
+        <select>
+          <option>6</option>
+          <option>5</option>
+          <option>4</option>
+          <option>3</option>
+          <option>2</option>
+          <option>1</option>
+        </select>
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Total price</span>
+        <input type="number" placeholder="">
+      </label>
+      <button id="tripDetail-button14" class="button button-positive  button-block">Book a seat</button>
+    </form>
+  </ion-content>
+</ion-view>
