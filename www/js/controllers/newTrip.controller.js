@@ -125,6 +125,7 @@ angular.module('app.newTrip.controllers', [])
         baggageSize: $scope.baggageSizeOptions[1].value,
         flexibleTime: $scope.flexibleTimeOptions[0].value,
         flexibleDistance: $scope.flexibleDistanceOptions[0].value,
+        note: null
       };
       $scope.vm.directionsDisplay.setMap($scope.vm.map);
       if (navigator.geolocation) {
@@ -317,7 +318,8 @@ angular.module('app.newTrip.controllers', [])
           vehicle: $scope.vm.vehicle.name,
           baggageSize: $scope.vm.baggageSize,
           flexibleTime: $scope.vm.flexibleTime,
-          flexibleDistance: $scope.vm.flexibleDistance
+          flexibleDistance: $scope.vm.flexibleDistance,
+          note: $scope.vm.note,
         };
         param = angular.extend(param, tripDateTime)
         TripService.createATrip(param, function (err, result) {

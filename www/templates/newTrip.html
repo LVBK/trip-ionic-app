@@ -231,7 +231,7 @@
             </div>
           </div>
         </div>
-        <div class="list card">
+        <div class="card">
           <div class="item item-divider">Vehicle &amp; Seats</div>
           <div class="item item-body">
             <label class="item item-select">
@@ -293,26 +293,46 @@
                       ng-options="option.value as option.name for option in flexibleDistanceOptions">
               </select>
             </label>
-          </div>
-          <div class="list row">
-            <div class="col-50">
-              <div class="col-90">
-                <button type="button" class="button button-assertive  button-block button-outline"
-                        ng-click="cancel()">Cancel
-                </button>
+            <div class="item item-text-wrap flex-container">
+              <div class="flex-item col-20">
+                <span class="input-label">Note</span>
+              </div>
+              <div class="flex-item col-80">
+                <textarea ng-model="vm.note" class="comment-area" placeholder="Description detail about trip"></textarea>
               </div>
             </div>
-            <div class="col-50">
-              <div class="col-offset-10 col-90">
-                <button type="submit" class="button button-positive  button-block"
-                        ng-disabled="
+            <div class="item item-text-wrap flex-container">
+              <div class="flex-item col-50">
+                <div class="flex-container">
+                  <div class="flex-item col-10">
+                  </div>
+                  <div class="flex-item col-80">
+                    <button type="button" class="button button-assertive  button-block button-outline"
+                            ng-click="cancel()">Cancel
+                    </button>
+                  </div>
+                  <div class="flex-item col-10">
+                  </div>
+                </div>
+              </div>
+              <div class="flex-item col-50">
+                <div class="flex-container">
+                  <div class="flex-item col-10">
+                  </div>
+                  <div class="flex-item col-80">
+                    <button type="submit" class="button button-positive  button-block"
+                            ng-disabled="
                         newTripForm.$invalid
                         || vm.routeError
                         || (vm.tripType == 'often'
                         && (vm.travelDaysInWeek.indexOf(true) == -1
                         || (vm.returnDaysInWeek.indexOf(true) == -1 && vm.isRoundTrip)))">
-                  Publish
-                </button>
+                      Publish
+                    </button>
+                  </div>
+                  <div class="flex-item col-10">
+                  </div>
+                </div>
               </div>
             </div>
           </div>

@@ -10,6 +10,7 @@
     "ngmap": "~1.17.3",
     "ion-datetime-picker": "~0.1.2",
     "onezone-datepicker": "*",
-    "angular-messages": "~1.5.5"
+    "angular-messages": "~1.5.5",
+    "angular-tooltips": "~1.0.9"
   }
 }

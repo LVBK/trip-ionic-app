@@ -17,6 +17,7 @@ angular.module('app', [
     'app.routes',
     'app.services',
     'app.directives',
+    '720kb.tooltips'
   ])
   //.config(['$cordovaFacebookProvider', function ($cordovaFacebookProvider) {
   //  $cordovaFacebookProvider.browserInit(_FB_APP_ID, _FB_APP_VERSION);

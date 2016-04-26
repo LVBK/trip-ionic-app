@@ -113,48 +113,4 @@ angular.module('app.search.controllers', [])
       }
     ]
   )
-//.directive('roadMapRow', function () {
-//    var controller = ['$scope', 'GeneralService', function ($scope, GeneralService) {
-//      function getUser(userId) {
-//        return Meteor.users.findOne({_id: userId});
-//      }
-//
-//      function getTrip(tripId) {
-//        return Trips.findOne({_id: tripId});
-//      }
-//
-//      $scope.roadMap = angular.copy($scope.datasource);
-//      $scope.trip = Trips.findOne($scope.roadMap.tripId);
-//      $scope.user = Meteor.users.findOne($scope.trip.owner);
-//
-//      //function init() {
-//      //  $scope.roadMap = angular.copy($scope.datasource);
-//      //  $scope.trip = getTrip($scope.roadMap.tripId);
-//      //  $scope.user = getUser($scope.trip.owner);
-//      //}
-//      //
-//      //init();
-//
-//      $scope.getThumbnailUrl = function (imageId) {
-//        return GeneralService.getThumbnailUrl(imageId);
-//      }
-//    }]
-//
-//    return {
-//      restrict: 'EA',
-//      scope: {
-//        datasource: '=',
-//      },
-//      controller: controller,
-//      link: function (scope, element, attrs) {
-//        scope.$watch('datasource', function (newValue, oldValue) {
-//          console.log("I see a data!");
-//          if (newValue)
-//            console.log("I see a data change!");
-//        });
-//      },
-//      templateUrl: './../../templates/search-row.html'
-//    };
-//  }
-//);
 

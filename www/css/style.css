@@ -4,7 +4,7 @@
 .scroll {
   height: 100%;
 }
-#map {
+#map, #google-map {
   width: 100%;
   height: 40vh;
 }
@@ -94,4 +94,44 @@ label.item.has-error i {
 }
 .no-padding-bottom {
   padding-bottom: 0;
+}
+.comment-area {
+  width: 100%;
+  height: 80%;
+  border: 1px solid gainsboro;
+  border-radius: 8px;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+.reply-area {
+  width: 100%;
+  height: 80%;
+  border: 1px solid gainsboro;
+  border-radius: 8px;
+  padding: 8px;
+}
+.comment-publish-btn, .reply-publish-btn {
+  float: right;
+}
+.flex-container {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-align-content: center;
+  align-content: center;
+  width: 100%;
+  height: auto;
+}
+.flex-item {
+  height: auto
+}
+div > .flex-item:first-child > h2 {
+  padding-right: 10px;
+}
+.flex-item img.slot {
+  max-width: 40px;
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
 }
