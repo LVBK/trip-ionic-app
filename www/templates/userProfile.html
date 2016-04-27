@@ -1,40 +1,63 @@
 <ion-view title="User profile" id="page14">
-    <ion-content padding="true" class="has-header">
-        <form class="list">
-            <ion-item class="item-divider">User info</ion-item>
-            <ion-item class="item-thumbnail-left">
-                <img>
-                <h2>User name</h2>
-                <p>Rating (number of rate)</p>
-            </ion-item>
-            <label class="item item-input">
-                <span class="input-label">Birthday</span>
-                <input type="text" placeholder="">
-            </label>
-            <label class="item item-input">
-                <span class="input-label">Gender</span>
-                <input type="text" placeholder="">
-            </label>
-            <label class="item item-input">
-                <span class="input-label">Phone verified</span>
-                <input type="text" placeholder="">
-            </label>
-            <label class="item item-input">
-                <span class="input-label">Email verified</span>
-                <input type="text" placeholder="">
-            </label>
-            <label class="item item-input">
-                <span class="input-label">Identity authentication</span>
-                <input type="text" placeholder="">
-            </label>
-            <label class="item item-input">
-                <span class="input-label">Reliability</span>
-                <input type="text" placeholder="">
-            </label>
-            <ion-item class="item-divider">Feedback from other users</ion-item>
-            <ion-item>Item</ion-item>
-            <ion-item>Item</ion-item>
-            <ion-item>Item</ion-item>
-        </form>
-    </ion-content>
+  <ion-content padding="true" class="has-header gray-bg">
+    <div class="card">
+      <ion-item class="item-divider">User info</ion-item>
+      <ion-item class="item-thumbnail-left">
+        <img ng-src={{getThumbnailUrl(data.user.publicProfile.avatar)}}>
+        <h2>{{data.user.publicProfile.name}}</h2>
+        <p>Rating (number of rate)</p>
+      </ion-item>
+      <div class="item item-text-wrap flex-container">
+        <div class="flex-item col-30">
+          <h2>Birthday</h2>
+        </div>
+        <div class="flex-item col-70">
+          <p>{{data.user.publicProfile.birthday | date:"MM/dd/yyyy"}}</p>
+        </div>
+      </div>
+      <div class="item item-text-wrap flex-container">
+        <div class="flex-item col-25">
+          <h2>Gender</h2>
+        </div>
+        <div class="flex-item col-75">
+          <p>{{data.user.publicProfile.gender}}</p>
+        </div>
+      </div>
+      <div class="item item-text-wrap flex-container">
+        <div class="flex-item col-50">
+          <h2>Phone verified</h2>
+        </div>
+        <div class="flex-item col-50">
+          <p>{{data.user.phoneVerified}}</p>
+        </div>
+      </div>
+      <div class="item item-text-wrap flex-container">
+        <div class="flex-item col-50">
+          <h2>Email verified</h2>
+        </div>
+        <div class="flex-item col-50">
+          <p>{{data.user.emails[0].verified}}</p>
+        </div>
+      </div>
+      <div class="item item-text-wrap flex-container">
+        <div class="flex-item col-70">
+          <h2>Identity authentication</h2>
+        </div>
+        <div class="flex-item col-30">
+          <p>{{data.user.identityAuthentication}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <ion-item class="item-divider">Feedback from other users</ion-item>
+      <div class="item item-avatar item-text-wrap">
+        <img src="img/logo.png">
+        <h2>Marty McFly</h2>
+        <span><b>{{'November 05, 1955' |  date:'dd/MM/yyyy hh:mm'}}</b></span>
+        <span>
+          This is a "Facebook" styled Card. The header is created from a Thumbnail List item,
+        </span>
+      </div>
+    </div>
+  </ion-content>
 </ion-view>
