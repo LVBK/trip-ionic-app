@@ -1,0 +1,58 @@
+<ion-modal-view>
+  <ion-header-bar class="bar-positive">
+    <h1 class="title">Booking seat</h1>
+    <button ng-click="closeModal()" class="button button-icon icon ion-ios-close-empty"></button>
+  </ion-header-bar>
+  <ion-content class="gray-bg">
+    <div class="item item-text-wrap flex-container has-warning" ng-hide="isLoggedIn">
+      <div class="flex-item col" ng-click="closeModal()" ui-sref="menu.login">
+        <p>Login for book this trip</p>
+      </div>
+    </div>
+    <div class="item item-text-wrap flex-container has-warning" ng-show="isDeparted">
+      <div class="flex-item col">
+        <p>This trip was departed</p>
+      </div>
+    </div>
+    <div class="item item-text-wrap flex-container has-warning" ng-show="isFull">
+      <div class="flex-item col">
+        <p>No more empty seat for book</p>
+      </div>
+    </div>
+    <div class="item item-text-wrap flex-container has-warning" ng-show="data.trip.isFreezing">
+      <div class="flex-item col">
+        <p>This trip are Freezing, cant book now!</p>
+      </div>
+    </div>
+    <div class="item item-text-wrap flex-container has-warning" ng-show="isDeleted">
+      <div class="flex-item col">
+        <p>This trip was removed, can't book now</p>
+      </div>
+    </div>
+    <div class="card">
+      <ion-item class="item-divider">Booking</ion-item>
+      <label class="item item-select">
+        <span class="input-label">Number of Seats</span>
+        <select ng-model="data.bookSeats" ng-options="option.name as option.name for option in bookOption.options"
+                required>
+          <option selected value="">Select</option>
+        </select>
+      </label>
+      <div class="item item-text-wrap flex-container">
+        <div class="flex-item col-30">
+          <h2>Total price</h2>
+        </div>
+        <div class="flex-item col-70">
+          <p>{{data.bookSeats * data.trip.pricePerSeat || 0}} $</p>
+        </div>
+      </div>
+      <ion-item>
+        <button id="tripDetail-button14" ng-click="book(data.roadMap._id, data.bookSeats)"
+                class="button button-positive  button-block"
+                ng-disabled="
+                isFull || isDeparted || isDeleted || data.trip.isFreezing || !isLoggedIn ||
+                !(data.bookSeats && data.bookSeats)">Book</button>
+      </ion-item>
+    </div>
+  </ion-content>
+</ion-modal-view>

@@ -1,5 +1,34 @@
+<button ng-click="openModal()" ng-hide="isFull || isDeparted || isDeleted || data.trip.isFreezing || !isLoggedIn "
+        class="button button-positive
+  icon ion-plus-round material-fab-button right-bottom">
+</button>
 <ion-view title="Trip detail" id="page13">
   <ion-content padding="true" class="has-header gray-bg">
+    <div class="item item-text-wrap flex-container has-warning" ng-hide="isLoggedIn">
+      <div class="flex-item col" ui-sref="menu.login">
+        <p>Login for book this trip</p>
+      </div>
+    </div>
+    <div class="item item-text-wrap flex-container has-warning" ng-show="isDeparted">
+      <div class="flex-item col">
+        <p>This trip was departed</p>
+      </div>
+    </div>
+    <div class="item item-text-wrap flex-container has-warning" ng-show="isFull">
+      <div class="flex-item col">
+        <p>No more empty seat for book</p>
+      </div>
+    </div>
+    <div class="item item-text-wrap flex-container has-warning" ng-show="data.trip.isFreezing">
+      <div class="flex-item col">
+        <p>This trip are Freezing, cant book now!</p>
+      </div>
+    </div>
+    <div class="item item-text-wrap flex-container has-warning" ng-show="isDeleted">
+      <div class="flex-item col">
+        <p>This trip was removed, can't book now</p>
+      </div>
+    </div>
     <div class="card">
       <ion-item class="item-divider">Owner</ion-item>
       <ion-item class="item-thumbnail-left" ui-sref="menu.userProfile(::{userId: data.user._id})">
@@ -26,7 +55,8 @@
           <p>{{data.roadMap.destination.name}}</p>
         </div>
       </div>
-      <google-map-direction origin={{data.roadMap.origin.name}} destination={{data.roadMap.destination.name}}></google-map-direction>
+      <google-map-direction origin={{data.roadMap.origin.name}}
+                            destination={{data.roadMap.destination.name}}></google-map-direction>
       <div class="item item-text-wrap flex-container">
         <div class="flex-item col-30">
           <h2>Travel at</h2>
@@ -117,7 +147,7 @@
       <div class="item item-avatar item-text-wrap">
         <img src="img/logo.png">
         <h2>Marty McFly</h2>
-        <span><b>{{'November 05, 1955' |  date:'dd/MM/yyyy hh:mm'}}</b></span>
+        <span><b>{{'November 05, 1955' | date:'dd/MM/yyyy hh:mm'}}</b></span>
         <span>
           This is a "Facebook" styled Card. The header is created from a Thumbnail List item,
         </span>
@@ -177,26 +207,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="card">
-      <ion-item class="item-divider">Booking</ion-item>
-      <label class="item item-select">
-        <span class="input-label">Seats</span>
-        <select ng-model="data.bookSeats" ng-options="option.name as option.name for option in bookOption.options" required>
-          <option selected value="">Select</option>
-        </select>
-      </label>
-      <div class="item item-text-wrap flex-container">
-        <div class="flex-item col-25">
-          <h2>Total price</h2>
-        </div>
-        <div class="flex-item col-75">
-          <p>{{data.bookSeats * data.trip.pricePerSeat}} $</p>
-        </div>
-      </div>
-      <ion-item>
-        <button id="tripDetail-button14" class="button button-positive  button-block">Book a seat</button>
-      </ion-item>
     </div>
   </ion-content>
 </ion-view>

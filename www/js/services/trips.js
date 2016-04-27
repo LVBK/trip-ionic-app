@@ -24,7 +24,14 @@ angular.module('app.services.trips', [])
       });
       reactiveContext.helpers({
         roadMapSearchData: function () {
-          return RoadMaps.find({}, {limit: parseInt(reactiveContext.getReactively('limit'))}).fetch()
+          return RoadMaps.find(
+            {
+              $and: [
+                {startAt: {$gte: new Date()}},
+                {isDeleted: false}
+              ]
+            },
+            {limit: parseInt(reactiveContext.getReactively('limit'))}).fetch()
         },
         rowCount: function () {
           return Counts.get('trip_search');
@@ -56,12 +63,12 @@ angular.module('app.services.trips', [])
         },
         trip: function () {
           var roadMap = RoadMaps.findOne({_id: reactiveContext.getReactively('roadMapId')});
-          if(roadMap)
+          if (roadMap)
             return Trips.findOne({_id: roadMap.tripId});
         },
         user: function () {
           var roadMap = RoadMaps.findOne({_id: reactiveContext.getReactively('roadMapId')});
-          if(roadMap)
+          if (roadMap)
             return Meteor.users.findOne({_id: roadMap.owner});
         },
         //feedbackCount: function () {
@@ -70,12 +77,15 @@ angular.module('app.services.trips', [])
       });
     };
     createATrip = function (param, callback) {
-      console.log(param);
       Meteor.call('createATrip', param, callback);
     };
+    bookSeats = function(roadMapId, totalSeats, callback){
+      Meteor.call('bookSeats', roadMapId, totalSeats, callback);
+    }
     return {
       createATrip: createATrip,
       tripSearchSubscribe: tripSearchSubscribe,
-      tripDetailSubscribe: tripDetailSubscribe
+      tripDetailSubscribe: tripDetailSubscribe,
+      bookSeats: bookSeats,
     };
   }])
