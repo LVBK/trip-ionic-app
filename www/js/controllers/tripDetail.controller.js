@@ -10,6 +10,7 @@ angular.module('app.tripDetail.controllers', [])
             template: '',
           });
         };
+        $ionicLoading.show();
         $scope.data = {
           roadMapId: $stateParams.roadMapId,
           limit: 5,
@@ -20,6 +21,10 @@ angular.module('app.tripDetail.controllers', [])
           emptySeats: null,
           bookSeats: null,
           isFull: false,
+          callback: function(err, result){
+            console.log("Err", err, "Result", result);
+            $ionicLoading.hide();
+          }
         };
         $scope.bookingOptions = [
           {
@@ -95,9 +100,9 @@ angular.module('app.tripDetail.controllers', [])
             }
           },
           isDeleted: function () {
-            if ($scope.getReactively('data.roadMap.isDeleted') == true
-              || $scope.getReactively('data.trip.isDeleted') == true
-              || $scope.getReactively('data.user.isDeleted') == true) {
+            if (!($scope.getReactively('data.roadMap')
+              && $scope.getReactively('data.trip')
+              && $scope.getReactively('data.user'))) {
               return true
             } else {
               return false;

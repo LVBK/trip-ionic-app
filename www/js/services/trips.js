@@ -28,7 +28,6 @@ angular.module('app.services.trips', [])
             {
               $and: [
                 {startAt: {$gte: new Date()}},
-                {isDeleted: false}
               ]
             },
             {limit: parseInt(reactiveContext.getReactively('limit'))}).fetch()
@@ -48,10 +47,12 @@ angular.module('app.services.trips', [])
       }, {
         onReady: function () {
           console.log("onReady And the Items actually Arrive");
+          reactiveContext.callback(false, "done");
         },
         onStop: function (error) {
           if (error) {
             console.log('An error happened - ', error);
+            reactiveContext.callback(error);
           } else {
             console.log('The subscription stopped');
           }
@@ -86,6 +87,6 @@ angular.module('app.services.trips', [])
       createATrip: createATrip,
       tripSearchSubscribe: tripSearchSubscribe,
       tripDetailSubscribe: tripDetailSubscribe,
-      bookSeats: bookSeats,
+      bookSeats: bookSeats
     };
   }])
