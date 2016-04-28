@@ -4,6 +4,7 @@ angular.module('app.services.reservations', [])
       var reactiveContext = $reactive(context).attach($scope);
       var handler = reactiveContext.subscribe('reservation_from_me', function () {
         return [
+          reactiveContext.getReactively('filterState'),
           reactiveContext.getReactively('date'),
           parseInt(reactiveContext.getReactively('limit')),
         ]
@@ -21,6 +22,11 @@ angular.module('app.services.reservations', [])
       });
       reactiveContext.helpers({
         reservations: function () {
+          var stateSelector = {};
+          if(reactiveContext.getReactively('filterState')){
+            stateSelector = {bookState: reactiveContext.filterState};
+          }
+          console.log(reactiveContext.filterState)
           return Reservations.find(
             {
               $and: [
@@ -29,7 +35,8 @@ angular.module('app.services.reservations', [])
                 },
                 {
                   startAt: {$gte: new Date()}
-                }
+                },
+                stateSelector
               ]
             },
             {

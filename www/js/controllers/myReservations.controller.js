@@ -4,17 +4,29 @@ angular.module('app.myReservations.controllers', [])
       '$stateParams', '$timeout',
       function ($scope, BookService, $ionicPopup, $ionicLoading,
                 $stateParams, $timeout) {
+        $scope.stateOptions = [
+          {name: "All", value: null},
+          {name: "Waiting", value: 'waiting'},
+          {name: "Accepted", value: 'accepted'},
+          {name: "Canceled", value: 'canceled'},
+          {name: "Denied", value: 'denied'},];
         function getStartDate() {
           var date = new Date();
           date.setHours(0, 0, 0, 0);
           return date;
         }
+        $scope.helpers({
+          isLoggedIn: function () {
+            return Meteor.userId() !== null;
+          },
+        })
         $scope.searchData = {
           limit: 5,
           rowCount: 0,
           date: getStartDate(),
           reservations: [],
-          noMoreItemAvailable: false
+          noMoreItemAvailable: false,
+          filterState: $scope.stateOptions[1].value
         };
         $scope.searchDatepicker = {
           date: new Date(),
@@ -46,6 +58,26 @@ angular.module('app.myReservations.controllers', [])
           $timeout(function () {
             $scope.$broadcast('scroll.infiniteScrollComplete');
           }, 200);
+        };
+        $scope.getRoadMap = function(roadMapId){
+          return RoadMaps.findOne(roadMapId);
+        };
+        function showAlert(value) {
+          var alertPopup = $ionicPopup.alert({
+            title: value,
+            template: '',
+          });
+        };
+        $scope.bookCancel = function(reservationId){
+          $ionicLoading.show();
+          BookService.bookCancel(reservationId, function(err, result){
+            $ionicLoading.hide();
+            if(err){
+              showAlert(err);
+            } else {
+              showAlert(result);
+            }
+          })
         }
       }
     ]
