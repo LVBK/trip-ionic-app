@@ -86,10 +86,22 @@ angular.module('app.services.reservations', [])
     };
     bookSeats = function(roadMapId, totalSeats, callback){
       Meteor.call('bookSeats', roadMapId, totalSeats, callback);
-    }
+    };
+    bookCancel = function(reservationId, callback){
+      Meteor.call('bookCancel', reservationId, callback);
+    };
+    bookDeny = function(reservationId, callback){
+      Meteor.call('bookDeny', reservationId, callback);
+    };
+    bookAccept = function(reservationId, callback){
+      Meteor.call('bookAccept', reservationId, callback);
+    };
     return {
       reservationFromMeSubscribe: reservationFromMeSubscribe,
       reservationToMeSubscribe: reservationToMeSubscribe,
-      bookSeats: bookSeats
+      bookSeats: bookSeats,
+      bookCancel: bookCancel,
+      bookDeny: bookDeny,
+      bookAccept: bookAccept
     };
   }])
