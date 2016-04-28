@@ -4,4 +4,7 @@
 !function () {
   RoadMaps = new Meteor.Collection("roadMaps");
 }();
+!function () {
+  Reservations = new Meteor.Collection("reservations");
+}();
 

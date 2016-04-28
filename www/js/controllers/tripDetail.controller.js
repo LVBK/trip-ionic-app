@@ -1,9 +1,9 @@
 angular.module('app.tripDetail.controllers', [])
 
   .controller('tripDetailCtrl', ['$scope', 'TripService', '$ionicPopup', 'GoogleMapService', '$ionicLoading',
-      '$stateParams', 'GeneralService', '$ionicModal',
+      '$stateParams', 'GeneralService', '$ionicModal', 'BookService',
       function ($scope, TripService, $ionicPopup, GoogleMapService, $ionicLoading,
-                $stateParams, GeneralService, $ionicModal) {
+                $stateParams, GeneralService, $ionicModal, BookService) {
         function showAlert(value) {
           var alertPopup = $ionicPopup.alert({
             title: value,
@@ -147,7 +147,7 @@ angular.module('app.tripDetail.controllers', [])
         });
         $scope.book = function(roadMapId, totalSeats){
           $ionicLoading.show();
-          TripService.bookSeats(roadMapId, totalSeats, function(err, result){
+          BookService.bookSeats(roadMapId, totalSeats, function(err, result){
             $ionicLoading.hide();
             if(err){
               showAlert(err);

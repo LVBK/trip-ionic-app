@@ -80,13 +80,9 @@ angular.module('app.services.trips', [])
     createATrip = function (param, callback) {
       Meteor.call('createATrip', param, callback);
     };
-    bookSeats = function(roadMapId, totalSeats, callback){
-      Meteor.call('bookSeats', roadMapId, totalSeats, callback);
-    }
     return {
       createATrip: createATrip,
       tripSearchSubscribe: tripSearchSubscribe,
       tripDetailSubscribe: tripDetailSubscribe,
-      bookSeats: bookSeats
     };
   }])
