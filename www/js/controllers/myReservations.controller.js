@@ -4,6 +4,19 @@ angular.module('app.myReservations.controllers', [])
       '$stateParams', '$timeout',
       function ($scope, BookService, $ionicPopup, $ionicLoading,
                 $stateParams, $timeout) {
+        $scope.showAlert = function(value) {
+          var myPopup = $ionicPopup.alert({
+            template: '',
+            title: value,
+            scope: $scope,
+            buttons: [
+              {
+                text: '<b>OK</b>',
+                type: 'button-positive',
+              },
+            ]
+          });
+        };
         $scope.stateOptions = [
           {name: "All", value: null},
           {name: "Waiting", value: 'waiting'},
@@ -15,11 +28,7 @@ angular.module('app.myReservations.controllers', [])
           date.setHours(0, 0, 0, 0);
           return date;
         }
-        $scope.helpers({
-          isLoggedIn: function () {
-            return Meteor.userId() !== null;
-          },
-        })
+
         $scope.searchData = {
           limit: 5,
           rowCount: 0,
@@ -41,6 +50,22 @@ angular.module('app.myReservations.controllers', [])
             $scope.searchData.date = value;
           }
         };
+        $scope.filterStateChanged = function(){
+          $scope.searchData.noMoreItemAvailable = false;
+        }
+        $scope.helpers({
+          isLoggedIn: function () {
+            return Meteor.userId() !== null;
+          },
+          noItemAvailable: function(){
+            if($scope.getReactively('searchData.reservations')){
+              if($scope.searchData.reservations.length > 0){
+                return false
+              }
+            }
+            return true;
+          }
+        })
         BookService.reservationFromMeSubscribe($scope.searchData, $scope);
 
         $scope.moreDataCanBeLoad = function () {
@@ -59,26 +84,18 @@ angular.module('app.myReservations.controllers', [])
             $scope.$broadcast('scroll.infiniteScrollComplete');
           }, 200);
         };
-        $scope.getRoadMap = function(roadMapId){
-          return RoadMaps.findOne(roadMapId);
-        };
-        function showAlert(value) {
-          var alertPopup = $ionicPopup.alert({
-            title: value,
-            template: '',
-          });
-        };
-        $scope.bookCancel = function(reservationId){
-          $ionicLoading.show();
-          BookService.bookCancel(reservationId, function(err, result){
-            $ionicLoading.hide();
-            if(err){
-              showAlert(err);
-            } else {
-              showAlert(result);
-            }
-          })
-        }
+        //$scope.getRoadMap = function(roadMapId){
+        //  return RoadMaps.findOne(roadMapId);
+        //};
+        //$scope.bookCancel = function(reservationId){
+        //  BookService.bookCancel(reservationId, function(err, result){
+        //    if(err){
+        //      $scope.showAlert(err);
+        //    } else {
+        //      $scope.showAlert(result);
+        //    }
+        //  });
+        //}
       }
     ]
   )

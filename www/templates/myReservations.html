@@ -32,27 +32,19 @@
         <div class="item item-select">
           <span class="input-label">Book state:</span>
           <select ng-model="searchData.filterState" ng-options="option.value as option.name for option in stateOptions"
+                  ng-change="filterStateChanged()"
                   required>
           </select>
         </div>
       </div>
       <div class="card">
         <div class="item item-divider">Reservations</div>
-        <div ng-repeat="item in searchData.reservations track by item._id">
-          <div class="item item-text-wrap no-padding-bottom">
-            <h3><b>From: </b>{{::getRoadMap(item.roadMapId).origin.name}}</h3>
-            <h3><b>To: </b>{{::getRoadMap(item.roadMapId).destination.name}}</h3>
-            <h3><b>Book seats: </b>{{::item.totalSeats}}</h3>
-            <h3><b>Empty seats: </b>{{getRoadMap(item.roadMapId).seats - getRoadMap(item.roadMapId).slots.length}}</h3>
-
-            <h3><b>Travel at: </b>{{::item.startAt | date:"MM/dd/yyyy 'at' h:mma"}}</h3>
-            <h3><b>Book state: </b>{{item.bookState}}</h3>
-            <h3><b>Total price: </b>{{item.totalPrice}} $</h3>
-            <button ng-show="item.bookState == 'waiting'" ng-click="bookCancel(item._id)">Cancel</button>
-            <button ui-sref="menu.tripDetail(::{roadMapId: item.roadMapId})">View trip</button>
-          </div>
+        <my-reservation-item reservation="item" show-alert="showAlert(arg1)" ng-repeat="item in searchData.reservations track by item._id">
+        </my-reservation-item>
+        <div class="item text-center" ng-if="noItemAvailable">
+          <p>Currently no matching records</p>
         </div>
-        <div class="item text-center" ng-if="searchData.noMoreItemAvailable">
+        <div class="item text-center" ng-if="searchData.noMoreItemAvailable && !noItemAvailable">
           <p>No more</p>
         </div>
       </div>

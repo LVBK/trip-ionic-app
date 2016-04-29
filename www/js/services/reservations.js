@@ -26,7 +26,6 @@ angular.module('app.services.reservations', [])
           if(reactiveContext.getReactively('filterState')){
             stateSelector = {bookState: reactiveContext.filterState};
           }
-          console.log(reactiveContext.filterState)
           return Reservations.find(
             {
               $and: [
@@ -34,7 +33,7 @@ angular.module('app.services.reservations', [])
                   userId: Meteor.userId(),
                 },
                 {
-                  startAt: {$gte: new Date()}
+                  startAt: {$gte: reactiveContext.getReactively('date')}
                 },
                 stateSelector
               ]
@@ -83,6 +82,9 @@ angular.module('app.services.reservations', [])
             },
             {
               limit: parseInt(reactiveContext.getReactively('limit')),
+              sort: {
+                bookState: -1
+              }
             }
           ).fetch()
         },
@@ -95,6 +97,7 @@ angular.module('app.services.reservations', [])
       Meteor.call('bookSeats', roadMapId, totalSeats, callback);
     };
     bookCancel = function(reservationId, callback){
+      //callback(false, "success");
       Meteor.call('bookCancel', reservationId, callback);
     };
     bookDeny = function(reservationId, callback){

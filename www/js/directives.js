@@ -23,7 +23,7 @@ angular.module('app.directives', [])
 
         $scope.helpers({
             direction: function () {
-              if ($scope.getReactively('origin') && $scope.getReactively('destination'))  {
+              if ($scope.getReactively('origin') && $scope.getReactively('destination')) {
                 route(
                   $scope.origin,
                   $scope.destination,
@@ -78,6 +78,39 @@ angular.module('app.directives', [])
         link: function (scope, element, attrs) {
         },
         template: '<img ui-sref="menu.userProfile(::{userId: user._id})" ng-src={{getThumbnailUrl(user.publicProfile.avatar)}} class="slot">'
+      };
+    }
+  )
+  .directive('myReservationItem', function () {
+      var controller = ['$scope', 'BookService', '$ionicLoading',
+        function ($scope, BookService, $ionicLoading) {
+          $scope.getRoadMap = function(roadMapId){
+            return RoadMaps.findOne(roadMapId);
+          };
+          $scope.bookCancel = function(reservationId){
+            $ionicLoading.show();
+            BookService.bookCancel(reservationId, function(err, result){
+              //console.log(err, result);
+              $ionicLoading.hide();
+              if(err){
+                $scope.showAlert({agr1: err});
+              } else {
+                $scope.showAlert({arg1: result});
+              }
+            })
+          }
+        }]
+      return {
+        restrict: 'EA',
+        replace: true,
+        scope: {
+          reservation: '=',
+          showAlert: '&'
+        },
+        controller: controller,
+        link: function (scope, element, attrs) {
+        },
+        templateUrl: './../templates/myReservationItem.html'
       };
     }
   )

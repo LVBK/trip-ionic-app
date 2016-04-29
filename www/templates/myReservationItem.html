@@ -1,0 +1,27 @@
+<div class="item item-text-wrap">
+  <p><strong>From: </strong>{{::getRoadMap(reservation.roadMapId).origin.name}}</p>
+  <p><strong>To: </strong>{{::getRoadMap(reservation.roadMapId).destination.name}}</p>
+  <div class="flex-container">
+    <div class="flex-item col-50">
+      <p><strong>Book seats: </strong>{{::reservation.totalSeats}}</p>
+    </div>
+    <div class="flex-item col-50">
+      <p><strong>Empty seats: </strong>{{getRoadMap(reservation.roadMapId).seats -
+        getRoadMap(reservation.roadMapId).slots.length}}</p>
+    </div>
+  </div>
+  <p><strong>Travel at: </strong>{{::reservation.startAt | date:"MM/dd/yyyy 'at' h:mma"}}</p>
+  <p><strong>Book state: </strong>{{reservation.bookState}}</p>
+  <p><strong>Total price: </strong>{{::reservation.totalPrice}} $</p>
+  <div class="flex-container">
+    <div class="flex-item col-50">
+      <button class="button button-block button-balanced button-small"
+              ui-sref="menu.tripDetail(::{roadMapId: getRoadMap(reservation.roadMapId)._id})">View trip
+      </button>
+    </div>
+    <div class="flex-item col-50" ng-show="reservation.bookState == 'waiting'">
+      <button class="button button-block button-assertive button-small" ng-click="bookCancel(reservation._id)">Cancel
+      </button>
+    </div>
+  </div>
+</div>
