@@ -79,7 +79,7 @@ angular.module('app.editProfile.controllers', [])
       $scope.save_callback = function (error, response) {
         $ionicLoading.hide();
         if (error) {
-          $scope.showAlert(error.message);
+          $scope.showAlert(error.reason);
           $scope.fileData = null;
         } else {
           $scope.showAlert('Lưu thành công');

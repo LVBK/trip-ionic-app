@@ -93,7 +93,7 @@ angular.module('app.directives', [])
               //console.log(err, result);
               $ionicLoading.hide();
               if(err){
-                $scope.showAlert({agr1: err});
+                $scope.showAlert({arg1: err.reason});
               } else {
                 $scope.showAlert({arg1: result});
               }
@@ -126,10 +126,10 @@ angular.module('app.directives', [])
           $scope.bookAccept = function(reservationId){
             $ionicLoading.show();
             BookService.bookAccept(reservationId, function(err, result){
-              //console.log(err, result);
+              console.log(err, result);
               $ionicLoading.hide();
               if(err){
-                $scope.showAlert({agr1: err});
+                $scope.showAlert({arg1: err.reason});
               } else {
                 $scope.showAlert({arg1: result});
               }
@@ -138,10 +138,10 @@ angular.module('app.directives', [])
           $scope.bookDeny = function(reservationId){
             $ionicLoading.show();
             BookService.bookDeny(reservationId, function(err, result){
-              //console.log(err, result);
+              console.log(err, result);
               $ionicLoading.hide();
               if(err){
-                $scope.showAlert({agr1: err});
+                $scope.showAlert({arg1: err.reason});
               } else {
                 $scope.showAlert({arg1: result});
               }
