@@ -23,7 +23,7 @@ angular.module('app.services.reservations', [])
       reactiveContext.helpers({
         reservations: function () {
           var stateSelector = {};
-          if(reactiveContext.getReactively('filterState')){
+          if (reactiveContext.getReactively('filterState')) {
             stateSelector = {bookState: reactiveContext.filterState};
           }
           return Reservations.find(
@@ -93,18 +93,140 @@ angular.module('app.services.reservations', [])
         },
       });
     };
-    bookSeats = function(roadMapId, totalSeats, callback){
+    bookSeats = function (roadMapId, totalSeats, callback) {
       Meteor.call('bookSeats', roadMapId, totalSeats, callback);
     };
-    bookCancel = function(reservationId, callback){
+    bookCancel = function (reservationId, callback) {
       //callback(false, "success");
       Meteor.call('bookCancel', reservationId, callback);
     };
-    bookDeny = function(reservationId, callback){
+    bookDeny = function (reservationId, callback) {
       Meteor.call('bookDeny', reservationId, callback);
     };
-    bookAccept = function(reservationId, callback){
+    bookAccept = function (reservationId, callback) {
       Meteor.call('bookAccept', reservationId, callback);
+    };
+    myReservationDetailSubscribe = function (context, $scope) {
+      var reactiveContext = $reactive(context).attach($scope);
+      var handler = reactiveContext.subscribe('my_reservation_detail', function () {
+        return [
+          reactiveContext.getReactively('reservationId')
+        ]
+      }, {
+        onReady: function () {
+          console.log("onReady And the Items actually Arrive");
+        },
+        onStop: function (error) {
+          if (error) {
+            console.log('An error happened - ', error);
+          } else {
+            console.log('The subscription stopped');
+          }
+        }
+      });
+      reactiveContext.helpers({
+        reservation: function () {
+          return Reservations.findOne(
+            {
+              $and: [
+                {_id: reactiveContext.getReactively('reservationId')},
+                {
+                  userId: Meteor.userId(),
+                },
+              ]
+            }
+          )
+        },
+        roadMap: function () {
+          var reservation = Reservations.findOne(
+            {
+              $and: [
+                {_id: reactiveContext.getReactively('reservationId')},
+                {
+                  userId: Meteor.userId(),
+                },
+              ]
+            }
+          );
+          if (reservation)
+            return RoadMaps.findOne({_id: reservation.roadMapId});
+        },
+        user: function () {
+          var reservation = Reservations.findOne(
+            {
+              $and: [
+                {_id: reactiveContext.getReactively('reservationId')},
+                {
+                  userId: Meteor.userId(),
+                },
+              ]
+            }
+          );
+          if (reservation)
+            return Meteor.users.findOne({_id: reservation.to});
+        },
+      });
+    };
+    reservationDetailSubscribe = function (context, $scope) {
+      var reactiveContext = $reactive(context).attach($scope);
+      var handler = reactiveContext.subscribe('reservation_detail', function () {
+        return [
+          reactiveContext.getReactively('reservationId')
+        ]
+      }, {
+        onReady: function () {
+          console.log("onReady And the Items actually Arrive");
+        },
+        onStop: function (error) {
+          if (error) {
+            console.log('An error happened - ', error);
+          } else {
+            console.log('The subscription stopped');
+          }
+        }
+      });
+      reactiveContext.helpers({
+        reservation: function () {
+          return Reservations.findOne(
+            {
+              $and: [
+                {_id: reactiveContext.getReactively('reservationId')},
+                {
+                  to: Meteor.userId(),
+                },
+              ]
+            }
+          )
+        },
+        roadMap: function () {
+          var reservation = Reservations.findOne(
+            {
+              $and: [
+                {_id: reactiveContext.getReactively('reservationId')},
+                {
+                  to: Meteor.userId(),
+                },
+              ]
+            }
+          );
+          if (reservation)
+            return RoadMaps.findOne({_id: reservation.roadMapId});
+        },
+        user: function () {
+          var reservation = Reservations.findOne(
+            {
+              $and: [
+                {_id: reactiveContext.getReactively('reservationId')},
+                {
+                  to: Meteor.userId(),
+                },
+              ]
+            }
+          );
+          if (reservation)
+            return Meteor.users.findOne({_id: reservation.userId});
+        },
+      });
     };
     return {
       reservationFromMeSubscribe: reservationFromMeSubscribe,
@@ -112,6 +234,8 @@ angular.module('app.services.reservations', [])
       bookSeats: bookSeats,
       bookCancel: bookCancel,
       bookDeny: bookDeny,
-      bookAccept: bookAccept
+      bookAccept: bookAccept,
+      myReservationDetailSubscribe: myReservationDetailSubscribe,
+      reservationDetailSubscribe: reservationDetailSubscribe
     };
   }])

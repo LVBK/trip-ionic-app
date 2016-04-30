@@ -166,6 +166,15 @@ angular.module('app.routes', [])
           }
         }
       })
+      .state('menu.myReservationDetail', {
+        url: '/myReservationDetail/:reservationId',
+        views: {
+          'side-menu21': {
+            templateUrl: 'templates/myReservationDetail.html',
+            controller: 'myReservationDetailCtrl'
+          }
+        }
+      })
 
     $urlRouterProvider.otherwise('/home/')
 

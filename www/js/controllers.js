@@ -11,5 +11,6 @@ angular.module('app.controllers', [
     'app.search.controllers',
     'app.myReservations.controllers',
     'app.tripDetail.controllers',
+    'app.myReservationDetail.controllers',
     'app.userProfile.controllers',
 ])

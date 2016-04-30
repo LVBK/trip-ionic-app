@@ -1,0 +1,92 @@
+<ion-view title="My reservation detail">
+  <ion-content padding="true" class="has-header gray-bg">
+    <div ng-hide="isLoggedIn">
+      <div class="card">
+        <label class="item text-center">
+          <div style="text-align:center;">
+            <img src="img/logo.png" width="30%" height="auto">
+          </div>
+          <br>
+          <h2>Login to use this function!</h2>
+          <br>
+          <button class="button button-positive" ui-sref="menu.login">Login now</button>
+        </label>
+      </div>
+    </div>
+    <div ng-show="isLoggedIn">
+      <div class="card">
+        <ion-item class="item-divider">Driver</ion-item>
+        <ion-item class="item item-avatar" ui-sref="menu.userProfile(::{userId: vm.user._id})">
+          <img ng-src={{getThumbnailUrl(vm.user.publicProfile.avatar)}}>
+          <h2>{{::vm.user.publicProfile.name}}</h2>
+        </ion-item>
+        <div class="item item-divider">Reservation detail</div>
+        <div class="item item-text-wrap flex-container">
+          <div class="flex-item col-20">
+            <h2>From</h2>
+          </div>
+          <div class="flex-item col-80">
+            <p>{{::vm.roadMap.origin.name}}</p>
+          </div>
+        </div>
+        <div class="item item-text-wrap flex-container">
+          <div class="flex-item col-20">
+            <h2>To</h2>
+          </div>
+          <div class="flex-item col-80">
+            <p>{{::vm.roadMap.destination.name}}</p>
+          </div>
+        </div>
+        <div class="item item-text-wrap flex-container">
+          <div class="flex-item col-40">
+            <h2>Book seats</h2>
+          </div>
+          <div class="flex-item col-60">
+            <p>{{::vm.reservation.totalSeats}}</p>
+          </div>
+        </div>
+        <div class="item item-text-wrap flex-container">
+          <div class="flex-item col-40">
+            <h2>Empty seats</h2>
+          </div>
+          <div class="flex-item col-60">
+            <p>{{vm.roadMap.seats -
+              vm.roadMap.slots.length}}</p>
+          </div>
+        </div>
+        <div class="item item-text-wrap flex-container">
+          <div class="flex-item col-40">
+            <h2>Travel at</h2>
+          </div>
+          <div class="flex-item col-60">
+            <p>{{::vm.reservation.startAt | date:"MM/dd/yyyy 'at' h:mma"}}</p>
+          </div>
+        </div>
+        <div class="item item-text-wrap flex-container">
+          <div class="flex-item col-40">
+            <h2>Book state</h2>
+          </div>
+          <div class="flex-item col-60">
+            <p>{{vm.reservation.bookState}}</p>
+          </div>
+        </div>
+        <div class="item item-text-wrap flex-container">
+          <div class="flex-item col-40">
+            <h2>Total price</h2>
+          </div>
+          <div class="flex-item col-60">
+            <p>{{::vm.reservation.totalPrice}} $</p>
+          </div>
+        </div>
+        <div class="item">
+          <button class="button button-block button-balanced "
+                  ui-sref="menu.tripDetail(::{roadMapId: vm.roadMap._id})">View trip
+          </button>
+          <button ng-show="vm.reservation.bookState == 'waiting'" class="button button-block button-assertive"
+                  ng-click="bookCancel(vm.reservation._id)">Cancel reservation
+          </button>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
