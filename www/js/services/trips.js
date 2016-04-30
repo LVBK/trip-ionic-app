@@ -23,13 +23,9 @@ angular.module('app.services.trips', [])
         }
       });
       reactiveContext.helpers({
-        roadMapSearchData: function () {
-          return RoadMaps.find(
-            {
-              $and: [
-                {startAt: {$gte: new Date()}},
-              ]
-            },
+        tripSearchData: function () {
+          return Trips.find(
+            {startAt: {$gte: new Date()}},
             {limit: parseInt(reactiveContext.getReactively('limit'))}).fetch()
         },
         rowCount: function () {
@@ -41,7 +37,7 @@ angular.module('app.services.trips', [])
       var reactiveContext = $reactive(context).attach($scope);
       var handler = reactiveContext.subscribe('trip_detail', function () {
         return [
-          reactiveContext.getReactively('roadMapId'),
+          reactiveContext.getReactively('tripId'),
           parseInt(reactiveContext.getReactively('limit')),
         ]
       }, {
@@ -59,18 +55,13 @@ angular.module('app.services.trips', [])
         }
       });
       reactiveContext.helpers({
-        roadMap: function () {
-          return RoadMaps.findOne({_id: reactiveContext.getReactively('roadMapId')})
-        },
         trip: function () {
-          var roadMap = RoadMaps.findOne({_id: reactiveContext.getReactively('roadMapId')});
-          if (roadMap)
-            return Trips.findOne({_id: roadMap.tripId});
+          return Trips.findOne({_id: reactiveContext.getReactively('tripId')})
         },
         user: function () {
-          var roadMap = RoadMaps.findOne({_id: reactiveContext.getReactively('roadMapId')});
-          if (roadMap)
-            return Meteor.users.findOne({_id: roadMap.owner});
+          var trip = Trips.findOne({_id: reactiveContext.getReactively('tripId')});
+          if (trip)
+            return Meteor.users.findOne({_id: trip.owner});
         },
         //feedbackCount: function () {
         //  return Counts.get('trip_detail');

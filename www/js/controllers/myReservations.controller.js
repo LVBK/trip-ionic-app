@@ -84,18 +84,6 @@ angular.module('app.myReservations.controllers', [])
             $scope.$broadcast('scroll.infiniteScrollComplete');
           }, 200);
         };
-        //$scope.getRoadMap = function(roadMapId){
-        //  return RoadMaps.findOne(roadMapId);
-        //};
-        //$scope.bookCancel = function(reservationId){
-        //  BookService.bookCancel(reservationId, function(err, result){
-        //    if(err){
-        //      $scope.showAlert(err);
-        //    } else {
-        //      $scope.showAlert(result);
-        //    }
-        //  });
-        //}
       }
     ]
   )

@@ -44,7 +44,7 @@
           <h2>From</h2>
         </div>
         <div class="flex-item col-80">
-          <p>{{data.roadMap.origin.name}}</p>
+          <p>{{data.trip.origin.name}}</p>
         </div>
       </div>
       <div class="item item-text-wrap flex-container">
@@ -52,17 +52,17 @@
           <h2>To</h2>
         </div>
         <div class="flex-item col-80">
-          <p>{{data.roadMap.destination.name}}</p>
+          <p>{{data.trip.destination.name}}</p>
         </div>
       </div>
-      <google-map-direction origin={{data.roadMap.origin.name}}
-                            destination={{data.roadMap.destination.name}}></google-map-direction>
+      <google-map-direction origin={{data.trip.origin.name}}
+                            destination={{data.trip.destination.name}}></google-map-direction>
       <div class="item item-text-wrap flex-container">
         <div class="flex-item col-30">
           <h2>Travel at</h2>
         </div>
         <div class="flex-item col-70">
-          <p>{{data.roadMap.startAt | date:"MM/dd/yyyy 'at' h:mma"}}</p>
+          <p>{{data.trip.startAt | date:"MM/dd/yyyy 'at' h:mma"}}</p>
         </div>
       </div>
       <div class="item item-text-wrap flex-container">
@@ -101,8 +101,8 @@
         <div class="flex-item col-25">
           <h2>Slots</h2>
         </div>
-        <div class="flex-item col-20" ng-repeat="userId in data.roadMap.slots track by $index">
-          <road-map-slot user-id="userId"></road-map-slot>
+        <div class="flex-item col-20" ng-repeat="userId in data.trip.slots track by $index">
+          <trip-slot user-id="userId"></trip-slot>
         </div>
       </div>
       <div class="item item-text-wrap flex-container">

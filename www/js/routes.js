@@ -157,7 +157,7 @@ angular.module('app.routes', [])
         }
       })
       .state('menu.tripDetail', {
-        url: '/roadMap/:roadMapId',
+        url: '/trip/:tripId',
         views: {
           'side-menu21': {
             templateUrl: 'templates/tripDetail.html',

@@ -57,7 +57,7 @@ angular.module('app.directives', [])
       templateUrl: './../templates/googleMap.html'
     };
   }])
-  .directive('roadMapSlot', function () {
+  .directive('tripSlot', function () {
       var controller = ['$scope', 'GeneralService', function ($scope, GeneralService) {
         $scope.helpers({
           user: function () {
@@ -84,8 +84,8 @@ angular.module('app.directives', [])
   .directive('myReservationItem', function () {
       var controller = ['$scope', 'BookService', '$ionicLoading',
         function ($scope, BookService, $ionicLoading) {
-          $scope.getRoadMap = function(roadMapId){
-            return RoadMaps.findOne(roadMapId);
+          $scope.getTrip = function(tripId){
+            return Trips.findOne(tripId);
           };
           $scope.bookCancel = function(reservationId){
             $ionicLoading.show();
@@ -117,8 +117,8 @@ angular.module('app.directives', [])
   .directive('reservationItem', function () {
       var controller = ['$scope', 'BookService', '$ionicLoading',
         function ($scope, BookService, $ionicLoading) {
-          $scope.getRoadMap = function(roadMapId){
-            return RoadMaps.findOne(roadMapId);
+          $scope.getTrip = function(tripId){
+            return Trips.findOne(tripId);
           };
           $scope.getUser = function(userId){
             return Meteor.users.findOne(userId);

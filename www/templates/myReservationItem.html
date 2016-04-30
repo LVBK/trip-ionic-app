@@ -1,13 +1,13 @@
 <div class="item item-text-wrap">
-  <p><strong>From: </strong>{{::getRoadMap(reservation.roadMapId).origin.name}}</p>
-  <p><strong>To: </strong>{{::getRoadMap(reservation.roadMapId).destination.name}}</p>
+  <p><strong>From: </strong>{{::getTrip(reservation.tripId).origin.name}}</p>
+  <p><strong>To: </strong>{{::getTrip(reservation.tripId).destination.name}}</p>
   <p><strong>Book seats: </strong>{{::reservation.totalSeats}}</p>
   <p><strong>Book state: </strong>{{reservation.bookState}}</p>
   <div class="button-bar">
-    <button class="button button-block button-balanced button-small"
-            ui-sref="menu.tripDetail(::{roadMapId: getRoadMap(reservation.roadMapId)._id})">View trip
+    <button class="button button-block button-balanced button-outline button-small"
+            ui-sref="menu.tripDetail(::{tripId: getTrip(reservation.tripId)._id})">View trip
     </button>
-    <button class="button button-block button-positive button-small"
+    <button class="button button-block button-positive button-outline button-small"
             ui-sref="menu.myReservationDetail(::{reservationId: reservation._id})">Detail
     </button>
     <button ng-show="reservation.bookState == 'waiting'" class="button button-block button-assertive button-small"

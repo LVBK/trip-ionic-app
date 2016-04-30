@@ -25,7 +25,7 @@ angular.module('app.myReservationDetail.controllers', [])
         $scope.vm = {
           reservationId: $stateParams.reservationId,
           reservation: null,
-          roadMap: null,
+          trip: null,
           driver: null
         };
         $scope.getThumbnailUrl = function (imageId) {
@@ -34,10 +34,10 @@ angular.module('app.myReservationDetail.controllers', [])
         $scope.bookCancel = function(reservationId){
           $ionicLoading.show();
           BookService.bookCancel(reservationId, function(err, result){
-            //console.log(err, result);
+            console.log(err, result);
             $ionicLoading.hide();
             if(err){
-              $scope.showAlert({agr1: err});
+              $scope.showAlert({arg1: err.reason});
             } else {
               $scope.showAlert({arg1: result});
             }

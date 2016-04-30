@@ -12,10 +12,9 @@ angular.module('app.tripDetail.controllers', [])
         };
         $ionicLoading.show();
         $scope.data = {
-          roadMapId: $stateParams.roadMapId,
+          tripId: $stateParams.tripId,
           limit: 5,
           rowCount: 0,
-          roadMap: null,
           trip: null,
           user: null,
           emptySeats: null,
@@ -85,23 +84,22 @@ angular.module('app.tripDetail.controllers', [])
         ]
         $scope.helpers({
           emptySeats: function () {
-            if ($scope.getReactively('data.trip.seats') && $scope.getReactively('data.roadMap.slots')) {
-              var emptySeats = $scope.data.trip.seats - $scope.data.roadMap.slots.length;
+            if ($scope.getReactively('data.trip.seats') && $scope.getReactively('data.trip.slots')) {
+              var emptySeats = $scope.data.trip.seats - $scope.data.trip.slots.length;
               $scope.isFull = (emptySeats == 0);
               $scope.bookOption = $scope.bookingOptions[emptySeats];
               return emptySeats;
             }
           },
           isDeparted: function () {
-            if ($scope.getReactively('data.roadMap.startAt')) {
-              if ($scope.data.roadMap.startAt < new Date()) {
+            if ($scope.getReactively('data.trip.startAt')) {
+              if ($scope.data.trip.startAt < new Date()) {
                 return true;
               }
             }
           },
           isDeleted: function () {
-            if (!($scope.getReactively('data.roadMap')
-              && $scope.getReactively('data.trip')
+            if (!($scope.getReactively('data.trip')
               && $scope.getReactively('data.user'))) {
               return true
             } else {
@@ -145,12 +143,12 @@ angular.module('app.tripDetail.controllers', [])
         $scope.$on('modal.removed', function() {
           // Execute action
         });
-        $scope.book = function(roadMapId, totalSeats){
+        $scope.book = function(tripId, totalSeats){
           $ionicLoading.show();
-          BookService.bookSeats(roadMapId, totalSeats, function(err, result){
+          BookService.bookSeats(tripId, totalSeats, function(err, result){
             $ionicLoading.hide();
             if(err){
-              showAlert(err);
+              showAlert(err.reason);
             } else {
               $scope.closeModal();
               showAlert("Booking successful! Please wait driver approve it!");

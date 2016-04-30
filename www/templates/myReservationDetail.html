@@ -26,7 +26,7 @@
             <h2>From</h2>
           </div>
           <div class="flex-item col-80">
-            <p>{{::vm.roadMap.origin.name}}</p>
+            <p>{{::vm.trip.origin.name}}</p>
           </div>
         </div>
         <div class="item item-text-wrap flex-container">
@@ -34,7 +34,7 @@
             <h2>To</h2>
           </div>
           <div class="flex-item col-80">
-            <p>{{::vm.roadMap.destination.name}}</p>
+            <p>{{::vm.trip.destination.name}}</p>
           </div>
         </div>
         <div class="item item-text-wrap flex-container">
@@ -50,8 +50,8 @@
             <h2>Empty seats</h2>
           </div>
           <div class="flex-item col-60">
-            <p>{{vm.roadMap.seats -
-              vm.roadMap.slots.length}}</p>
+            <p>{{vm.trip.seats -
+              vm.trip.slots.length}}</p>
           </div>
         </div>
         <div class="item item-text-wrap flex-container">
@@ -80,7 +80,7 @@
         </div>
         <div class="item">
           <button class="button button-block button-balanced "
-                  ui-sref="menu.tripDetail(::{roadMapId: vm.roadMap._id})">View trip
+                  ui-sref="menu.tripDetail(::{tripId: vm.trip._id})">View trip
           </button>
           <button ng-show="vm.reservation.bookState == 'waiting'" class="button button-block button-assertive"
                   ng-click="bookCancel(vm.reservation._id)">Cancel reservation

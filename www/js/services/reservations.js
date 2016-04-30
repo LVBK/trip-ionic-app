@@ -93,8 +93,8 @@ angular.module('app.services.reservations', [])
         },
       });
     };
-    bookSeats = function (roadMapId, totalSeats, callback) {
-      Meteor.call('bookSeats', roadMapId, totalSeats, callback);
+    bookSeats = function (tripId, totalSeats, callback) {
+      Meteor.call('bookSeats', tripId, totalSeats, callback);
     };
     bookCancel = function (reservationId, callback) {
       //callback(false, "success");
@@ -137,7 +137,7 @@ angular.module('app.services.reservations', [])
             }
           )
         },
-        roadMap: function () {
+        trip: function () {
           var reservation = Reservations.findOne(
             {
               $and: [
@@ -149,7 +149,7 @@ angular.module('app.services.reservations', [])
             }
           );
           if (reservation)
-            return RoadMaps.findOne({_id: reservation.roadMapId});
+            return Trips.findOne({_id: reservation.tripId});
         },
         user: function () {
           var reservation = Reservations.findOne(
@@ -198,7 +198,7 @@ angular.module('app.services.reservations', [])
             }
           )
         },
-        roadMap: function () {
+        trip: function () {
           var reservation = Reservations.findOne(
             {
               $and: [
@@ -210,7 +210,7 @@ angular.module('app.services.reservations', [])
             }
           );
           if (reservation)
-            return RoadMaps.findOne({_id: reservation.roadMapId});
+            return Trips.findOne({_id: reservation.tripId});
         },
         user: function () {
           var reservation = Reservations.findOne(

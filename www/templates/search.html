@@ -45,20 +45,20 @@
         </div>
       </div>
     </form>
-    <div ui-sref="menu.tripDetail(::{roadMapId: item._id})" ng-repeat="item in searchData.roadMapSearchData track by item._id">
+    <div ui-sref="menu.tripDetail(::{tripId: item._id})" ng-repeat="item in searchData.tripSearchData track by item._id">
       <div class="item item-thumbnail-left item-avatar item-text-wrap no-padding-bottom">
         <img ng-src={{::getThumbnailUrl(getUserProfile(item.owner).avatar)}}>
         <h2><b>{{::getUserProfile(item.owner).name}}</b></h2>
         <h3><b>From: </b>{{::item.origin.name}}</h3>
         <h3><b>To: </b>{{::item.destination.name}}</h3>
-        <h3><b>Vehicle: </b>{{::getTrip(item.tripId).vehicle}}</h3>
+        <h3><b>Vehicle: </b>{{::item.vehicle}}</h3>
         <div class="row">
           <div class="col col-50">
-            <span class="balanced">{{::getTrip(item.tripId).pricePerSeat}}$</span>
+            <span class="balanced">{{::item.pricePerSeat}}$</span>
           </div>
           <div class="col col-50">
             <span
-              class="positive">{{getTrip(item.tripId).seats - item.slots.length}}/{{getTrip(item.tripId).seats}} Seats</span>
+              class="positive">{{item.seats - item.slots.length}}/{{item.seats}} Seats</span>
           </div>
         </div>
       </div>

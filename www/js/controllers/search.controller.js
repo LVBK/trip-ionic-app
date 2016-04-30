@@ -44,7 +44,7 @@ angular.module('app.search.controllers', [])
           origin_latlng: $scope.vm.origin_latlng,
           destination_latlng: $scope.vm.destination_latlng,
           date: getStartDate(),
-          roadMapSearchData: [],
+          tripSearchData: [],
           callback: function(res){
             console.log("search, res", res);
           }
@@ -59,9 +59,6 @@ angular.module('app.search.controllers', [])
           var user = Meteor.users.findOne({_id: userId});
           if (user && user.publicProfile)
             return user.publicProfile;
-        };
-        $scope.getTrip = function (tripId) {
-          return Trips.findOne({_id: tripId});
         };
         $scope.getThumbnailUrl = function (imageId) {
           return GeneralService.getThumbnailUrl(imageId);
