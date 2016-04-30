@@ -114,3 +114,51 @@ angular.module('app.directives', [])
       };
     }
   )
+  .directive('reservationItem', function () {
+      var controller = ['$scope', 'BookService', '$ionicLoading',
+        function ($scope, BookService, $ionicLoading) {
+          $scope.getRoadMap = function(roadMapId){
+            return RoadMaps.findOne(roadMapId);
+          };
+          $scope.getUser = function(userId){
+            return Meteor.users.findOne(userId);
+          };
+          $scope.bookAccept = function(reservationId){
+            $ionicLoading.show();
+            BookService.bookAccept(reservationId, function(err, result){
+              //console.log(err, result);
+              $ionicLoading.hide();
+              if(err){
+                $scope.showAlert({agr1: err});
+              } else {
+                $scope.showAlert({arg1: result});
+              }
+            })
+          };
+          $scope.bookDeny = function(reservationId){
+            $ionicLoading.show();
+            BookService.bookDeny(reservationId, function(err, result){
+              //console.log(err, result);
+              $ionicLoading.hide();
+              if(err){
+                $scope.showAlert({agr1: err});
+              } else {
+                $scope.showAlert({arg1: result});
+              }
+            })
+          }
+        }]
+      return {
+        restrict: 'EA',
+        replace: true,
+        scope: {
+          reservation: '=',
+          showAlert: '&'
+        },
+        controller: controller,
+        link: function (scope, element, attrs) {
+        },
+        templateUrl: './../templates/reservationItem.html'
+      };
+    }
+  )

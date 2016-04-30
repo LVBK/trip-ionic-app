@@ -1,4 +1,4 @@
-<ion-view title="My reservations" id="page12">
+<ion-view title="Reservations" id="page12">
   <ion-content padding="true" class="has-header gray-bg">
     <div ng-hide="isLoggedIn">
       <div class="card">
@@ -25,18 +25,12 @@
             </spam>
           </onezone-datepicker>
         </div>
-        <div class="item item-select">
-          <span class="input-label">Book state:</span>
-          <select ng-model="searchData.filterState" ng-options="option.value as option.name for option in stateOptions"
-                  ng-change="filterStateChanged()"
-                  required>
-          </select>
-        </div>
       </div>
       <div class="card">
         <div class="item item-divider">Reservations</div>
-        <my-reservation-item reservation="item" show-alert="showAlert(arg1)" ng-repeat="item in searchData.reservations track by item._id">
-        </my-reservation-item>
+        <reservation-item reservation="item" show-alert="showAlert(arg1)"
+                             ng-repeat="item in searchData.reservations track by item._id">
+        </reservation-item>
         <div class="item text-center" ng-if="noItemAvailable">
           <p>Currently no matching records</p>
         </div>

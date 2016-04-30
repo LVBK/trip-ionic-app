@@ -147,6 +147,15 @@ angular.module('app.routes', [])
           }
         }
       })
+      .state('menu.reservations', {
+        url: '/reservations',
+        views: {
+          'side-menu21': {
+            templateUrl: 'templates/reservations.html',
+            controller: 'reservationsCtrl'
+          }
+        }
+      })
       .state('menu.tripDetail', {
         url: '/roadMap/:roadMapId',
         views: {
