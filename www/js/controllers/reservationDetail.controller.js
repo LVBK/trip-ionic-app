@@ -1,6 +1,6 @@
-angular.module('app.myReservationDetail.controllers', [])
+angular.module('app.reservationDetail.controllers', [])
 
-  .controller('myReservationDetailCtrl', ['$scope', '$ionicPopup', '$ionicLoading',
+  .controller('reservationDetailCtrl', ['$scope', '$ionicPopup', '$ionicLoading',
       '$stateParams', 'BookService', 'GeneralService',
       function ($scope, $ionicPopup, $ionicLoading,
                 $stateParams, BookService, GeneralService) {
@@ -26,7 +26,7 @@ angular.module('app.myReservationDetail.controllers', [])
           reservationId: $stateParams.reservationId,
           reservation: null,
           roadMap: null,
-          driver: null
+          booker: null
         };
         $scope.getThumbnailUrl = function (imageId) {
           return GeneralService.getThumbnailUrl(imageId);
@@ -43,7 +43,31 @@ angular.module('app.myReservationDetail.controllers', [])
             }
           })
         }
-        BookService.myReservationDetailSubscribe($scope.vm, $scope);
+        $scope.bookAccept = function(reservationId){
+          $ionicLoading.show();
+          BookService.bookAccept(reservationId, function(err, result){
+            console.log(err, result);
+            $ionicLoading.hide();
+            if(err){
+              $scope.showAlert({arg1: err.reason});
+            } else {
+              $scope.showAlert({arg1: result});
+            }
+          })
+        };
+        $scope.bookDeny = function(reservationId){
+          $ionicLoading.show();
+          BookService.bookDeny(reservationId, function(err, result){
+            console.log(err, result);
+            $ionicLoading.hide();
+            if(err){
+              $scope.showAlert({arg1: err.reason});
+            } else {
+              $scope.showAlert({arg1: result});
+            }
+          })
+        }
+        BookService.reservationDetailSubscribe($scope.vm, $scope);
       }
     ]
   )
