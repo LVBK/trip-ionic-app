@@ -77,13 +77,16 @@ angular.module('app.services.reservations', [])
                 },
                 {
                   startAt: {$gte: new Date()}
+                },
+                {
+                  bookState: 'waiting'
                 }
               ]
             },
             {
               limit: parseInt(reactiveContext.getReactively('limit')),
               sort: {
-                bookState: -1
+                _id: -1
               }
             }
           ).fetch()

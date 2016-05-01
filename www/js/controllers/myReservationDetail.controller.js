@@ -37,9 +37,9 @@ angular.module('app.myReservationDetail.controllers', [])
             console.log(err, result);
             $ionicLoading.hide();
             if(err){
-              $scope.showAlert({arg1: err.reason});
+              $scope.showAlert(err.reason);
             } else {
-              $scope.showAlert({arg1: result});
+              $scope.showAlert(result);
             }
           })
         }
