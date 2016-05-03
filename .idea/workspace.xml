@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9c4b8ee3-f8cf-4d6f-8546-07637ed027ee" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/controllers/myReservationDetail.controller.js" afterPath="$PROJECT_DIR$/www/js/controllers/myReservationDetail.controller.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/controllers/reservationDetail.controller.js" afterPath="$PROJECT_DIR$/www/js/controllers/reservationDetail.controller.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/services/trips.js" afterPath="$PROJECT_DIR$/www/js/services/trips.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/myReservationDetail.html" afterPath="$PROJECT_DIR$/www/templates/myReservationDetail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/reservationDetail.html" afterPath="$PROJECT_DIR$/www/templates/reservationDetail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/tripDetail.html" afterPath="$PROJECT_DIR$/www/templates/tripDetail.html" />
     </list>
     <ignored path="myApp.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -49,10 +43,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="reservationDetail.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="trips.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/www/js/services/trips.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.5689655">
+              <caret line="124" column="37" selection-start-line="124" selection-start-column="37" selection-end-line="124" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="reservationDetail.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/templates/reservationDetail.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.39814815">
+            <state vertical-scroll-proportion="-2.3888888">
               <caret line="98" column="82" selection-start-line="98" selection-start-column="82" selection-end-line="98" selection-end-column="82" />
               <folding />
             </state>
@@ -112,12 +116,12 @@
         <option value="$PROJECT_DIR$/www/templates/reservationItem.html" />
         <option value="$PROJECT_DIR$/www/js/services/reservations.js" />
         <option value="$PROJECT_DIR$/www/templates/tripDetail.html" />
-        <option value="$PROJECT_DIR$/www/js/services/trips.js" />
         <option value="$PROJECT_DIR$/www/templates/search.html" />
         <option value="$PROJECT_DIR$/www/js/controllers/myReservationDetail.controller.js" />
         <option value="$PROJECT_DIR$/www/templates/myReservationDetail.html" />
         <option value="$PROJECT_DIR$/www/js/controllers/reservationDetail.controller.js" />
         <option value="$PROJECT_DIR$/www/templates/reservationDetail.html" />
+        <option value="$PROJECT_DIR$/www/js/services/trips.js" />
       </list>
     </option>
   </component>
@@ -432,7 +436,7 @@
     <editor active="false" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36939722" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36939722" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32921174" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3137558" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24960877" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -813,14 +817,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/services/trips.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="3.03125">
-          <caret line="82" column="9" selection-start-line="82" selection-start-column="9" selection-end-line="82" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/js/controllers/tripDetail.controller.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.4683908">
@@ -879,8 +875,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/www/templates/reservationDetail.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.39814815">
+        <state vertical-scroll-proportion="-2.3888888">
           <caret line="98" column="82" selection-start-line="98" selection-start-column="82" selection-end-line="98" selection-end-column="82" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/services/trips.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5689655">
+          <caret line="124" column="37" selection-start-line="124" selection-start-column="37" selection-end-line="124" selection-end-column="37" />
           <folding />
         </state>
       </provider>
