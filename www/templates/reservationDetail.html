@@ -14,6 +14,21 @@
       </div>
     </div>
     <div ng-show="isLoggedIn">
+      <div class="item item-text-wrap flex-container has-warning" ng-show="reservationDeleted">
+        <div class="flex-item col">
+          <p>This reservation has been deleted!/p>
+        </div>
+      </div>
+      <div class="item item-text-wrap flex-container has-warning" ng-show="tripDeleted">
+        <div class="flex-item col">
+          <p>The trip of reservation has been deleted!/p>
+        </div>
+      </div>
+      <div class="item item-text-wrap flex-container has-warning" ng-show="bookerDeleted">
+        <div class="flex-item col">
+          <p>Booker of reservation has been deleted!/p>
+        </div>
+      </div>
       <div class="card">
         <ion-item class="item-divider">Booker</ion-item>
         <ion-item class="item item-avatar" ui-sref="menu.userProfile(::{userId: vm.user._id})">
@@ -81,7 +96,7 @@
           </div>
         </div>
         <div class="item">
-          <div ng-show="vm.reservation.bookState == 'waiting'">
+          <div ng-show="vm.reservation.bookState == 'waiting' && !(reservationDeleted || tripDeleted || bookerDeleted)">
             <button class="button button-block button-balanced"
                     ng-click="bookAccept(vm.reservation._id)">Accept
             </button>

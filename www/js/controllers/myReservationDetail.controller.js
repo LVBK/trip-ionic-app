@@ -17,17 +17,26 @@ angular.module('app.myReservationDetail.controllers', [])
             ]
           });
         };
-        $scope.helpers({
-          isLoggedIn: function () {
-            return Meteor.userId() !== null;
-          },
-        });
         $scope.vm = {
           reservationId: $stateParams.reservationId,
           reservation: null,
           trip: null,
           driver: null
         };
+        $scope.helpers({
+          isLoggedIn: function () {
+            return Meteor.userId() !== null;
+          },
+          reservationDeleted: function(){
+            return $scope.getReactively('vm.reservation.isDeleted');
+          },
+          tripDeleted: function(){
+            return $scope.getReactively('vm.trip.isDeleted');
+          },
+          driverDeleted: function(){
+            return $scope.getReactively('vm.driver.isDeleted');
+          }
+        });
         $scope.getThumbnailUrl = function (imageId) {
           return GeneralService.getThumbnailUrl(imageId);
         };

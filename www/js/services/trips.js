@@ -56,18 +56,37 @@ angular.module('app.services.trips', [])
       });
       reactiveContext.helpers({
         trip: function () {
-          return Trips.findOne({_id: reactiveContext.getReactively('tripId')})
+          return Trips.findOne({
+              $and: [
+                {_id: reactiveContext.getReactively('tripId')},
+                {isDeleted: false}
+              ]
+            }
+          )
         },
         user: function () {
-          var trip = Trips.findOne({_id: reactiveContext.getReactively('tripId')});
+          var trip = Trips.findOne({
+              $and: [
+                {_id: reactiveContext.getReactively('tripId')},
+                {isDeleted: false}
+              ]
+            }
+          );
           if (trip)
-            return Meteor.users.findOne({_id: trip.owner});
+            return Meteor.users.findOne({
+                $and: [
+                  {_id: trip.owner},
+                  {isDeleted: false}
+                ]
+              }
+            );
         },
         //feedbackCount: function () {
         //  return Counts.get('trip_detail');
         //},
       });
-    };
+    }
+    ;
     createATrip = function (param, callback) {
       Meteor.call('createATrip', param, callback);
     };
