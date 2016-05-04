@@ -42,21 +42,6 @@ angular.module('app.login.controllers', [])
         }
       }
 
-      $scope.fbLoginSuccess = function (response) {
-        console.log("fbLoginSuccess", response);
-        if (!response.authResponse) {
-          $scope.fbLoginError("Cannot find the authResponse");
-          return;
-        }
-        var authResponse = response.authResponse;
-        fbUserLoginToSystem(authResponse);
-      };
-
-      $scope.fbLoginError = function (error) {
-        console.log('fbLoginError', error);
-        $ionicLoading.hide();
-      };
-
       $scope.fbUserLoginToSystem = function (authResponse) {
         this.authResponse = authResponse;
         LoginService.facebookLogin(this.authResponse.accessToken, function (error, result) {
@@ -64,6 +49,21 @@ angular.module('app.login.controllers', [])
         });
         $ionicLoading.hide();
         $scope.login_success();
+      };
+
+      $scope.fbLoginSuccess = function (response) {
+        console.log("fbLoginSuccess", response);
+        if (!response.authResponse) {
+          $scope.fbLoginError("Cannot find the authResponse");
+          return;
+        }
+        var authResponse = response.authResponse;
+        $scope.fbUserLoginToSystem(authResponse);
+      };
+
+      $scope.fbLoginError = function (error) {
+        console.log('fbLoginError', error);
+        $ionicLoading.hide();
       };
 
       //This method is executed when the user press the "Login with facebook" button

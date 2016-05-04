@@ -328,8 +328,10 @@ angular.module('app.newTrip.controllers', [])
             showAlert(err);
           } else {
             showAlert("Create trip success");
-            //TODO: a modal state go to home, got to see trip
-            //TODO: reset form
+            $ionicHistory.nextViewOptions({
+              disableBack: true
+            });
+            $state.go('menu.tripDetail', {tripId: result});
           }
         })
       };

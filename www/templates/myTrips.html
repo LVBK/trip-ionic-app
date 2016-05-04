@@ -1,11 +1,68 @@
+<button ui-sref="menu.newTrip" ng-show="isLoggedIn"
+        class="button button-positive
+  icon ion-plus-round material-fab-button right-bottom">
+</button>
 <ion-view title="My trips" id="page7">
-    <ion-content padding="true" class="has-header">
-        <ion-list>
-            <ion-item>Item 1</ion-item>
-            <ion-item>Item 2</ion-item>
-            <ion-item>Item 3</ion-item>
-        </ion-list>
-        <div class="button-bar"></div>
-        <a ui-sref="menu.newTrip" id="myTrips-button17" class="button button-positive  button-block">New trip</a>
-    </ion-content>
+  <ion-content padding="true" class="has-header gray-bg">
+    <div ng-hide="isLoggedIn">
+      <div class="card">
+        <label class="item text-center">
+          <div style="text-align:center;">
+            <img src="img/logo.png" width="30%" height="auto">
+          </div>
+          <br>
+          <h2>Login to use this function!</h2>
+          <br>
+          <button class="button button-positive" ui-sref="menu.login">Login now</button>
+        </label>
+      </div>
+    </div>
+    <div ng-show="isLoggedIn">
+      <div class="card">
+        <div class="item item-divider">Filter</div>
+        <div class="item item-icon-left">
+          <i class="icon ion-ios-calendar-outline positive"></i>
+          Travel date:
+          <onezone-datepicker datepicker-object="searchDatepicker">
+            <spam class="positive show-onezone-datepicker">
+              {{searchDatepicker.date | date:'dd MMMM yyyy'}}
+            </spam>
+          </onezone-datepicker>
+        </div>
+      </div>
+      <div class="card">
+        <div class="item item-divider">Trips</div>
+        <div class="item item-text-wrap"
+             ng-repeat="item in vm.trips track by item._id">
+          <p><strong>From: </strong>{{::item.origin.name}}</p>
+          <p><strong>To: </strong>{{::item.destination.name}}</p>
+          <p><strong>Travel at: </strong>{{item.startAt | date:"MM/dd/yyyy 'at' h:mma"}}</p>
+          <div class="button-bar">
+            <button ui-sref="menu.tripEdit(::{tripId: item._id})"
+                    class="button button-block button-balanced button-small"
+                    >Edit
+            </button>
+            <button class="button button-block button-assertive button-outline button-small"
+                    ng-click="deleteTrip(item._id)">Delete
+            </button>
+            <button ui-sref="menu.tripDetail(::{tripId: item._id})" class="button button-block button-positive button-outline button-small"
+                    >View trip
+            </button>
+          </div>
+        </div>
+        <div class="item text-center" ng-if="noItemAvailable">
+          <p>Currently no matching records</p>
+        </div>
+        <div class="item text-center" ng-if="vm.noMoreItemAvailable && !noItemAvailable">
+          <p>No more</p>
+        </div>
+      </div>
+      <ion-infinite-scroll
+        ng-if="!vm.noMoreItemAvailable"
+        on-infinite="loadMore()"
+        distance="1%">
+        <ion-spinner icon="circles"></ion-spinner>
+      </ion-infinite-scroll>
+    </div>
+  </ion-content>
 </ion-view>

@@ -1,0 +1,118 @@
+<ion-view title="Trip edit">
+  <ion-content padding="true" class="has-header gray-bg">
+    <div ng-hide="currentUser">
+      <div class="card">
+        <label class="item text-center">
+          <div style="text-align:center;">
+            <img src="img/logo.png" width="30%" height="auto">
+          </div>
+          <br>
+          <h2>Login to use this function!</h2>
+          <br>
+          <button class="button button-positive" ui-sref="menu.login">Login now</button>
+        </label>
+      </div>
+    </div>
+    <div ng-show="currentUser">
+      <div class="item item-text-wrap flex-container has-warning" ng-hide="data.trip">
+        <div class="flex-item col">
+          <p>Not found trip!</p>
+        </div>
+      </div>
+      <div class="item item-text-wrap flex-container has-warning" ng-show="isDeparted && !tripDeleted">
+        <div class="flex-item col">
+          <p>This trip was departed</p>
+        </div>
+      </div>
+      <div class="item item-text-wrap flex-container has-warning" ng-show="tripDeleted">
+        <div class="flex-item col">
+          <p>This trip has been removed</p>
+        </div>
+      </div>
+      <div class="item item-text-wrap flex-container has-warning"
+           ng-show="data.trip && data.trip.owner !== currentUser._id">
+        <div class="flex-item col">
+          <p>Permission denied!</p>
+        </div>
+      </div>
+      <div ng-hide="!data.trip">
+        <form name="editTripForm" novalidate>
+          <div class="card">
+            <div class="item item-divider">Trip information</div>
+            <label class="item item-input"
+                   ng-class="{'has-error': editTripForm.pricePerSeat.$dirty && !(data.trip.pricePerSeat >= 0)}">
+              <span class="input-label">Price / Seat</span>
+              <i class="icon ion-social-usd placeholder-icon"></i>
+              <input type="number" placeholder="price" ng-model="data.trip.pricePerSeat" required name="pricePerSeat">
+            </label>
+            <div class="form-error" ng-show="editTripForm.pricePerSeat.$dirty && !(data.trip.pricePerSeat >= 0)">
+              Must be larger or equal than 0 $
+            </div>
+            <label class="item item-select">
+              <span class="input-label">Baggage size</span>
+              <select ng-model="data.trip.baggageSize"
+                      ng-options="option.value as option.name for option in baggageSizeOptions">
+              </select>
+            </label>
+            <label class="item item-select">
+              <span class="input-label">Flexible time</span>
+              <select ng-model="data.trip.flexibleTime"
+                      ng-options="option.value as option.name for option in flexibleTimeOptions">
+              </select>
+            </label>
+            <label class="item item-select">
+              <span class="input-label">Flexible distance</span>
+              <select ng-model="data.trip.flexibleDistance"
+                      ng-options="option.value as option.name for option in flexibleDistanceOptions">
+              </select>
+            </label>
+            <div class="item item-text-wrap flex-container">
+              <div class="flex-item col-20">
+                <span class="input-label">Note</span>
+              </div>
+              <div class="flex-item col-80">
+              <textarea ng-model="data.trip.note" class="comment-area"
+                        placeholder="Description detail about trip"></textarea>
+              </div>
+            </div>
+            <div class="item item-text-wrap flex-container">
+              <div class="flex-item col-50">
+                <div class="flex-container">
+                  <div class="flex-item col-10">
+                  </div>
+                  <div class="flex-item col-80">
+                    <button type="button" class="button button-assertive  button-block button-outline"
+                            ng-click="cancel()">Cancel
+                    </button>
+                  </div>
+                  <div class="flex-item col-10">
+                  </div>
+                </div>
+              </div>
+              <div class="flex-item col-50">
+                <div class="flex-container">
+                  <div class="flex-item col-10">
+                  </div>
+                  <div class="flex-item col-80">
+                    <button type="submit" class="button button-positive  button-block"
+                            ng-disabled="
+                        editTripForm.$invalid
+                        || !(data.trip.pricePerSeat >= 0)
+                        || data.trip.owner !== currentUser._id
+                        || isDeparted || tripDeleted"
+                            ng-click="updateTrip(data.trip)">
+                      Edit
+                    </button>
+                  </div>
+                  <div class=" flex-item col-10
+                  ">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

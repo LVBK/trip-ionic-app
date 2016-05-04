@@ -1,15 +1,17 @@
-<button ng-click="openModal()" ng-hide="isFull || isDeparted || isDeleted || data.trip.isFreezing || !isLoggedIn "
+<button ng-click="openModal()"
+        ng-hide="isFull || isDeparted || tripDeleted || driverDeleted || data.trip.isFreezing || !currentUser "
         class="button button-positive
   icon ion-plus-round material-fab-button right-bottom">
 </button>
 <ion-view title="Trip detail" id="page13">
   <ion-content padding="true" class="has-header gray-bg">
-    <div class="item item-text-wrap flex-container has-warning" ng-hide="isLoggedIn">
+    <div class="item item-text-wrap flex-container has-warning"
+         ng-hide="currentUser || isDeparted || isFull || tripDeleted || driverDeleted">
       <div class="flex-item col" ui-sref="menu.login">
         <p>Login for book this trip</p>
       </div>
     </div>
-    <div class="item item-text-wrap flex-container has-warning" ng-show="isDeparted">
+    <div class="item item-text-wrap flex-container has-warning" ng-show="isDeparted && !tripDeleted">
       <div class="flex-item col">
         <p>This trip was departed</p>
       </div>
@@ -19,9 +21,14 @@
         <p>No more empty seat for book</p>
       </div>
     </div>
-    <div class="item item-text-wrap flex-container has-warning" ng-show="isDeleted">
+    <div class="item item-text-wrap flex-container has-warning" ng-show="tripDeleted">
       <div class="flex-item col">
-        <p>This trip was removed, can't book now</p>
+        <p>This trip was removed</p>
+      </div>
+    </div>
+    <div class="item item-text-wrap flex-container has-warning" ng-show="driverDeleted">
+      <div class="flex-item col">
+        <p>Driver of trip has been deleted!</p>
       </div>
     </div>
     <div class="card">
@@ -31,6 +38,17 @@
         <h2>{{data.user.publicProfile.name}}</h2>
         <p>Rating (number of ratings)</p>
       </ion-item>
+      <div class="item">
+        <div ng-show="data.trip.owner === currentUser._id" class="button-bar">
+          <button ng-disabled="isDeparted || tripDeleted" ui-sref="menu.tripEdit(::{tripId: data.trip._id})"
+                  class="button button-block button-balanced button-small"
+          >Edit
+          </button>
+          <button ng-hide="tripDeleted" class="button button-block button-assertive button-outline button-small"
+                  ng-click="deleteTrip(data.trip._id)">Delete
+          </button>
+        </div>
+      </div>
     </div>
     <div class="card">
       <div class="item item-divider">Trip information</div>

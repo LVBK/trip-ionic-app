@@ -12,6 +12,7 @@ angular.module('app.controllers', [
     'app.myReservations.controllers',
     'app.reservations.controllers',
     'app.tripDetail.controllers',
+    'app.tripEdit.controllers',
     'app.myReservationDetail.controllers',
     'app.reservationDetail.controllers',
     'app.userProfile.controllers',

@@ -1,13 +1,20 @@
 angular.module('app.tripDetail.controllers', [])
 
   .controller('tripDetailCtrl', ['$scope', 'TripService', '$ionicPopup', 'GoogleMapService', '$ionicLoading',
-      '$stateParams', 'GeneralService', '$ionicModal', 'BookService',
+      '$stateParams', 'GeneralService', '$ionicModal', 'BookService', '$ionicHistory', '$state',
       function ($scope, TripService, $ionicPopup, GoogleMapService, $ionicLoading,
-                $stateParams, GeneralService, $ionicModal, BookService) {
-        function showAlert(value) {
-          var alertPopup = $ionicPopup.alert({
-            title: value,
+                $stateParams, GeneralService, $ionicModal, BookService, $ionicHistory, $state) {
+        $scope.showAlert = function (value) {
+          var myPopup = $ionicPopup.alert({
             template: '',
+            title: value,
+            scope: $scope,
+            buttons: [
+              {
+                text: '<b>OK</b>',
+                type: 'button-positive',
+              },
+            ]
           });
         };
         $ionicLoading.show();
@@ -98,18 +105,16 @@ angular.module('app.tripDetail.controllers', [])
               }
             }
           },
-          isDeleted: function () {
-            if (!($scope.getReactively('data.trip')
-              && $scope.getReactively('data.user'))) {
-              return true
-            } else {
-              return false;
-            }
+          tripDeleted: function(){
+            return $scope.getReactively('data.trip.isDeleted');
           },
-          isLoggedIn: function () {
-            return Meteor.userId() !== null;
+          driverDeleted: function(){
+            return $scope.getReactively('data.user.isDeleted');
           },
-        })
+          currentUser: function () {
+            return Meteor.user();
+          }
+        });
         $scope.getThumbnailUrl = function (imageId) {
           return GeneralService.getThumbnailUrl(imageId);
         };
@@ -148,12 +153,27 @@ angular.module('app.tripDetail.controllers', [])
           BookService.bookSeats(tripId, totalSeats, function(err, result){
             $ionicLoading.hide();
             if(err){
-              showAlert(err.reason);
+              $scope.showAlert(err.reason);
             } else {
               $scope.closeModal();
-              showAlert("Booking successful! Please wait driver approve it!");
+              $scope.showAlert("Booking successful! Please wait driver approve it!");
+              $ionicHistory.nextViewOptions({
+                disableBack: true
+              });
+              $state.go('menu.myReservationDetail', {reservationId: result});
             }
           });
+        }
+        $scope.deleteTrip = function (tripId) {
+          $ionicLoading.show();
+          TripService.deleteTrip(tripId, function (err, result) {
+            $ionicLoading.hide();
+            if (err) {
+              $scope.showAlert(err.reason);
+            } else {
+              $scope.showAlert("Trip deleted");
+            }
+          })
         }
       }
     ]

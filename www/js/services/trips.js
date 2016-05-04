@@ -38,7 +38,6 @@ angular.module('app.services.trips', [])
       var handler = reactiveContext.subscribe('trip_detail', function () {
         return [
           reactiveContext.getReactively('tripId'),
-          parseInt(reactiveContext.getReactively('limit')),
         ]
       }, {
         onReady: function () {
@@ -56,30 +55,12 @@ angular.module('app.services.trips', [])
       });
       reactiveContext.helpers({
         trip: function () {
-          return Trips.findOne({
-              $and: [
-                {_id: reactiveContext.getReactively('tripId')},
-                {isDeleted: false}
-              ]
-            }
-          )
+          return Trips.findOne({_id: reactiveContext.getReactively('tripId')});
         },
         user: function () {
-          var trip = Trips.findOne({
-              $and: [
-                {_id: reactiveContext.getReactively('tripId')},
-                {isDeleted: false}
-              ]
-            }
-          );
+          var trip = Trips.findOne({_id: reactiveContext.getReactively('tripId')});
           if (trip)
-            return Meteor.users.findOne({
-                $and: [
-                  {_id: trip.owner},
-                  {isDeleted: false}
-                ]
-              }
-            );
+            return Meteor.users.findOne({_id: trip.owner});
         },
         //feedbackCount: function () {
         //  return Counts.get('trip_detail');

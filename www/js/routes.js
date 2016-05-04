@@ -165,7 +165,15 @@ angular.module('app.routes', [])
           }
         }
       })
-
+      .state('menu.tripEdit', {
+        url: '/tripEdit/:tripId',
+        views: {
+          'side-menu21': {
+            templateUrl: 'templates/tripEdit.html',
+            controller: 'tripEditCtrl'
+          }
+        }
+      })
       .state('menu.userProfile', {
         url: '/userProfile/:userId',
         views: {

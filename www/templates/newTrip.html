@@ -266,17 +266,13 @@
             <div class="form-error" ng-show="newTripForm.pricePerSeat.$dirty && !(vm.pricePerSeat >= 0)">
               Must be larger or equal than 0 $
             </div>
-            <label class="item item-input">
-              <span class="input-label">Payment method</span>
-              <input type="text" placeholder="price" readonly value="Direct payments">
-            </label>
           </div>
         </div>
         <div class="list card">
           <div class="item item-divider">Other options</div>
           <div class="item item-body">
             <label class="item item-select">
-              <span class="input-label">Luggage size</span>
+              <span class="input-label">Baggage size</span>
               <select ng-model="vm.baggageSize"
                       ng-options="option.value as option.name for option in baggageSizeOptions">
               </select>
@@ -323,6 +319,7 @@
                     <button type="submit" class="button button-positive  button-block"
                             ng-disabled="
                         newTripForm.$invalid
+                        || !(vm.pricePerSeat >= 0)
                         || vm.routeError
                         || (vm.tripType == 'often'
                         && (vm.travelDaysInWeek.indexOf(true) == -1
