@@ -5,6 +5,7 @@ angular.module('app.services', [
   'app.services.goooleMap',
   'app.services.trips',
   'app.services.reservations',
+  'app.services.notifications',
   'app.services.users',
 ])
 

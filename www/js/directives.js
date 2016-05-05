@@ -162,3 +162,37 @@ angular.module('app.directives', [])
       };
     }
   )
+  .directive('notificationItem', function () {
+      var controller = ['$scope', 'NotificationService', 'GeneralService',
+        function ($scope, NotificationService, GeneralService) {
+          $scope.helpers({
+            sender: function(){
+              return Meteor.users.findOne({_id: $scope.notification.senderId});
+            },
+            action: function(){
+              return ActionTypes.findOne({type: $scope.notification.actionType});
+            },
+            content: function(){
+              return NotificationTypes.findOne({type: $scope.notification.notificationType});
+            }
+          })
+          $scope.markAsRead = function (notificationId) {
+            NotificationService.markAsRead(notificationId)
+          };
+          $scope.getThumbnailUrl = function (imageId) {
+            return GeneralService.getThumbnailUrl(imageId);
+          }
+        }]
+      return {
+        restrict: 'EA',
+        replace: true,
+        scope: {
+          notification: '=',
+        },
+        controller: controller,
+        link: function (scope, element, attrs) {
+        },
+        templateUrl: './../templates/notificationItem.html'
+      };
+    }
+  )
