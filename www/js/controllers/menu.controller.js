@@ -21,6 +21,9 @@ angular.module('app.menu.controllers', [])
           } else {
             return GeneralService.getThumbnailUrl();
           }
+        },
+        unReadCount: function(){
+          return Counts.get('notifications_unread');
         }
       });
       $scope.logout = function () {

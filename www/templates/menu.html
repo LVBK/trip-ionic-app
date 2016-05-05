@@ -3,7 +3,9 @@
     <ion-nav-bar class="bar-positive">
       <ion-nav-back-button class="button-clear"></ion-nav-back-button>
       <ion-nav-buttons side="left">
-        <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+          <span class="badge badge-assertive" ng-show="unReadCount > 0">{{unReadCount}}</span>
+        </button>
       </ion-nav-buttons>
     </ion-nav-bar>
     <ion-nav-view name="side-menu21"></ion-nav-view>
@@ -36,7 +38,7 @@
         <ion-item class="item-icon-left positive" ui-sref="menu.notifications" menu-close="">
           <i class="icon ion-ios-bell"></i>
           Notifications
-          <span class="badge badge-assertive">0</span>
+          <span class="badge badge-assertive" ng-show="unReadCount > 0">{{unReadCount}}</span>
         </ion-item>
         <ion-item class="item-icon-left positive" ui-sref="menu.myTrips" menu-close="">
           <i class="icon ion-android-car"></i>

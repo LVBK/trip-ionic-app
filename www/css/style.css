@@ -165,3 +165,11 @@ div > .flex-item:first-child > h2 {
   left: auto;
   position: absolute;
 }
+.button span.badge {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  bottom: auto;
+  right: auto;
+  font-size: 10px;
+}
