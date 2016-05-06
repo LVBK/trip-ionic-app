@@ -201,6 +201,24 @@ angular.module('app.routes', [])
           }
         }
       })
+      .state('menu.checkInTickets', {
+        url: '/checkInTickets',
+        views: {
+          'side-menu21': {
+            templateUrl: 'templates/checkInTickets.html',
+            controller: 'checkInTicketsCtrl'
+          }
+        }
+      })
+      .state('menu.checkInTicket', {
+        url: '/checkInTicket/:checkInTicketId',
+        views: {
+          'side-menu21': {
+            templateUrl: 'templates/checkInTicket.html',
+            controller: 'checkInTicketCtrl'
+          }
+        }
+      })
     $urlRouterProvider.otherwise('/home/')
 
 

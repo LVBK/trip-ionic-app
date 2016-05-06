@@ -1,0 +1,83 @@
+<ion-view title="Checkin ticket">
+  <ion-content padding="true" class="has-header gray-bg">
+    <div ng-hide="isLoggedIn">
+      <div class="card">
+        <label class="item text-center">
+          <div style="text-align:center;">
+            <img src="img/logo.png" width="30%" height="auto">
+          </div>
+          <br>
+          <h2>Login to use this function!</h2>
+          <br>
+          <button class="button button-positive" ui-sref="menu.login">Login now</button>
+        </label>
+      </div>
+    </div>
+    <div ng-show="isLoggedIn && !vm.ticket">
+      <div class="item item-text-wrap flex-container has-warning">
+        <div class="flex-item col">
+          <p>Not found ticket!</p>
+        </div>
+      </div>
+    </div>
+    <div ng-show="isLoggedIn && vm.ticket">
+      <div class="item item-text-wrap flex-container has-warning" ng-show="ticketDeleted">
+        <div class="flex-item col">
+          <p>This ticket has been deleted!</p>
+        </div>
+      </div>
+      <div class="item item-text-wrap flex-container has-warning" ng-show="tripDeleted">
+        <div class="flex-item col">
+          <p>The trip of ticket has been deleted!</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="item item-divider">Ticket</div>
+        <div class="item item-text-wrap flex-container">
+          <div class="flex-item col-20">
+            <h2>From</h2>
+          </div>
+          <div class="flex-item col-80">
+            <p>{{::vm.trip.origin.name}}</p>
+          </div>
+        </div>
+        <div class="item item-text-wrap flex-container">
+          <div class="flex-item col-20">
+            <h2>To</h2>
+          </div>
+          <div class="flex-item col-80">
+            <p>{{::vm.trip.destination.name}}</p>
+          </div>
+        </div>
+        <div class="item item-text-wrap flex-container">
+          <div class="flex-item col-40">
+            <h2>Ticket state</h2>
+          </div>
+          <div class="flex-item col-60">
+            <p>{{vm.ticket.state}}</p>
+          </div>
+        </div>
+        <div
+          ng-show="(vm.ticket.state == 'checkInAble' || vm.ticket.state == 'expired') && !ticketDeleted && !tripDeleted">
+          <div class="item">
+            <button class="button button-block button-positive" ng-click="checkIn(vm.ticket._id)">
+              Checkin
+            </button>
+          </div>
+        </div>
+        <div ng-show="vm.ticket.state == 'checkedIn' && !ticketDeleted && !tripDeleted">
+          <div class="item">
+            <button class="button button-block button-balanced" ng-click="checkIn(vm.ticket._id)">
+              Checkout
+            </button>
+          </div>
+        </div>
+        <div class="item">
+          <button class="button button-block button-balanced button-outline"
+                  ui-sref="menu.tripDetail(::{tripId: vm.trip._id})">View trip
+          </button>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

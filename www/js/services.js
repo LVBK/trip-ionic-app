@@ -7,5 +7,6 @@ angular.module('app.services', [
   'app.services.reservations',
   'app.services.notifications',
   'app.services.users',
+  'app.services.checkin',
 ])
 

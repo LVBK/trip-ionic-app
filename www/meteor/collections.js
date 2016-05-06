@@ -16,3 +16,6 @@
 !function () {
   Notifications = new Meteor.Collection("notifications");
 }();
+!function () {
+  CheckInTickets = new Meteor.Collection("checkInTickets");
+}();

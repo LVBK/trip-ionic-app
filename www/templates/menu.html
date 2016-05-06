@@ -35,23 +35,33 @@
           <i class="icon ion-ios-search-strong"></i>
           Find a trip
         </ion-item>
-        <ion-item class="item-icon-left positive" ui-sref="menu.notifications" menu-close="">
-          <i class="icon ion-ios-bell"></i>
-          Notifications
-          <span class="badge badge-assertive" ng-show="unReadCount > 0">{{unReadCount}}</span>
-        </ion-item>
-        <ion-item class="item-icon-left positive" ui-sref="menu.myTrips" menu-close="">
-          <i class="icon ion-android-car"></i>
-          My trips
-        </ion-item>
-        <ion-item class="item-icon-left positive" ui-sref="menu.myReservations" menu-close="">
-          My reservations
-          <i class="icon ion-android-checkmark-circle"></i>
-        </ion-item>
-        <ion-item class="item-icon-left positive" ui-sref="menu.reservations" menu-close="">
-          Reservations
-          <i class="icon ion-android-checkmark-circle"></i>
-        </ion-item>
+        <div ng-show="isLoggedIn">
+          <ion-item class="item-icon-left positive" ui-sref="menu.notifications" menu-close="">
+            <i class="icon ion-ios-bell"></i>
+            Notifications
+            <span class="badge badge-assertive" ng-show="unReadCount > 0">{{unReadCount}}</span>
+          </ion-item>
+          <ion-item class="item-icon-left positive" ui-sref="menu.myTrips" menu-close="">
+            <i class="icon ion-android-car"></i>
+            My trips
+          </ion-item>
+          <ion-item class="item-icon-left positive" ui-sref="menu.myReservations" menu-close="">
+            My reservations
+            <i class="icon ion-android-checkmark-circle"></i>
+          </ion-item>
+          <ion-item class="item-icon-left positive" ui-sref="menu.reservations" menu-close="">
+            Reservations
+            <i class="icon ion-android-checkmark-circle"></i>
+          </ion-item>
+          <ion-item class="item-icon-left positive" ui-sref="menu.checkInTickets" menu-close="">
+            Checkin Tickets
+            <i class="icon ion-ios-list-outline"></i>
+          </ion-item>
+          <ion-item class="item-icon-left positive" ng-click="logout()" menu-close="">
+            <i class="icon ion-log-out"></i>
+            Logout
+          </ion-item>
+        </div>
         <div ng-hide="isLoggedIn">
           <ion-item class="item-icon-left positive" ui-sref="menu.login" menu-close="">
             <i class="icon ion-log-in"></i>
@@ -60,12 +70,6 @@
           <ion-item class="item-icon-left positive" ui-sref="menu.signup" menu-close="">
             <i class="icon ion-person-add"></i>
             Sign up
-          </ion-item>
-        </div>
-        <div ng-show="isLoggedIn">
-          <ion-item class="item-icon-left positive" ng-click="logout()" menu-close="">
-            <i class="icon ion-log-out"></i>
-            Logout
           </ion-item>
         </div>
       </ion-list>

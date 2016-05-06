@@ -16,4 +16,6 @@ angular.module('app.controllers', [
     'app.myReservationDetail.controllers',
     'app.reservationDetail.controllers',
     'app.userProfile.controllers',
+    'app.checkInTickets.controllers',
+    'app.checkInTicket.controllers',
 ])

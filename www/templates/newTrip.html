@@ -75,8 +75,7 @@
             <ion-checkbox ng-click="vm.isRoundTrip = !vm.isRoundTrip" ng-checked="vm.isRoundTrip == true">Round trip
             </ion-checkbox>
             <div ng-show="vm.tripType=='one-time'">
-              <div class="item item-icon-left">
-                <i class="icon ion-ios-calendar-outline positive"></i>
+              <div class="item">
                 Travel date:
                 <onezone-datepicker datepicker-object="travelDatepicker">
                   <spam class="positive show-onezone-datepicker">
@@ -86,8 +85,7 @@
               </div>
             </div>
             <div ng-show="vm.tripType=='often'">
-              <div class="item item-icon-left">
-                <i class="icon ion-ios-calendar-outline positive"></i>
+              <div class="item">
                 Start date:
                 <onezone-datepicker datepicker-object="startDatepicker">
                   <spam class="positive show-onezone-datepicker">
@@ -95,8 +93,7 @@
                   </spam>
                 </onezone-datepicker>
               </div>
-              <div class="item item-icon-left">
-                <i class="icon ion-ios-calendar-outline balanced"></i>
+              <div class="item">
                 End date:
                 <onezone-datepicker datepicker-object="endDatepicker">
                   <spam class="positive show-onezone-datepicker">
@@ -104,9 +101,8 @@
                   </spam>
                 </onezone-datepicker>
               </div>
-              <div class="item item-icon-left">
-                <i class="icon ion-ios-calendar-outline positive"></i>
-                Travel date:
+              <div class="item">
+                Travel day:
                 <br>
                 <div>
                   <a ng-click="vm.travelDaysInWeek[0] = !vm.travelDaysInWeek[0]">
@@ -161,8 +157,7 @@
             </div>
             <div ng-show="vm.isRoundTrip == true">
               <div ng-show="vm.tripType=='one-time'">
-                <div class="item item-icon-left">
-                  <i class="icon ion-ios-calendar-outline balanced"></i>
+                <div class="item">
                   Return date:
                   <onezone-datepicker datepicker-object="returnDatepicker">
                     <spam class="positive show-onezone-datepicker">
@@ -172,9 +167,8 @@
                 </div>
               </div>
               <div ng-show="vm.tripType=='often'">
-                <div class="item item-icon-left">
-                  <i class="icon ion-ios-calendar-outline balanced"></i>
-                  Return date:
+                <div class="item">
+                  Return day:
                   <br>
                   <div>
                     <a ng-click="vm.returnDaysInWeek[0] = !vm.returnDaysInWeek[0]">
