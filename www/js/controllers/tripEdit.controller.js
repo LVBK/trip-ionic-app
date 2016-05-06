@@ -23,11 +23,11 @@ angular.module('app.tripEdit.controllers', [])
           {name: "Large", value: 'Large'}
         ];
         $scope.flexibleTimeOptions = [
-          {name: "On time", value: 'On time'},
-          {name: "+/- 5 minutes", value: '+/- 5 minutes'},
-          {name: "+/- 10 minutes", value: '+/- 10 minutes'},
-          {name: "+/- 15 minutes", value: '+/- 15 minutes'},
-          {name: "+/- 30 minutes", value: '+/- 30 minutes'}
+          {name: "On time", value: 0},
+          {name: "5 minutes", value: 5},
+          {name: "10 minutes", value: 10},
+          {name: "15 minutes", value: 15},
+          {name: "30 minutes", value: 30}
         ];
         $scope.flexibleDistanceOptions = [
           {name: "Unacceptable", value: 'Unacceptable'},

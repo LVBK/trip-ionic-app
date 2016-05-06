@@ -131,7 +131,8 @@
           <h2>Flexible time</h2>
         </div>
         <div class="flex-item col-60">
-          <p>{{data.trip.flexibleTime}}</p>
+          <p ng-show="data.trip.flexibleTime > 0">{{data.trip.flexibleTime + " minutes"}}</p>
+          <p ng-show="data.trip.flexibleTime == 0">On time</p>
         </div>
       </div>
       <div class="item item-text-wrap flex-container">
