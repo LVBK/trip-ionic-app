@@ -39,6 +39,7 @@
           <p><strong>From: </strong>{{::getTrip(item.tripId).origin.name}}</p>
           <p><strong>To: </strong>{{::getTrip(item.tripId).destination.name}}</p>
           <p><strong>Travel at: </strong>{{::getTrip(item.tripId).startAt | date:"MM/dd/yyyy 'at' h:mma"}}</p>
+          <p><strong>Ticket state: </strong>{{item.state}}</p>
           <div class="button-bar">
             <button class="button button-block button-balanced button-outline button-small"
                     ui-sref="menu.tripDetail(::{tripId: getTrip(item.tripId)._id})">View trip
