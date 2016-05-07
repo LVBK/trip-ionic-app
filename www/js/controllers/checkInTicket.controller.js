@@ -1,13 +1,13 @@
 angular.module('app.checkInTicket.controllers', [])
 
-  .controller('checkInTicketCtrl', ['$scope', 'CheckInService', '$ionicPopup', '$ionicLoading', '$stateParams',
-      function ($scope, CheckInService, $ionicPopup, $ionicLoading, $stateParams) {
+  .controller('checkInTicketCtrl', ['$scope', 'CheckInService', '$ionicPopup', '$ionicLoading', '$stateParams', '$q',
+      function ($scope, CheckInService, $ionicPopup, $ionicLoading, $stateParams, $q) {
         $scope.checkOutLimitTimeOptions = [
           {name: "10 minutes", value: 10},
           {name: "30 minutes", value: 30},
           {name: "1 hour", value: 60},
           {name: "3 hours", value: 180},
-          {name: "6 hours", value: 360} ,
+          {name: "6 hours", value: 360},
           {name: "12 hours", value: 720},
           {name: "24 hours", value: 1440},
           {name: "36 hours", value: 2160},
@@ -26,19 +26,20 @@ angular.module('app.checkInTicket.controllers', [])
             ]
           });
         };
-        function getCurrentLocation (){
+        getCurrentLocationAsync = function (callback) {
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
-              var pos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-              };
-              return pos;
+              var pos = [
+                position.coords.longitude,
+                position.coords.latitude
+              ];
+              callback(pos);
             });
           } else {
-            return null;
+            callback(null);
           }
         }
+
         $scope.vm = {
           checkInTicketId: $stateParams.checkInTicketId,
           ticket: null,
@@ -59,10 +60,36 @@ angular.module('app.checkInTicket.controllers', [])
         });
         $scope.checkIn = function (ticketId, checkOutPassword, checkOutLimitMinute) {
           $ionicLoading.show();
-          var currentLocation = getCurrentLocation();
-          console.log(currentLocation);
-          CheckInService.checkIn(ticketId, checkOutPassword, checkOutLimitMinute, currentLocation,
-            function (err, result) {
+          var currentLocation = null;
+          getCurrentLocationAsync(function (coordinates) {
+            if (coordinates) {
+              currentLocation = {
+                "type": "Point",
+                "coordinates": coordinates,
+              }
+            }
+            CheckInService.checkIn(ticketId, checkOutPassword, checkOutLimitMinute, currentLocation,
+              function (err, result) {
+                $ionicLoading.hide();
+                if (err) {
+                  $scope.showAlert(err.reason);
+                } else {
+                  $scope.showAlert(result);
+                }
+              })
+          });
+        };
+        $scope.checkOut = function (ticketId, checkOutPassword) {
+          $ionicLoading.show();
+          var currentLocation = null;
+          getCurrentLocationAsync(function (coordinates) {
+            if (coordinates) {
+              currentLocation = {
+                "type": "Point",
+                "coordinates": coordinates,
+              }
+            }
+            CheckInService.checkOut(ticketId, checkOutPassword, currentLocation, function (err, result) {
               $ionicLoading.hide();
               if (err) {
                 $scope.showAlert(err.reason);
@@ -70,19 +97,7 @@ angular.module('app.checkInTicket.controllers', [])
                 $scope.showAlert(result);
               }
             })
-        };
-        $scope.checkOut = function (ticketId, checkOutPassword) {
-          $ionicLoading.show();
-          var currentLocation = getCurrentLocation();
-          console.log(currentLocation);
-          CheckInService.checkOut(ticketId, checkOutPassword, currentLocation, function (err, result) {
-            $ionicLoading.hide();
-            if (err) {
-              $scope.showAlert(err.reason);
-            } else {
-              $scope.showAlert(result);
-            }
-          })
+          });
         };
         CheckInService.checkInTicketDetailSubscribe($scope.vm, $scope);
       }
