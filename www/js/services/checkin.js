@@ -32,6 +32,7 @@ angular.module('app.services.checkin', [])
                 {
                   userId: Meteor.userId(),
                 },
+                {isDeleted: false},
                 stateSelector
               ]
             },

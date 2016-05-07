@@ -26,6 +26,9 @@ angular.module('app.services.notifications', [])
             },
             {
               limit: parseInt(reactiveContext.getReactively('limit')),
+              sort: {
+                createdAt: -1
+              }
             }
           ).fetch()
         },

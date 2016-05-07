@@ -78,6 +78,9 @@ angular.module('app.checkInTickets.controllers', [])
             $scope.$broadcast('scroll.infiniteScrollComplete');
           }, 200);
         };
+        $scope.getTrip = function(tripId){
+          return Trips.findOne(tripId);
+        };
       }
     ]
   )

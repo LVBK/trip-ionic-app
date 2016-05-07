@@ -26,6 +26,7 @@ angular.module('app.services.trips', [])
         tripSearchData: function () {
           return Trips.find(
             {startAt: {$gte: new Date()}},
+            {isDeleted: false},
             {limit: parseInt(reactiveContext.getReactively('limit'))}).fetch()
         },
         rowCount: function () {
@@ -100,6 +101,7 @@ angular.module('app.services.trips', [])
         trips: function () {
           return Trips.find(
             {startAt: {$gte: reactiveContext.getReactively('date')}},
+            {isDeleted: false},
             {limit: parseInt(reactiveContext.getReactively('limit'))}).fetch()
         },
         rowCount: function () {
