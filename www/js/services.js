@@ -8,5 +8,7 @@ angular.module('app.services', [
   'app.services.notifications',
   'app.services.users',
   'app.services.checkin',
+  'app.services.comments',
+  'app.services.feedbacks',
 ])
 

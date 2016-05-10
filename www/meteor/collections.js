@@ -19,3 +19,9 @@
 !function () {
   CheckInTickets = new Meteor.Collection("checkInTickets");
 }();
+!function () {
+  Comments = new Meteor.Collection("comments");
+}();
+!function () {
+  Feedbacks = new Meteor.Collection("feedbacks");
+}();
