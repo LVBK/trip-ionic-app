@@ -5,4 +5,8 @@
     {{comment.content}}
   </p>
   <span>{{comment.createdAt |  date:'dd/MM/yyyy hh:mm'}}</span>
+  <button ng-show="currentUser" class="button button-outline button-positive button-small" ng-click="
+          showReplyWidget({arg1:comment})">Reply
+  </button>
+  <reply-directive trip-id="tripId" current-reply-widget-visible="currentReplyWidgetVisible" comment="comment"></reply-directive>
 </div>

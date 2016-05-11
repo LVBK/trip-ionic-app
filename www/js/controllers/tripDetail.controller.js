@@ -93,6 +93,9 @@ angular.module('app.tripDetail.controllers', [])
           }
         ]
         $scope.helpers({
+          isLoggedIn: function () {
+            return Meteor.userId() !== null;
+          },
           emptySeats: function () {
             if ($scope.getReactively('data.trip.seats') && $scope.getReactively('data.trip.slots')) {
               var emptySeats = $scope.data.trip.seats - $scope.data.trip.slots.length;
@@ -206,11 +209,20 @@ angular.module('app.tripDetail.controllers', [])
             if (err) {
               $scope.showAlert(err.reason);
             } else {
-              $scope.showAlert("Comment Successful!");
+              $scope.data.commentText = null;
             }
           });
         };
         CommentService.commentsSubscribe($scope.data, $scope);
+
+        $scope.currentReplyWidgetVisible = null;
+        $scope.showReplyWidget = function(comment){
+          if ($scope.currentReplyWidgetVisible == comment) {
+            $scope.currentReplyWidgetVisible = null;
+          } else {
+            $scope.currentReplyWidgetVisible = comment;
+          }
+        }
       }
     ]
   )

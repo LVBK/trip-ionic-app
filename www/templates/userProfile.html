@@ -49,7 +49,7 @@
       </div>
     </div>
     <div class="card list-comment">
-      <ion-item class="item-divider">Feedback from other users</ion-item>
+      <ion-item class="item-divider">Feedback from other users ({{data.rowCount}})</ion-item>
       <feedback-item feedback="item"
                      ng-repeat="item in data.feedbacks track by item._id">
       </feedback-item>

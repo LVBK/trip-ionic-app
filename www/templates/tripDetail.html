@@ -152,35 +152,22 @@
         </div>
       </div>
     </div>
-    <!--<div class="item item-avatar item-text-wrap">-->
-      <!--<img src="img/logo.png">-->
-      <!--<h2>Marty McFly</h2>-->
-      <!--<span><b>{{'November 05, 1955' | date:'dd/MM/yyyy hh:mm'}}</b></span>-->
-        <!--<span>-->
-          <!--This is a "Facebook" styled Card. The header is created from a Thumbnail List item,-->
-        <!--</span>-->
-      <!--<p>-->
-        <!--<a class="button button-outline button-positive button-small">Reply</a>-->
-      <!--</p>-->
-      <!--<div>-->
-        <!--<div class="row">-->
-          <!--<textarea class="reply-area" placeholder="Reply..."></textarea>-->
-        <!--</div>-->
-        <!--<div class="row">-->
-          <!--<div class="col col-offset-80 col-20">-->
-            <!--<a class="button button-small button-positive">Reply</a>-->
-          <!--</div>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
     <div class="card list-comment">
-      <ion-item class="item-divider">Comments</ion-item>
-      <form class="item" ng-submit="comment(data.tripId, null, data.commentText)">
+      <!--TODO: rowCount not right when see other page.-->
+      <ion-item class="item-divider">Comments ({{data.rowCount}})</ion-item>
+      <div class="item text-center" ng-hide="isLoggedIn">
+        <button ui-sref="menu.login" class="button button-small button-positive">Login for comment</button>
+      </div>
+      <form ng-show="isLoggedIn" class="item" ng-submit="comment(data.tripId, null, data.commentText)">
         <textarea ng-model="data.commentText" class="comment-area" placeholder="Ask driver something"></textarea>
-        <button type="submit" class="button button-small button-positive comment-publish-btn">Add comment</button>
+        <button ng-disabled="!data.commentText" type="submit"
+                class="button button-small button-positive comment-publish-btn">Add comment
+        </button>
       </form>
       <comment-item comment="item"
-                     ng-repeat="item in data.comments track by item._id">
+                    current-reply-widget-visible="currentReplyWidgetVisible"
+                    trip-id="data.tripId" show-reply-widget="showReplyWidget(arg1)"
+                    ng-repeat="item in data.comments track by item._id">
       </comment-item>
       <div class="item text-center" ng-if="noItemAvailable">
         <p>No comments yet</p>
