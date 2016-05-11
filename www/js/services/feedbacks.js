@@ -1,6 +1,6 @@
 angular.module('app.services.feedbacks', [])
   .factory('FeedbackService', ['$meteor', '$reactive', function ($meteor, $reactive) {
-    FeedbacksSubscribe = function (context, $scope) {
+    feedbacksSubscribe = function (context, $scope) {
       var reactiveContext = $reactive(context).attach($scope);
       var handler = reactiveContext.subscribe('feedbacks', function () {
         return [
@@ -38,7 +38,7 @@ angular.module('app.services.feedbacks', [])
         },
       });
     };
-    FeedbackAlreadySubscribe = function (context, $scope) {
+    feedbackAlreadySubscribe = function (context, $scope) {
       var reactiveContext = $reactive(context).attach($scope);
       var handler = reactiveContext.subscribe('feedback_counter', function () {
         return [
@@ -66,8 +66,8 @@ angular.module('app.services.feedbacks', [])
       Meteor.call('feedback', tripId, rate, content, callback);
     };
     return {
-      FeedbacksSubscribe: FeedbacksSubscribe,
-      FeedbackAlreadySubscribe: FeedbackAlreadySubscribe,
+      feedbacksSubscribe: feedbacksSubscribe,
+      feedbackAlreadySubscribe: feedbackAlreadySubscribe,
       feedback: feedback,
     };
   }])

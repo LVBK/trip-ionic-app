@@ -196,3 +196,57 @@ angular.module('app.directives', [])
       };
     }
   )
+  .directive('feedbackItem', function () {
+      var controller = ['$scope', 'GeneralService',
+        function ($scope, GeneralService) {
+          $scope.rating = {
+            max: 5,
+            readOnly: true
+          };
+          $scope.helpers({
+            user: function(){
+              return Meteor.users.findOne({_id: $scope.feedback.from});
+            }
+          });
+          $scope.getThumbnailUrl = function (imageId) {
+            return GeneralService.getThumbnailUrl(imageId);
+          }
+        }]
+      return {
+        restrict: 'EA',
+        replace: true,
+        scope: {
+          feedback: '=',
+        },
+        controller: controller,
+        link: function (scope, element, attrs) {
+        },
+        templateUrl: './../templates/feedbackItem.html'
+      };
+    }
+  )
+  .directive('commentItem', function () {
+      var controller = ['$scope', 'GeneralService',
+        function ($scope, GeneralService) {
+          $scope.helpers({
+            user: function(){
+              return Meteor.users.findOne({_id: $scope.comment.from});
+            }
+          });
+          $scope.getThumbnailUrl = function (imageId) {
+            return GeneralService.getThumbnailUrl(imageId);
+          }
+        }]
+      return {
+        restrict: 'EA',
+        replace: true,
+        scope: {
+          comment: '=',
+        },
+        controller: controller,
+        link: function (scope, element, attrs) {
+        },
+        templateUrl: './../templates/commentItem.html'
+      };
+    }
+  )

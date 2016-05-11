@@ -133,7 +133,7 @@ angular.module('app.checkInTicket.controllers', ['ionic.rating'])
           })
         };
         CheckInService.checkInTicketDetailSubscribe($scope.vm, $scope);
-        FeedbackService.FeedbackAlreadySubscribe($scope.vm, $scope);
+        FeedbackService.feedbackAlreadySubscribe($scope.vm, $scope);
 
       }
     ]

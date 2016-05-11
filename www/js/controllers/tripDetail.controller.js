@@ -1,9 +1,9 @@
 angular.module('app.tripDetail.controllers', [])
 
   .controller('tripDetailCtrl', ['$scope', 'TripService', '$ionicPopup', 'GoogleMapService', '$ionicLoading',
-      '$stateParams', 'GeneralService', '$ionicModal', 'BookService', '$ionicHistory', '$state',
+      '$stateParams', 'GeneralService', '$ionicModal', 'BookService', '$ionicHistory', '$state', '$timeout', 'CommentService',
       function ($scope, TripService, $ionicPopup, GoogleMapService, $ionicLoading,
-                $stateParams, GeneralService, $ionicModal, BookService, $ionicHistory, $state) {
+                $stateParams, GeneralService, $ionicModal, BookService, $ionicHistory, $state, $timeout, CommentService) {
         $scope.showAlert = function (value) {
           var myPopup = $ionicPopup.alert({
             template: '',
@@ -20,17 +20,20 @@ angular.module('app.tripDetail.controllers', [])
         $ionicLoading.show();
         $scope.data = {
           tripId: $stateParams.tripId,
+          comments: [],
           limit: 5,
           rowCount: 0,
+          noMoreItemAvailable: false,
           trip: null,
           user: null,
           emptySeats: null,
           bookSeats: null,
           isFull: false,
-          callback: function(err, result){
+          callback: function (err, result) {
             console.log("Err", err, "Result", result);
             $ionicLoading.hide();
-          }
+          },
+          commentText: null
         };
         $scope.bookingOptions = [
           {
@@ -105,14 +108,22 @@ angular.module('app.tripDetail.controllers', [])
               }
             }
           },
-          tripDeleted: function(){
+          tripDeleted: function () {
             return $scope.getReactively('data.trip.isDeleted');
           },
-          driverDeleted: function(){
+          driverDeleted: function () {
             return $scope.getReactively('data.user.isDeleted');
           },
           currentUser: function () {
             return Meteor.user();
+          },
+          noItemAvailable: function () {
+            if ($scope.getReactively('data.comments')) {
+              if ($scope.data.comments.length > 0) {
+                return false
+              }
+            }
+            return true;
           }
         });
         $scope.getThumbnailUrl = function (imageId) {
@@ -122,37 +133,37 @@ angular.module('app.tripDetail.controllers', [])
         $ionicModal.fromTemplateUrl('./../../templates/bookSeat.html', {
           scope: $scope,
           animation: 'slide-in-up',
-        }).then(function(modal) {
+        }).then(function (modal) {
           $scope.modal = modal;
         });
 
-        $scope.openModal = function() {
+        $scope.openModal = function () {
           $scope.modal.show();
         };
 
-        $scope.closeModal = function() {
+        $scope.closeModal = function () {
           $scope.modal.hide();
         };
 
         //Cleanup the modal when we're done with it!
-        $scope.$on('$destroy', function() {
+        $scope.$on('$destroy', function () {
           $scope.modal.remove();
         });
 
         // Execute action on hide modal
-        $scope.$on('modal.hidden', function() {
+        $scope.$on('modal.hidden', function () {
           // Execute action
         });
 
         // Execute action on remove modal
-        $scope.$on('modal.removed', function() {
+        $scope.$on('modal.removed', function () {
           // Execute action
         });
-        $scope.book = function(tripId, totalSeats){
+        $scope.book = function (tripId, totalSeats) {
           $ionicLoading.show();
-          BookService.bookSeats(tripId, totalSeats, function(err, result){
+          BookService.bookSeats(tripId, totalSeats, function (err, result) {
             $ionicLoading.hide();
-            if(err){
+            if (err) {
               $scope.showAlert(err.reason);
             } else {
               $scope.closeModal();
@@ -174,7 +185,32 @@ angular.module('app.tripDetail.controllers', [])
               $scope.showAlert("Trip deleted");
             }
           })
-        }
+        };
+        $scope.loadMore = function () {
+          var remain = $scope.data.rowCount - $scope.data.limit;
+          if (remain > 5) {
+            $scope.data.limit += 5;
+          } else if (remain > 0) {
+            $scope.data.limit += remain;
+          } else {
+            $scope.data.noMoreItemAvailable = true;
+          }
+          $timeout(function () {
+            $scope.$broadcast('scroll.infiniteScrollComplete');
+          }, 200);
+        };
+        $scope.comment = function (tripId, receiveUserId, content) {
+          $ionicLoading.show();
+          CommentService.comment(tripId, receiveUserId, content, function (err, result) {
+            $ionicLoading.hide();
+            if (err) {
+              $scope.showAlert(err.reason);
+            } else {
+              $scope.showAlert("Comment Successful!");
+            }
+          });
+        };
+        CommentService.commentsSubscribe($scope.data, $scope);
       }
     ]
   )

@@ -189,3 +189,37 @@ ul.rating li {
 ul.rating li i {
   font-size: 30px;
 }
+.list-comment .item.item-divider {
+  margin-bottom: 0
+}
+
+/*.list-comment .item.item-text-wrap:first-of-type {*/
+  /*margin-top: 0;*/
+  /*border-top: none;*/
+/*}*/
+
+.list-comment .item h2 {
+  font-size: 14px;
+}
+
+.list-comment .item p {
+  font-size: 13px;
+}
+
+.list-comment .item span {
+  font-size: 10px;
+  font-style: italic;
+  color: #666;
+  position: absolute;
+  right: 20px;
+  top: 6px;
+}
+.list-comment .item ul.rating li i {
+  font-size: 20px;
+}
+.list-comment .item ul.rating li {
+  display: inline;
+  border: 0px;
+  background: none;
+  padding: 5px;
+}

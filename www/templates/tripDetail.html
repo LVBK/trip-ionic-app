@@ -152,75 +152,48 @@
         </div>
       </div>
     </div>
-    <div class="card">
+    <!--<div class="item item-avatar item-text-wrap">-->
+      <!--<img src="img/logo.png">-->
+      <!--<h2>Marty McFly</h2>-->
+      <!--<span><b>{{'November 05, 1955' | date:'dd/MM/yyyy hh:mm'}}</b></span>-->
+        <!--<span>-->
+          <!--This is a "Facebook" styled Card. The header is created from a Thumbnail List item,-->
+        <!--</span>-->
+      <!--<p>-->
+        <!--<a class="button button-outline button-positive button-small">Reply</a>-->
+      <!--</p>-->
+      <!--<div>-->
+        <!--<div class="row">-->
+          <!--<textarea class="reply-area" placeholder="Reply..."></textarea>-->
+        <!--</div>-->
+        <!--<div class="row">-->
+          <!--<div class="col col-offset-80 col-20">-->
+            <!--<a class="button button-small button-positive">Reply</a>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+    <div class="card list-comment">
       <ion-item class="item-divider">Comments</ion-item>
-      <form class="item">
-        <textarea class="comment-area" placeholder="Ask driver something"></textarea>
+      <form class="item" ng-submit="comment(data.tripId, null, data.commentText)">
+        <textarea ng-model="data.commentText" class="comment-area" placeholder="Ask driver something"></textarea>
         <button type="submit" class="button button-small button-positive comment-publish-btn">Add comment</button>
       </form>
-      <div class="item item-avatar item-text-wrap">
-        <img src="img/logo.png">
-        <h2>Marty McFly</h2>
-        <span><b>{{'November 05, 1955' | date:'dd/MM/yyyy hh:mm'}}</b></span>
-        <span>
-          This is a "Facebook" styled Card. The header is created from a Thumbnail List item,
-        </span>
-        <p>
-          <a class="button button-outline button-positive button-small">Reply</a>
-        </p>
-        <div>
-          <div class="row">
-            <textarea class="reply-area" placeholder="Reply..."></textarea>
-          </div>
-          <div class="row">
-            <div class="col col-offset-80 col-20">
-              <a class="button button-small button-positive">Reply</a>
-            </div>
-          </div>
-        </div>
+      <comment-item comment="item"
+                     ng-repeat="item in data.comments track by item._id">
+      </comment-item>
+      <div class="item text-center" ng-if="noItemAvailable">
+        <p>No comments yet</p>
       </div>
-      <div class="item item-avatar item-text-wrap">
-        <img src="img/logo.png">
-        <h2>Marty McFly</h2>
-        <p>November 05, 1955</p>
-        <p>
-          This is a "Facebook" styled Card. The header is created from a Thumbnail List item,
-        </p>
-        <p>
-          <a class="button button-outline button-positive button-small">Reply</a>
-        </p>
-        <div>
-          <div class="row">
-            <textarea class="reply-area" placeholder="Reply..."></textarea>
-          </div>
-          <div class="row">
-            <div class="col col-offset-80 col-20">
-              <a class="button button-small button-positive">Reply</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="item item-avatar item-text-wrap">
-        <img src="img/logo.png">
-        <h2>Marty McFly</h2>
-        <p>November 05, 1955</p>
-        <p>
-          This is a "Facebook" styled Card. The header is created from a Thumbnail List item,
-        </p>
-        <p>
-          <a class="button button-outline button-positive button-small">Reply</a>
-        </p>
-        <div>
-          <div class="row">
-            <textarea class="reply-area" placeholder="Reply..."></textarea>
-          </div>
-          <div class="row">
-            <div class="col col-offset-80 col-20">
-              <a class="button button-small button-positive">Reply</a>
-            </div>
-          </div>
-        </div>
+      <div class="item text-center" ng-if="data.noMoreItemAvailable && !noItemAvailable">
+        <p>No more</p>
       </div>
     </div>
+    <ion-infinite-scroll
+      ng-if="!data.noMoreItemAvailable"
+      on-infinite="loadMore()"
+      distance="1%">
+      <ion-spinner icon="circles"></ion-spinner>
+    </ion-infinite-scroll>
   </ion-content>
 </ion-view>

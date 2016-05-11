@@ -91,6 +91,26 @@ angular.module('app.services.checkin', [])
           if (ticket)
             return Trips.findOne({_id: ticket.tripId});
         },
+        tripId: function () {
+          var ticket = CheckInTickets.findOne(
+            {
+              $and: [
+                {
+                  userId: Meteor.userId(),
+                },
+                {_id: reactiveContext.getReactively('checkInTicketId')}
+              ]
+            }
+          );
+          if (ticket){
+            var trip = Trips.findOne({_id: ticket.tripId});
+            if(trip){
+              return trip._id;
+            } else {
+              return null;
+            }
+          }
+        },
       });
     };
     checkIn = function (checkInTicketId, checkOutPassword, checkOutLimitMinute, checkInLocation, callback) {

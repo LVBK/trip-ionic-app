@@ -1,6 +1,6 @@
 angular.module('app.services.comments', [])
   .factory('CommentService', ['$meteor', '$reactive', function ($meteor, $reactive) {
-    CommentsSubscribe = function (context, $scope) {
+    commentsSubscribe = function (context, $scope) {
       var reactiveContext = $reactive(context).attach($scope);
       var handler = reactiveContext.subscribe('comments', function () {
         return [
@@ -42,7 +42,7 @@ angular.module('app.services.comments', [])
       Meteor.call('comment', tripId, receiveUserId, content, callback);
     };
     return {
-      CommentsSubscribe: CommentsSubscribe,
+      commentsSubscribe: commentsSubscribe,
       comment: comment,
     };
   }])

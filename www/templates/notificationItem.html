@@ -1,6 +1,6 @@
 <div class="item item-avatar item-text-wrap">
   <img ng-src={{getThumbnailUrl(sender.publicProfile.avatar)}}>
-  <div ui-sref="{{notification.state}}({{notification.params}})">
+  <div ng-click="markAsRead(notification._id)" ui-sref="{{notification.state}}({{notification.params}})">
     <p>{{notification.createdAt | date:"MM/dd/yyyy 'at' h:mma"}}</p>
     <p>{{notification.link}}</p>
     <p><strong>{{sender.publicProfile.name}}</strong>{{" " + action.description + " " + content.description}}</p>

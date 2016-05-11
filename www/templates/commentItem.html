@@ -1,0 +1,8 @@
+<div class="item item-avatar item-text-wrap">
+  <img ng-src={{getThumbnailUrl(user.publicProfile.avatar)}}>
+  <h2>{{user.publicProfile.name}}</h2>
+  <p>
+    {{comment.content}}
+  </p>
+  <span>{{comment.createdAt |  date:'dd/MM/yyyy hh:mm'}}</span>
+</div>
