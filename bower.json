@@ -12,6 +12,7 @@
     "onezone-datepicker": "*",
     "angular-messages": "~1.5.5",
     "angular-tooltips": "~1.0.9",
-    "ionic-material": "~0.4.2"
+    "ionic-material": "~0.4.2",
+    "ionic-rating": "~0.3.0"
   }
 }

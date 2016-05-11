@@ -42,7 +42,7 @@ angular.module('app.services.feedbacks', [])
       var reactiveContext = $reactive(context).attach($scope);
       var handler = reactiveContext.subscribe('feedback_counter', function () {
         return [
-          reactiveContext.getReactively('tripId'),
+          reactiveContext.getReactively('trip._id'),
         ]
       }, {
         onReady: function () {

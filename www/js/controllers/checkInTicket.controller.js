@@ -1,7 +1,9 @@
-angular.module('app.checkInTicket.controllers', [])
+angular.module('app.checkInTicket.controllers', ['ionic.rating'])
 
-  .controller('checkInTicketCtrl', ['$scope', 'CheckInService', '$ionicPopup', '$ionicLoading', '$stateParams', '$q',
-      function ($scope, CheckInService, $ionicPopup, $ionicLoading, $stateParams, $q) {
+  .controller('checkInTicketCtrl', ['$scope', 'CheckInService', '$ionicPopup', '$ionicLoading',
+      '$stateParams', '$q', 'FeedbackService',
+      function ($scope, CheckInService, $ionicPopup, $ionicLoading,
+                $stateParams, $q, FeedbackService) {
         $scope.checkOutLimitTimeOptions = [
           {name: "10 minutes", value: 10},
           {name: "30 minutes", value: 30},
@@ -44,8 +46,13 @@ angular.module('app.checkInTicket.controllers', [])
           checkInTicketId: $stateParams.checkInTicketId,
           ticket: null,
           trip: null,
+          setCheckOutPassword: null,
           checkOutPassword: null,
           checkOutLimitTime: $scope.checkOutLimitTimeOptions[0].value,
+          feedbackCount: 0,
+          rate: 0,
+          max: 5,
+          feedbackContent: null
         };
         $scope.helpers({
           isLoggedIn: function () {
@@ -56,8 +63,23 @@ angular.module('app.checkInTicket.controllers', [])
           },
           tripDeleted: function () {
             return $scope.getReactively('vm.trip.isDeleted');
+          },
+          isDriver: function () {
+            return Meteor.userId() == $scope.getReactively('vm.trip.owner');
           }
         });
+
+        $scope.inputType = 'password';
+        $scope.isShowPassword = false;
+
+        // Hide & show password function
+        $scope.hideShowPassword = function () {
+          if ($scope.inputType == 'password')
+            $scope.inputType = 'text';
+          else
+            $scope.inputType = 'password';
+        };
+
         $scope.checkIn = function (ticketId, checkOutPassword, checkOutLimitMinute) {
           $ionicLoading.show();
           var currentLocation = null;
@@ -99,7 +121,20 @@ angular.module('app.checkInTicket.controllers', [])
             })
           });
         };
+        $scope.feedback = function (tripId, rate, content) {
+          $ionicLoading.show();
+          FeedbackService.feedback(tripId, rate, content, function (err, result) {
+            $ionicLoading.hide();
+            if (err) {
+              $scope.showAlert(err.reason);
+            } else {
+              $scope.showAlert("Feedback Successful!");
+            }
+          })
+        };
         CheckInService.checkInTicketDetailSubscribe($scope.vm, $scope);
+        FeedbackService.FeedbackAlreadySubscribe($scope.vm, $scope);
+
       }
     ]
   )

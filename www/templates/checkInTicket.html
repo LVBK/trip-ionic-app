@@ -57,18 +57,37 @@
             <p>{{vm.ticket.state}}</p>
           </div>
         </div>
+        <div ng-show="vm.ticket.state == 'checkedIn'">
+          <label></label>
+          <div class="item item-text-wrap flex-container">
+            <div class="flex-item col-30">
+              <h2>Checked in at: </h2>
+            </div>
+            <div class="flex-item col-70">
+              <p>{{vm.ticket.checkedInAt | date:"MM/dd/yyyy 'at' h:mma"}}</p>
+            </div>
+          </div>
+        </div>
         <form
           ng-show="(vm.ticket.state == 'checkInAble' || vm.ticket.state == 'expired') && !ticketDeleted && !tripDeleted"
           name="checkInForm" novalidate>
+          <label></label>
           <label class="item item-input"
-                 ng-class="{'has-error': checkInForm.checkOutPassword.$dirty && checkInForm.checkOutPassword.$invalid}">
+                 ng-class="{'has-error': checkInForm.setCheckOutPassword.$dirty && checkInForm.setCheckOutPassword.$invalid}">
             <span class="input-label">Checkout password</span>
-            <input type="text" ng-model="vm.checkOutPassword" placeholder="Checkout password" name="checkOutPassword"
+            <input type="{{inputType}}" ng-model="vm.setCheckOutPassword" placeholder="Checkout password"
+                   name="setCheckOutPassword"
                    required>
           </label>
           <div class="form-error"
-               ng-show="checkInForm.checkOutPassword.$dirty && checkInForm.checkOutPassword.$invalid">
+               ng-show="checkInForm.setCheckOutPassword.$dirty && checkInForm.setCheckOutPassword.$invalid">
             Checkout password is required
+          </div>
+          <div class="item item-checkbox">
+            Show password
+            <label class="checkbox">
+              <input type="checkbox" ng-model="isShowPassword" ng-click="hideShowPassword()">
+            </label>
           </div>
           <label class="item item-select">
             <span class="input-label item-floating-label">Checkout limit time</span>
@@ -79,7 +98,7 @@
           <div class="item">
             <button class="button button-block button-positive" ng-disabled="
                         checkInForm.$invalid"
-                    ng-click="checkIn(vm.ticket._id, vm.checkOutPassword, vm.checkOutLimitTime)">
+                    ng-click="checkIn(vm.ticket._id, vm.setCheckOutPassword, vm.checkOutLimitTime)">
               Checkin
             </button>
           </div>
@@ -87,35 +106,34 @@
         <form
           ng-show="vm.ticket.state == 'checkedIn' && !ticketDeleted && !tripDeleted"
           name="checkOutForm" novalidate>
+          <label></label>
           <label class="item item-input"
                  ng-class="{'has-error': checkOutForm.checkOutPassword.$dirty && checkOutForm.checkOutPassword.$invalid}">
             <span class="input-label">Checkout password</span>
-            <input type="text" ng-model="vm.checkOutPassword" placeholder="Checkout password" name="checkOutPassword"
+            <input type="{{inputType}}" ng-model="vm.checkOutPassword" placeholder="Checkout password"
+                   name="checkOutPassword"
                    required>
           </label>
           <div class="form-error"
                ng-show="checkOutForm.checkOutPassword.$dirty && checkOutForm.checkOutPassword.$invalid">
             Checkout password is required
           </div>
+          <div class="item item-checkbox">
+            Show password
+            <label class="checkbox">
+              <input type="checkbox" ng-model="isShowPassword" ng-click="hideShowPassword()">
+            </label>
+          </div>
           <div class="item">
             <button class="button button-block button-positive" ng-disabled="
-                        checkInForm.$invalid"
+                        checkOutForm.$invalid"
                     ng-click="checkOut(vm.ticket._id, vm.checkOutPassword)">
               Checkout
             </button>
           </div>
         </form>
-        <div ng-show="vm.ticket.state == 'checkedIn'">
-          <div class="item item-text-wrap flex-container">
-            <div class="flex-item col-30">
-              <h2>Checked in at: </h2>
-            </div>
-            <div class="flex-item col-70">
-              <p>{{vm.ticket.checkedInAt | date:"MM/dd/yyyy 'at' h:mma"}}</p>
-            </div>
-          </div>
-        </div>
         <div ng-show="vm.ticket.state == 'checkedOut'">
+          <label></label>
           <div class="item item-text-wrap flex-container">
             <div class="flex-item col-30">
               <h2>Checked in at: </h2>
@@ -131,6 +149,21 @@
             <div class="flex-item col-70">
               <p>{{vm.ticket.checkedOutAt | date:"MM/dd/yyyy 'at' h:mma"}}</p>
             </div>
+          </div>
+          <div class="item text-center" ng-show="vm.feedbackCount == 0 && !isDriver">
+            <p>Feedback for driver</p>
+            <rating class="padding" ng-model="vm.rate" max="vm.max"></rating>
+            <textarea ng-model="vm.feedbackContent" class="feedback-area"
+                      placeholder="Talk about driver and trip"></textarea>
+            <button
+              class="button button-block button-balanced button-small"
+              ng-disabled="vm.rate==0"
+              ng-click="feedback(vm.trip._id, vm.rate, vm.feedbackContent)">
+              Add feedback
+            </button>
+          </div>
+          <div class="item" ng-show="vm.feedbackCount == 1">
+            <p class="text-center">Thank you for feedback!</p>
           </div>
         </div>
         <div class="item">

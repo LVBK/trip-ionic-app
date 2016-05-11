@@ -1,9 +1,13 @@
-<div ui-sref="{{notification.state}}({{notification.params}})" class="item item-avatar item-text-wrap">
+<div class="item item-avatar item-text-wrap">
   <img ng-src={{getThumbnailUrl(sender.publicProfile.avatar)}}>
-  <p>{{notification.createdAt | date:"MM/dd/yyyy 'at' h:mma"}}</p>
-  <p>{{notification.link}}</p>
-  <p><strong>{{sender.publicProfile.name}}</strong>{{" " + action.description + " " + content.description}}</p>
-  <button class="button button-balanced button-small" ng-show="notification.read == false"
-          ng-click="markAsRead(notification._id)">Mark as read
-  </button>
+  <div ui-sref="{{notification.state}}({{notification.params}})">
+    <p>{{notification.createdAt | date:"MM/dd/yyyy 'at' h:mma"}}</p>
+    <p>{{notification.link}}</p>
+    <p><strong>{{sender.publicProfile.name}}</strong>{{" " + action.description + " " + content.description}}</p>
+  </div>
+  <div ng-show="notification.read == false">
+    <button class="button button-balanced button-small"
+            ng-click="markAsRead(notification._id)">Mark as read
+    </button>
+  </div>
 </div>
