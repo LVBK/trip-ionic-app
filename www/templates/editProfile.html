@@ -53,6 +53,31 @@
                 </ion-checkbox>
               </div>
             </label>
+            <div class="item item-divider text-center positive">Preferences</div>
+            <label class="item item-select">
+              <span class="input-label positive">Chattiness</span>
+              <select ng-model="information_user.chattiness"
+                      ng-options="option.value as option.name for option in chattinessOptions">
+              </select>
+            </label>
+            <label class="item item-select">
+              <span class="input-label positive">Smoking</span>
+              <select ng-model="information_user.smoking"
+                      ng-options="option.value as option.name for option in smokingOptions">
+              </select>
+            </label>
+            <label class="item item-select">
+              <span class="input-label positive">Pets</span>
+              <select ng-model="information_user.pets"
+                      ng-options="option.value as option.name for option in petsOptions">
+              </select>
+            </label>
+            <label class="item item-select">
+              <span class="input-label positive">Music</span>
+              <select ng-model="information_user.music"
+                      ng-options="option.value as option.name for option in musicOptions">
+              </select>
+            </label>
             <div class="list row">
               <div class="col-50">
                 <div class="col-90">

@@ -4,6 +4,27 @@ angular.module('app.editProfile.controllers', [])
     'ImgInput', '$ionicLoading', '$ionicPopup',
     function (LoginService, GeneralService, $interval, $reactive, $scope,
               ImgInput, $ionicLoading, $ionicPopup) {
+
+      $scope. chattinessOptions = [
+        {name: "I'm the quiet type", value: "bla"},
+        {name: "Depending on my mood", value: "blabla"},
+        {name: "I love to chat", value: "blablabla"}
+      ];
+      $scope. smokingOptions = [
+        {name: 'No smoking', value: 'nosmoke'},
+        {name: 'Smoking is OK sometimes', value: 'sometimes'},
+        {name: "Doesn't bother me", value: 'smoke'},
+      ];
+      $scope. petsOptions = [
+        {name: "No pets please", value: "nopet"},
+        {name: "Depends on the animal", value: "depend"},
+        {name: "I love pets", value: "fine"},
+      ];
+      $scope. musicOptions = [
+        {name: "silence is golden", value: "silence"},
+        {name: "listen if i fancy it", value: "fancy"},
+        {name: "i love music", value: "all"}
+      ];
       $scope.fileData = null;
       $scope.currentUser = null;
       $scope.passwordData = {
