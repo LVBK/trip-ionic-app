@@ -1,0 +1,36 @@
+<ion-modal-view>
+  <ion-header-bar class="bar-positive">
+    <h1 class="title">Report user</h1>
+    <button ng-click="closeModal()" class="button button-icon icon ion-ios-close-empty"></button>
+  </ion-header-bar>
+  <ion-content class="gray-bg">
+    <div class="item item-text-wrap flex-container has-warning"
+         ng-hide="currentUser">
+      <div class="flex-item col" ng-click="closeModal()" ui-sref="menu.login">
+        <p>Login for report user</p>
+      </div>
+    </div>
+    <div class="item item-text-wrap flex-container has-warning" ng-show="userDeleted">
+      <div class="flex-item col">
+        <p>This user has been deleted!</p>
+      </div>
+    </div>
+    <div class="card">
+      <ion-item class="item-divider">Report</ion-item>
+      <label class="item item-select">
+        <span class="input-label">Report type</span>
+        <select ng-model="data.reportType" ng-options="option.value as option.name for option in reportOptions"
+                required>
+          <option selected value="">Select</option>
+        </select>
+      </label>
+      <div class="item item-text-wrap">
+        <textarea ng-model="data.detailReason" class="comment-area" placeholder="More detail reason report"></textarea>
+        <button ng-click="report(data.userId, data.reportType, data.detailReason)"
+                ng-disabled="!data.reportType"
+                class="button button-positive  button-block">Report
+        </button>
+      </div>
+    </div>
+  </ion-content>
+</ion-modal-view>
