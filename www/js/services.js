@@ -10,5 +10,6 @@ angular.module('app.services', [
   'app.services.checkin',
   'app.services.comments',
   'app.services.feedbacks',
+  'app.services.sosReports',
 ])
 

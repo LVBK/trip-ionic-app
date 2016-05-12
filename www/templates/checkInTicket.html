@@ -1,3 +1,8 @@
+<button ng-show="isLoggedIn && vm.ticket && !ticketDeleted && !tripDeleted && vm.ticket.state == 'checkedIn'"
+        ng-click="sos(vm.ticket._id)"
+        class="button button-assertive
+  icon ion-nuclear material-fab-button right-bottom">
+</button>
 <ion-view title="Checkin ticket">
   <ion-content padding="true" class="has-header gray-bg">
     <div ng-hide="isLoggedIn">

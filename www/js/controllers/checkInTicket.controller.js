@@ -1,9 +1,9 @@
 angular.module('app.checkInTicket.controllers', ['ionic.rating'])
 
   .controller('checkInTicketCtrl', ['$scope', 'CheckInService', '$ionicPopup', '$ionicLoading',
-      '$stateParams', '$q', 'FeedbackService',
+      '$stateParams', '$q', 'FeedbackService', 'SosReportService',
       function ($scope, CheckInService, $ionicPopup, $ionicLoading,
-                $stateParams, $q, FeedbackService) {
+                $stateParams, $q, FeedbackService, SosReportService) {
         $scope.checkOutLimitTimeOptions = [
           {name: "10 minutes", value: 10},
           {name: "30 minutes", value: 30},
@@ -117,6 +117,26 @@ angular.module('app.checkInTicket.controllers', ['ionic.rating'])
                 $scope.showAlert(err.reason);
               } else {
                 $scope.showAlert(result);
+              }
+            })
+          });
+        };
+        $scope.sos = function (ticketId) {
+          $ionicLoading.show();
+          var currentLocation = null;
+          getCurrentLocationAsync(function (coordinates) {
+            if (coordinates) {
+              currentLocation = {
+                "type": "Point",
+                "coordinates": coordinates,
+              }
+            }
+            SosReportService.sos(ticketId, currentLocation, function (err, result) {
+              $ionicLoading.hide();
+              if (err) {
+                $scope.showAlert(err.reason);
+              } else {
+                $scope.showAlert("SOS report successful!");
               }
             })
           });
