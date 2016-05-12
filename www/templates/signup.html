@@ -2,7 +2,7 @@
   <ion-content padding="true" class="has-header">
     <div class="row">
       <div class="col-80 col-offset-10">
-        <form name="signUpForm" ng-submit="signUp()" novalidate>
+        <form name="signUpForm" ng-submit="signUp(user)" novalidate>
           <div class="list text-center">
             <div class="list list-inset">
               <h3 class="sign_out_title">Creat an Account</h3>
@@ -11,7 +11,7 @@
               <label class="item item-input positive-border"
                      ng-class="{'has-error': signUpForm.name.$invalid && !signUpForm.name.$pristine}">
                 <i class="icon ion-person placeholder-icon positive"></i>
-                <input type="text" name="name" placeholder="Full name" ng-model="user.publicProfile.name" required="">
+                <input type="text" name="name" placeholder="Full name" ng-model="user.name" required="">
               </label>
               <div class="form-error" ng-show="signUpForm.name.$invalid && !signUpForm.name.$pristine">
                 Full name is required
@@ -49,18 +49,18 @@
             </div>
             <label class="item item-input item-borderless">
               <span class="input-label positive">Birthday</span>
-              <input type="date" placeholder="" ng-model="user.publicProfile.birthday">
+              <input type="date" placeholder="" ng-model="user.birthday">
             </label>
             <label class="item item-input item-borderless">
               <span class="input-label positive">Gender</span>
               <div>
                 <ion-checkbox class="checkbox-positive"
-                              ng-click="user.publicProfile.gender='male'"
-                              ng-checked="user.publicProfile.gender=='male'">Male
+                              ng-click="user.gender='male'"
+                              ng-checked="user.gender=='male'">Male
                 </ion-checkbox>
                 <ion-checkbox class="checkbox-positive"
-                              ng-click="user.publicProfile.gender='female'"
-                              ng-checked="user.publicProfile.gender=='female'">Female
+                              ng-click="user.gender='female'"
+                              ng-checked="user.gender=='female'">Female
                 </ion-checkbox>
               </div>
             </label>

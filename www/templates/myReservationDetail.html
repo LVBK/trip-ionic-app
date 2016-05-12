@@ -32,8 +32,8 @@
       <div class="card">
         <ion-item class="item-divider">Driver</ion-item>
         <ion-item class="item item-avatar" ui-sref="menu.userProfile(::{userId: vm.user._id})">
-          <img ng-src={{getThumbnailUrl(vm.user.publicProfile.avatar)}}>
-          <h2>{{::vm.user.publicProfile.name}}</h2>
+          <img ng-src={{getThumbnailUrl(vm.user.avatar)}}>
+          <h2>{{::vm.user.name}}</h2>
         </ion-item>
         <div class="item item-divider">Reservation detail</div>
         <div class="item item-text-wrap flex-container">

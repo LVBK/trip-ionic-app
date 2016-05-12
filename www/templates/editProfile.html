@@ -21,7 +21,7 @@
           <form class="list">
             <label class="item item-input">
               <span class="input-label positive">Name</span>
-              <input type="text" placeholder="Full name" ng-model="information_user.publicProfile.name">
+              <input type="text" placeholder="Full name" ng-model="information_user.name">
             </label>
             <label class="item item-input">
               <span class="input-label positive">Email</span>
@@ -30,26 +30,26 @@
             <label class="item item-input">
               <span class="input-label positive">Phone</span>
               <input type="tel" placeholder="Phone number"
-                     ng-model="information_user.privateProfile.phoneNumber">
+                     ng-model="information_user.phoneNumber">
             </label>
             <label class="item item-input">
               <span class="input-label positive">Address</span>
-              <input type="text" placeholder="Address" ng-model="information_user.privateProfile.address">
+              <input type="text" placeholder="Address" ng-model="information_user.address">
             </label>
             <label class="item item-input">
               <span class="input-label positive">Birthday</span>
-              <input type="date" placeholder="" ng-model="information_user.publicProfile.birthday">
+              <input type="date" placeholder="" ng-model="information_user.birthday">
             </label>
             <label class="item item-input">
               <span class="input-label positive">Gender</span>
               <div>
                 <ion-checkbox class="checkbox-positive"
-                              ng-click="information_user.publicProfile.gender='male'"
-                              ng-checked="information_user.publicProfile.gender=='male'">Male
+                              ng-click="information_user.gender='male'"
+                              ng-checked="information_user.gender=='male'">Male
                 </ion-checkbox>
                 <ion-checkbox class="checkbox-positive"
-                              ng-click="information_user.publicProfile.gender='female'"
-                              ng-checked="information_user.publicProfile.gender=='female'">Female
+                              ng-click="information_user.gender='female'"
+                              ng-checked="information_user.gender=='female'">Female
                 </ion-checkbox>
               </div>
             </label>
@@ -65,7 +65,7 @@
               <div class="col-50">
                 <div class="col-offset-10 col-90">
                   <button class="button button-balanced  button-block"
-                          ng-click="profile_save(information_user.publicProfile,information_user.privateProfile)">
+                          ng-click="profile_save(information_user)">
                     Save
                   </button>
                 </div>

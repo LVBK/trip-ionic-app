@@ -1,6 +1,6 @@
 <div class="item item-avatar item-text-wrap">
-  <img ng-src={{getThumbnailUrl(user.publicProfile.avatar)}}>
-  <h2>{{user.publicProfile.name}}</h2>
+  <img ng-src={{getThumbnailUrl(user.avatar)}}>
+  <h2>{{user.name}}</h2>
   <rating ng-model="feedback.rate" max="rating.max"></rating>
   <p>
    {{feedback.content}}

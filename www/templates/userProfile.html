@@ -14,8 +14,8 @@
       <div class="card">
         <ion-item class="item-divider">User info</ion-item>
         <ion-item class="item-thumbnail-left">
-          <img ng-src={{getThumbnailUrl(data.user.publicProfile.avatar)}}>
-          <h2>{{data.user.publicProfile.name}}</h2>
+          <img ng-src={{getThumbnailUrl(data.user.avatar)}}>
+          <h2>{{data.user.name}}</h2>
           <p class="padding">Rating (number of rate)</p>
           <button ng-show="currentUser && currentUser._id != data.userId && !data.user.isDeleted" ng-click="openModal()"
                   class="button button-assertive button-outline button-small">Report user
@@ -26,7 +26,7 @@
             <h2>Birthday</h2>
           </div>
           <div class="flex-item col-70">
-            <p>{{data.user.publicProfile.birthday | date:"MM/dd/yyyy"}}</p>
+            <p>{{data.user.birthday | date:"MM/dd/yyyy"}}</p>
           </div>
         </div>
         <div class="item item-text-wrap flex-container">
@@ -34,7 +34,7 @@
             <h2>Gender</h2>
           </div>
           <div class="flex-item col-75">
-            <p>{{data.user.publicProfile.gender}}</p>
+            <p>{{data.user.gender}}</p>
           </div>
         </div>
         <div class="item item-text-wrap flex-container">

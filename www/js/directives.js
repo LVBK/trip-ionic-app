@@ -77,7 +77,7 @@ angular.module('app.directives', [])
         controller: controller,
         link: function (scope, element, attrs) {
         },
-        template: '<img ui-sref="menu.userProfile(::{userId: user._id})" ng-src={{getThumbnailUrl(user.publicProfile.avatar)}} class="slot">'
+        template: '<img ui-sref="menu.userProfile(::{userId: user._id})" ng-src={{getThumbnailUrl(user.avatar)}} class="slot">'
       };
     }
   )

@@ -1,6 +1,6 @@
 <div class="item item-text-wrap">
   <div ui-sref="menu.reservationDetail(::{reservationId: reservation._id})">
-    <p><strong>Booker: </strong>{{::getUser(reservation.userId).publicProfile.name}}</p>
+    <p><strong>Booker: </strong>{{::getUser(reservation.userId).name}}</p>
     <p><strong>From: </strong>{{::getTrip(reservation.tripId).origin.name}}</p>
     <p><strong>To: </strong>{{::getTrip(reservation.tripId).destination.name}}</p>
     <p><strong>Book seats: </strong>{{::reservation.totalSeats}}</p>

@@ -16,8 +16,8 @@ angular.module('app.menu.controllers', [])
           return Meteor.user();
         },
         avatarUrl: function () {
-          if (Meteor.user() && Meteor.user().publicProfile) {
-            return GeneralService.getThumbnailUrl(Meteor.user().publicProfile.avatar);
+          if (Meteor.user()) {
+            return GeneralService.getThumbnailUrl(Meteor.user().avatar);
           } else {
             return GeneralService.getThumbnailUrl();
           }

@@ -57,8 +57,8 @@ angular.module('app.search.controllers', [])
         };
         $scope.getUserProfile = function (userId) {
           var user = Meteor.users.findOne({_id: userId});
-          if (user && user.publicProfile)
-            return user.publicProfile;
+          if (user)
+            return user;
         };
         $scope.getThumbnailUrl = function (imageId) {
           return GeneralService.getThumbnailUrl(imageId);

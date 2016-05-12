@@ -3,7 +3,7 @@
     <div ng-show="isLoggedIn">
       <div class="card">
         <label class="item item-thumbnail-left item-avatar" ui-sref="menu.editProfile">
-          <img ng-src="{{avatarUrl}}">
+          <img ng-src="{{getThumbnailUrl(information_user.avatar)}}">
           <div class="row">
             <div class="col"></div>
             <div class="col-75">
@@ -14,12 +14,12 @@
         </label>
         <label class="item item-input ">
           <span class="input-label positive">Name</span>
-          <span class="input-label  text-thin input ">{{information_user.publicProfile.name}}</span>
+          <span class="input-label  text-thin input ">{{information_user.name}}</span>
         </label>
         <label class="item item-input ">
           <span class="input-label  positive">Birthday</span>
           <span
-            class="input-label  text-thin input">{{information_user.publicProfile.birthday | date:"dd/MM/yyyy"}}</span>
+            class="input-label  text-thin input">{{information_user.birthday | date:"dd/MM/yyyy"}}</span>
         </label>
         <label class="item item-input ">
           <span class="input-label positive">Email</span>
@@ -27,15 +27,15 @@
         </label>
         <label class="item item-input ">
           <span class="input-label positive">Phone</span>
-          <span class="input-label text-thin input">{{information_user.privateProfile.phoneNumber}}</span>
+          <span class="input-label text-thin input">{{information_user.phoneNumber}}</span>
         </label>
         <label class="item item-input ">
           <span class="input-label positive">Address</span>
-          <span class="input-label text-thin input">{{information_user.privateProfile.address}}</span>
+          <span class="input-label text-thin input">{{information_user.address}}</span>
         </label>
         <label class="item item-input ">
           <span class="input-label positive">Gender</span>
-          <span class="input-label text-thin input">{{information_user.publicProfile.gender}}</span>
+          <span class="input-label text-thin input">{{information_user.gender}}</span>
         </label>
       </div>
     </div>

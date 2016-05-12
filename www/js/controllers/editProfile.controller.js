@@ -19,8 +19,8 @@ angular.module('app.editProfile.controllers', [])
           return Meteor.user();
         },
         avatarUrl: function () {
-          if (Meteor.user() && Meteor.user().publicProfile) {
-            return GeneralService.getThumbnailUrl(Meteor.user().publicProfile.avatar);
+          if (Meteor.user()) {
+            return GeneralService.getThumbnailUrl(Meteor.user().avatar);
           } else {
             return GeneralService.getThumbnailUrl();
           }
@@ -46,18 +46,18 @@ angular.module('app.editProfile.controllers', [])
         $scope.fileData = null;
       }
 
-      $scope.profile_save = function (publicProfile, privateProfile) {
+      $scope.profile_save = function (modifier) {
         $ionicLoading.show();
         var profileData = {
-          publicProfile: {
-            name: publicProfile.name,
-            birthday: publicProfile.birthday,
-            gender: publicProfile.gender
-          },
-          privateProfile: {
-            phoneNumber: privateProfile.phoneNumber,
-            address: privateProfile.address,
-          }
+          name: modifier.name,
+          birthday: modifier.birthday,
+          gender: modifier.gender,
+          phoneNumber: modifier.phoneNumber,
+          address: modifier.address,
+          chattiness: modifier.chattiness,
+          smoking: modifier.smoking,
+          pets: modifier.pets,
+          music: modifier.music,
         };
         GeneralService.userChangeProfile(profileData, $scope.save_callback);
       };
@@ -82,7 +82,7 @@ angular.module('app.editProfile.controllers', [])
           $scope.showAlert(error.reason);
           $scope.fileData = null;
         } else {
-          $scope.showAlert('Lưu thành công');
+          $scope.showAlert('Saved!');
           console.log('response:', response);
         }
       };

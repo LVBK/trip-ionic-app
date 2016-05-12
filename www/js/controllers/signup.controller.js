@@ -6,11 +6,9 @@ angular.module('app.signup.controllers', [])
         email: '', //Need,
         password: '',	//need
         retypePassword: '',
-        publicProfile: {
-          name: '',
-          gender: "Male",
-          birthday: '',
-        }
+        name: '',
+        gender: "Male",
+        birthday: '',
       }
       $scope.showAlert = function (value) {
         var alertPopup = $ionicPopup.alert({
@@ -29,8 +27,7 @@ angular.module('app.signup.controllers', [])
           $state.go('menu.home');
         }
       }
-      $scope.signUp = function () {
-        var user = this.user;
+      $scope.signUp = function (user) {
         $ionicLoading.show();
         if (user.password != user.retypePassword) {
           $ionicLoading.hide();

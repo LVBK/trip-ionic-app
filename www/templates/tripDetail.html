@@ -34,8 +34,8 @@
     <div class="card">
       <ion-item class="item-divider">Owner</ion-item>
       <ion-item class="item-thumbnail-left" ui-sref="menu.userProfile(::{userId: data.user._id})">
-        <img ng-src={{getThumbnailUrl(data.user.publicProfile.avatar)}}>
-        <h2>{{data.user.publicProfile.name}}</h2>
+        <img ng-src={{getThumbnailUrl(data.user.avatar)}}>
+        <h2>{{data.user.name}}</h2>
         <p>Rating (number of ratings)</p>
       </ion-item>
       <div class="item">
