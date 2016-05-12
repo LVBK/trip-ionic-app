@@ -1,71 +1,85 @@
 <ion-view title="User profile" id="page14">
   <ion-content padding="true" class="has-header gray-bg">
-    <div class="card">
-      <ion-item class="item-divider">User info</ion-item>
-      <ion-item class="item-thumbnail-left">
-        <img ng-src={{getThumbnailUrl(data.user.publicProfile.avatar)}}>
-        <h2>{{data.user.publicProfile.name}}</h2>
-        <p class="padding">Rating (number of rate)</p>
-        <button ng-show="currentUser && currentUser._id != data.userId" ng-click="openModal()" class="button button-assertive button-outline button-small">Report user</button>
-      </ion-item>
-      <div class="item item-text-wrap flex-container">
-        <div class="flex-item col-30">
-          <h2>Birthday</h2>
-        </div>
-        <div class="flex-item col-70">
-          <p>{{data.user.publicProfile.birthday | date:"MM/dd/yyyy"}}</p>
-        </div>
-      </div>
-      <div class="item item-text-wrap flex-container">
-        <div class="flex-item col-25">
-          <h2>Gender</h2>
-        </div>
-        <div class="flex-item col-75">
-          <p>{{data.user.publicProfile.gender}}</p>
-        </div>
-      </div>
-      <div class="item item-text-wrap flex-container">
-        <div class="flex-item col-50">
-          <h2>Phone verified</h2>
-        </div>
-        <div class="flex-item col-50">
-          <p>{{data.user.phoneVerified}}</p>
-        </div>
-      </div>
-      <div class="item item-text-wrap flex-container">
-        <div class="flex-item col-50">
-          <h2>Email verified</h2>
-        </div>
-        <div class="flex-item col-50">
-          <p>{{data.user.emails[0].verified}}</p>
-        </div>
-      </div>
-      <div class="item item-text-wrap flex-container">
-        <div class="flex-item col-70">
-          <h2>Identity authentication</h2>
-        </div>
-        <div class="flex-item col-30">
-          <p>{{data.user.identityAuthentication}}</p>
-        </div>
+    <div class="item item-text-wrap flex-container has-warning" ng-show="!data.user">
+      <div class="flex-item col">
+        <p>Not found user!</p>
       </div>
     </div>
-    <div class="card list-comment">
-      <ion-item class="item-divider">Feedback from other users ({{data.rowCount}})</ion-item>
-      <feedback-item feedback="item"
-                     ng-repeat="item in data.feedbacks track by item._id">
-      </feedback-item>
-      <div class="item text-center" ng-if="noItemAvailable">
-        <p>No feedbacks yet</p>
-      </div>
-      <div class="item text-center" ng-if="data.noMoreItemAvailable && !noItemAvailable">
-        <p>No more</p>
+    <div class="item item-text-wrap flex-container has-warning" ng-show="data.user.isDeleted">
+      <div class="flex-item col">
+        <p>This user has been deleted!</p>
       </div>
     </div>
-    <ion-infinite-scroll
-      ng-if="!data.noMoreItemAvailable"
-      on-infinite="loadMore()"
-      distance="1%">
-      <ion-spinner icon="circles"></ion-spinner>
-    </ion-infinite-scroll>
+    <div ng-show="data.user">
+      <div class="card">
+        <ion-item class="item-divider">User info</ion-item>
+        <ion-item class="item-thumbnail-left">
+          <img ng-src={{getThumbnailUrl(data.user.publicProfile.avatar)}}>
+          <h2>{{data.user.publicProfile.name}}</h2>
+          <p class="padding">Rating (number of rate)</p>
+          <button ng-show="currentUser && currentUser._id != data.userId && !data.user.isDeleted" ng-click="openModal()"
+                  class="button button-assertive button-outline button-small">Report user
+          </button>
+        </ion-item>
+        <div class="item item-text-wrap flex-container">
+          <div class="flex-item col-30">
+            <h2>Birthday</h2>
+          </div>
+          <div class="flex-item col-70">
+            <p>{{data.user.publicProfile.birthday | date:"MM/dd/yyyy"}}</p>
+          </div>
+        </div>
+        <div class="item item-text-wrap flex-container">
+          <div class="flex-item col-25">
+            <h2>Gender</h2>
+          </div>
+          <div class="flex-item col-75">
+            <p>{{data.user.publicProfile.gender}}</p>
+          </div>
+        </div>
+        <div class="item item-text-wrap flex-container">
+          <div class="flex-item col-50">
+            <h2>Phone verified</h2>
+          </div>
+          <div class="flex-item col-50">
+            <p>{{data.user.phoneVerified}}</p>
+          </div>
+        </div>
+        <div class="item item-text-wrap flex-container">
+          <div class="flex-item col-50">
+            <h2>Email verified</h2>
+          </div>
+          <div class="flex-item col-50">
+            <p>{{data.user.emails[0].verified}}</p>
+          </div>
+        </div>
+        <div class="item item-text-wrap flex-container">
+          <div class="flex-item col-70">
+            <h2>Identity authentication</h2>
+          </div>
+          <div class="flex-item col-30">
+            <p>{{data.user.identityAuthentication}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="card list-comment">
+        <ion-item class="item-divider">Feedback from other users ({{data.rowCount}})</ion-item>
+        <feedback-item feedback="item"
+                       ng-repeat="item in data.feedbacks track by item._id">
+        </feedback-item>
+        <div class="item text-center" ng-if="noItemAvailable">
+          <p>No feedbacks yet</p>
+        </div>
+        <div class="item text-center" ng-if="data.noMoreItemAvailable && !noItemAvailable">
+          <p>No more</p>
+        </div>
+      </div>
+      <ion-infinite-scroll
+        ng-if="!data.noMoreItemAvailable"
+        on-infinite="loadMore()"
+        distance="1%">
+        <ion-spinner icon="circles"></ion-spinner>
+      </ion-infinite-scroll>
+    </div>
   </ion-content>
 </ion-view>

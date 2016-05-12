@@ -10,12 +10,17 @@
         <p>Login for report user</p>
       </div>
     </div>
-    <div class="item item-text-wrap flex-container has-warning" ng-show="userDeleted">
+    <div class="item item-text-wrap flex-container has-warning" ng-show="currentUser && !data.user">
+      <div class="flex-item col">
+        <p>Not found user!</p>
+      </div>
+    </div>
+    <div class="item item-text-wrap flex-container has-warning" ng-show="currentUser && data.user.isDeleted">
       <div class="flex-item col">
         <p>This user has been deleted!</p>
       </div>
     </div>
-    <div class="card">
+    <div ng-show="currentUser && data.user && !data.user.isDeleted" class="card">
       <ion-item class="item-divider">Report</ion-item>
       <label class="item item-select">
         <span class="input-label">Report type</span>
